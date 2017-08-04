@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  border:none;
+  background-image:none;
+  background-color:transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.floatRight {
+  float: right;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.maxWidth {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+header {
+  position: relative;
+  box-shadow: 0 2px 2px -2px rgba(0,0,0,.15);
+  
+}
+
+header .logo {
+  width: 45px;
+  height: 45px;
+}
+
+
+header nav {
+  border-top: 1px solid #EEE; 
+  padding: 5px 0;
+}
+
+header nav a {
+  padding-right: 10px;
+}
+
+header .logos {
+  display: inline-block;
+  left: 0;
+}
+
+
+header .signs, header .user-head {
+  line-height: 65px;
+}
+
+header .signs > div, header .user-head > div {
+  display: inline-block;
+}
+
+header div.user-head-info {
+  width: 150px;
+  text-align: right;
+}
+
+header div.user-head-info img{
+  width: 45px;
+  height: 45px;
+  vertical-align: middle;
+}
+
+header .signs div.btns {
+  color: #00897b; 
+}
+
+header .signs div.btns button {
+  width: 45px;
+  margin: 0 5px;
+  color: inherit;
+  /* border: 1px solid #00897b; */
+}
+
+
+.articles {
+  padding-top: 20px;
+}
+
+.articles .article-cell {
+  float: left;  
+  width: 33.33%;
+  height: 300px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.articles .article-cell:nth-child(3n) {
+  padding-left: 10px;
+}
+
+.articles .article-cell:nth-child(3n+1) {
+  padding-right: 10px;
+}
+
+.articles .article-cell:nth-child(3n+2) {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+.article-cell {
+  /* padding: 10px;  */
+  /* width:  */
+  /* display: inline-block;   */
+   /* display: flex  */
+}
+
+.article-cell > div {
+  border: 1px solid #eee;
+}
