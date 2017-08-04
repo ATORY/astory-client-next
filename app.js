@@ -8,9 +8,9 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express()
 
-  server.get('/article/:id', (req, res) => {
+  server.get('/article/:articleId', (req, res) => {
     const actualPage = '/article';
-    const queryParams = { id: req.params.id } 
+    const queryParams = { articleId: req.params.articleId } 
     app.render(req, res, actualPage, queryParams)
   })
 
@@ -22,8 +22,7 @@ app.prepare().then(() => {
     if (err) throw err
     console.log('> Ready on http://localhost:3000')
   })
-})
-.catch((ex) => {
+}).catch((ex) => {
   console.error(ex.stack)
   process.exit(1)
 });

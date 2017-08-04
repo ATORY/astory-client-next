@@ -6,11 +6,12 @@ import {
 } from 'react-apollo';
 
 import { authQuery } from '../graphql/querys';
+import LoginWithMutation from './Login';
 
 const UserHead = ({user: { _id, email, userAvatar }}) => {
   return (
     <div className='user-head floatRight'>
-      <div><Link to='/write'><a>Write</a></Link></div>
+      <div><Link href='/write'><a>Write</a></Link></div>
       <div className='user-head-info'>
         <span>{email}</span>
         <img src={userAvatar || '/static/svg/account_circle.svg'} alt=""/>
@@ -21,11 +22,11 @@ const UserHead = ({user: { _id, email, userAvatar }}) => {
 
 class Header extends React.Component {
   
-  // loginShow = (evt) => {
-  //   evt.persist()
-  //   const loginMask = document.getElementById('login-mask');
-  //   loginMask.style.display = 'block';
-  // }
+  loginShow = (evt) => {
+    evt.persist()
+    const loginMask = document.getElementById('login-mask');
+    loginMask.style.display = 'block';
+  }
   render() {
     const { title, children, data } = this.props;
     const slogen = 'Everyone has a story';
@@ -37,6 +38,7 @@ class Header extends React.Component {
           <link rel="stylesheet" href="/static/css/index.css"/>
           <link rel="stylesheet" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" />
         </Head>
+        <LoginWithMutation />
 
         <div className="maxWidth header-bar">
           <div className='logos'>
@@ -50,7 +52,7 @@ class Header extends React.Component {
             <div className='signs floatRight'>
               <div><Link href='/write'><a>Write</a></Link></div>
               <div className='btns'>
-                <button>登录</button>
+                <button onClick={this.loginShow}>登录</button>
               </div>
             </div> 
           }

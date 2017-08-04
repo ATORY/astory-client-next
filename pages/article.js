@@ -14,7 +14,7 @@ class Article extends React.Component {
       <div>
         <Header pathname={url.pathname} />
         {
-          loading ? <ArticlePreview articleId={url.query.id} /> :
+          loading ? <ArticlePreview articleId={url.query.articleId} /> :
           error ? <div>{error.message}</div> :
           <article>
             <div>{article.title}</div>
@@ -28,6 +28,6 @@ class Article extends React.Component {
 
 export default withData(graphql(articleQuery, {
   options: (props) => ({
-    variables: { articleId: props.url.query.id },
+    variables: { articleId: props.url.query.articleId },
   }),
 })(Article));

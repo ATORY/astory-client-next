@@ -1,9 +1,7 @@
 import React from 'react';
-import {
-  gql,
-  graphql,
-} from 'react-apollo';
+import { graphql } from 'react-apollo';
 
+import { articlePreviewQuery } from '../graphql/querys';
 
 const ArticlePreview = ({data: { loading, error, article }}) => {
   return (
@@ -14,15 +12,7 @@ const ArticlePreview = ({data: { loading, error, article }}) => {
   )
 }
 
-export const articleQuery = gql`
-  query articleQuery($articleId : ID!) {
-    article(_id: $articleId) {
-      _id
-      title
-    }
-  }
-`;
-export default (graphql(articleQuery, {
+export default (graphql(articlePreviewQuery, {
   options: (props) => ({
     variables: { articleId: props.articleId },
   }),
