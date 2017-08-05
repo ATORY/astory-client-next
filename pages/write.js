@@ -1,10 +1,21 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
+import dynamic from 'next/dynamic';
 
 import { authQuery } from '../graphql/querys';
 import Header from '../components/Header';
+// import Writer from '../components/Writer';
 import withData from '../lib/withData';
 import { showLoginMask } from '../utils';
+
+const DynamicComponentWithNoSSR = dynamic(
+  import('../components/Writer'),
+  { 
+    ssr: false ,
+    loading: () => <div className="write write-wrapper">初始化编辑器。。。</div>
+  }
+)
+
 
 class Write extends React.Component {
 
@@ -16,11 +27,11 @@ class Write extends React.Component {
   }
 
   render() {
-    const { url } = this.props;
+    const { url, data: { user } } = this.props;
     return (
       <div>
-        <Header pathname={url.pathname} />
-        Write
+        <Header pathname={url.pathname} title='writer'/>
+        {user && user._id && <DynamicComponentWithNoSSR />}
       </div>      
     )
   }

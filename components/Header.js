@@ -38,6 +38,7 @@ class Header extends React.Component {
           <link rel="stylesheet" href="/static/css/index.css"/>
           <link rel="stylesheet" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
+          <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css" />
         </Head>
         <LoginWithMutation pathname={pathname}/>
 
