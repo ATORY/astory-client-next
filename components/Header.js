@@ -7,6 +7,7 @@ import {
 
 import { authQuery } from '../graphql/querys';
 import LoginWithMutation from './Login';
+import {showLoginMask} from '../utils';
 
 const UserHead = ({user: { _id, email, userAvatar }}) => {
   return (
@@ -24,11 +25,10 @@ class Header extends React.Component {
   
   loginShow = (evt) => {
     evt.persist()
-    const loginMask = document.getElementById('login-mask');
-    loginMask.style.display = 'block';
+    showLoginMask();
   }
   render() {
-    const { title, children, data } = this.props;
+    const { title, children, data, pathname } = this.props;
     const slogen = 'Everyone has a story';
     return (
       <header>
@@ -37,8 +37,9 @@ class Header extends React.Component {
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <link rel="stylesheet" href="/static/css/index.css"/>
           <link rel="stylesheet" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
         </Head>
-        <LoginWithMutation />
+        <LoginWithMutation pathname={pathname}/>
 
         <div className="maxWidth header-bar">
           <div className='logos'>

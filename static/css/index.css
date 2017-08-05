@@ -186,13 +186,34 @@ article > div {
   animation-duration: 300ms;
 }
 
+.mask-fadeout {
+  animation-name: animateFadout;
+  animation-duration: 300ms;
+}
+
+.mask-fadeup {
+  display: block;
+  /* animation-name: animateFadup;
+  animation-duration: 300ms; */
+}
+
 @keyframes animateFadout {
   0% {
     opacity: 1;
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes animateFadup {
+  0% {
+    opacity: 0;
     display: none;
+  }
+  100% {
+    opacity: 1;
+    display: block;
   }
 }
 @keyframes animateUp {
@@ -215,4 +236,9 @@ article > div {
     transform: translateY(50px);
     opacity: 0;
   }
+}
+
+
+.material-icons {
+  vertical-align: middle;
 }

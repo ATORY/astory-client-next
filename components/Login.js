@@ -1,8 +1,11 @@
 import React from 'react';
+import Link from 'next/link';
+import Router from 'next/router';
 import { graphql } from 'react-apollo';
 
 import { authQuery } from '../graphql/querys';
 import { userLoginMutation } from '../graphql/mutations';
+import { hidenLoginMask } from '../utils';
 
 class Login extends React.Component {
   constructor() {
@@ -13,17 +16,12 @@ class Login extends React.Component {
     }
   }
 
-  hiden = () => {
-    const loginMask = document.getElementById('login-mask');
-    loginMask.style.display = 'none';
-  }
-
-  closeLogin = (evt, shouldGoBack) => {
+  closeLogin = (evt) => {
     evt.persist();
-    this.hiden();
-    if (this.props.history.action === 'PUSH' && shouldGoBack ){
-      this.props.history.goBack();
-    } 
+    hidenLoginMask();
+    if(this.props.pathname === '/write'){
+      Router.push('/');
+    }
   }
 
   loginRequest = () => {
@@ -38,9 +36,8 @@ class Login extends React.Component {
       //   store.writeQuery({ query: authQuery, data });
       // }
     }).then((res) => {
-      // const { email, userAvatar } = user;
-      this.hiden();
       this.setState({email: '', password: ''});
+      hidenLoginMask();
     }).catch(err => {
       // show err message
       console.log('err', err)
@@ -55,19 +52,13 @@ class Login extends React.Component {
   }
 
   render() {
+    // const { url } = this.props;
     const { email, password } = this.state;
-    // const { match }= this.props
-  
-    // const shouldGoBack = match.path==='/write';
-
+    // const isWrite = url.path === '/write';
+    // console.log(url, isWrite);
     return (
       <div className='login mask' id='login-mask'>
-        {/*
-          shouldGoBack ?
-          <i className='close' onClick={(evt) => this.closeLogin(evt, shouldGoBack)}>返回</i> :
-          <i className="material-icons close" onClick={this.closeLogin}>close</i>
-        */}
-        
+        <i className="material-icons close" onClick={this.closeLogin}>close</i>
         <div className='mask-box' id='login-mask-box'>
         login
         <form onSubmit={this.login}>

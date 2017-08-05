@@ -12,7 +12,7 @@ class Article extends React.Component {
     const { loading, error, article } = data;
     return (
       <div>
-        <Header pathname={url.pathname} />
+        <Header pathname={url.pathname} title={article && article.title}/>
         {
           loading ? <ArticlePreview articleId={url.query.articleId} /> :
           error ? <div>{error.message}</div> :
