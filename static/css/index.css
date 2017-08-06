@@ -32,10 +32,26 @@ button:focus {
   margin: 0 auto;
 }
 
+.header-shadow {
+  height: 70px;
+}
 header {
+  background: #fff;
+  height: 70px;
   position: relative;
-  box-shadow: 0 2px 2px -2px rgba(0,0,0,.15);
-  
+  box-shadow: 0 2px 2px -2px rgba(0,0,0,.15); 
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  /* width: 1000px;
+  left: -100%;
+  margin: 0 auto;
+  right: -100%; */
+}
+
+.header-bar {
+  height: inherit;
 }
 
 header .logo {
@@ -75,6 +91,8 @@ header div.user-head-info {
 header div.user-head-info img{
   width: 45px;
   height: 45px;
+  border-radius: 50%;
+  margin: 0 10px;
   vertical-align: middle;
 }
 
@@ -147,6 +165,20 @@ header .signs div.btns button {
 
 .article-cell div.article-intro h3 {
   padding: 10px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.article-cell div.article-intro p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 18px;
+  height: 36px;
+  font-size: 15px;
 }
 
 .article-cell div.author-intro {
@@ -159,6 +191,7 @@ header .signs div.btns button {
 .article-cell div.author-intro > img  {
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   position: absolute;
 }
 
@@ -205,6 +238,41 @@ article > div {
   max-width: 700px;
   margin: 0 auto;
 } 
+
+article .author-intro {
+  position: relative;
+  height: 70px;
+}
+
+article .author-intro > img {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+article .author-intro > div {
+  margin-left: 70px;
+}
+
+article .author-intro > div .user-name {
+  margin: 5px 0;
+}
+article .author-intro > div .user-name label{
+  margin-right: 10px;
+}
+article .author-intro > div .user-name span{
+  border: 1px solid gray;
+  padding: 0 8px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+article .author-intro > div .pub-time,  
+article .author-intro > div .user-intro {
+  font-size: 12px;
+  color: gray;
+}
+
 
 .login {
   clear: both;
@@ -313,12 +381,22 @@ article > div {
 }
 
 .write {
-  margin: 0 auto;
+  margin: 50px auto;
   max-width: 1000px;
+}
+
+.write .toolbar-container {
+  position: fixed;
+  background: #fff;
+  z-index: 100;
+  width: 1000px;
+  top: 70px;
 }
 
 .write-wrapper .toolbar {
   border: none;
+  position: fixed;
+  top: 70px;
   padding: 4.5% 13%;
 }
 

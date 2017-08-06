@@ -132,12 +132,21 @@ class Writer extends React.Component {
   }
 
   getTitle = () => {
-    let title = ''
+    let title = '';
     const titles = findDOMNode(this).getElementsByTagName('h1');
     if(titles.length > 0){
       title = titles[0].innerText;
     }
     return title;
+  }
+
+  getImg = () => {
+    let imgSrc = 'https://imgs.atory.cc/banner/58ef759fcba90a17dc10cf0b.png';
+    const imgs = findDOMNode(this).getElementsByTagName('img');
+    if(imgs.length > 0){
+      imgSrc = imgs[0].src;
+    }
+    return imgSrc;
   }
 
   saveToServer = (draft) => {
@@ -146,12 +155,14 @@ class Writer extends React.Component {
       alert('没有设置标题');
       return;
     }
+    const shareImg = this.getImg();
     this.setState({saveing: true});
     const { mutate } = this.props;
     mutate({ 
       variables: { newArticle: { 
         _id: this.state._id,
         title,
+        shareImg,
         content: this.state.text,
         draft,
       }},
@@ -208,7 +219,9 @@ class Writer extends React.Component {
         <input  type="file" hidden 
                 ref={ fileInput => { this.fileInput = fileInput; }}
                 onChange={this.uploadImage}/>
-        <CustomToolbar {...{saveing,  published}}/>
+        <div className='toolbar-container'>
+          <CustomToolbar {...{saveing,  published}}/>
+        </div>
         <ReactQuill ref={(quill) => { this.writer = quill; }}
                     theme="snow" 
                     placeholder='留下你的故事'

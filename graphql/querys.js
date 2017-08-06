@@ -5,6 +5,7 @@ export const authQuery = gql`
     user: auth {
       _id
       email
+      username
       userAvatar
     }
   }
@@ -16,6 +17,7 @@ export const articlesQuery = gql`
     articles(_id: $articleId) {
       _id
       title
+      shareImg
       publishDate
       author {
         _id
@@ -33,6 +35,13 @@ export const articleQuery = gql`
       _id
       title
       content
+      publishDate
+      author {
+        _id
+        email
+        username
+        userAvatar
+      }
     }
   }
 `
@@ -42,6 +51,13 @@ export const articlePreviewQuery = gql`
     article(_id: $articleId) {
       _id
       title
+      publishDate
+      author {
+        _id
+        email
+        username
+        userAvatar
+      }
     }
   }
 `;

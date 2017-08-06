@@ -30,6 +30,7 @@ class Write extends React.Component {
     const { url, data: { user } } = this.props;
     return (
       <div>
+        <div className='header-shadow' />
         <Header pathname={url.pathname} title='writer'/>
         {user && user._id && <DynamicComponentWithNoSSR />}
       </div>      

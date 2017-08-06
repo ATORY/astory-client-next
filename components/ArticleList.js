@@ -12,8 +12,8 @@ class ArticleList extends React.Component {
         { 
           loading ? <div>Loading...</div> :
           error ? <div>{error.message}</div> : 
-          articles.map( ({_id, title, publishDate, author}) =>
-            <ArticleCell key={_id} {...{_id, title, author, publishDate}}/>
+          articles.map( (article) =>
+            <ArticleCell key={article._id} {...article}/>
           )
         }
       </div>
