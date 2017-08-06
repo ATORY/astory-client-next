@@ -6,7 +6,10 @@ import { articlePreviewQuery } from '../graphql/querys';
 const ArticlePreview = ({data: { loading, error, article }}) => {
   return (
     <article>
-      <div>{article && article.title}</div>
+      <div>auhtor</div>
+      <div>
+        <h1>{article && article.title}</h1>
+      </div>
       <div>Loading....</div>
     </article>
   )

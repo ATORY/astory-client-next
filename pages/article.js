@@ -16,9 +16,12 @@ class Article extends React.Component {
         {
           loading ? <ArticlePreview articleId={url.query.articleId} /> :
           error ? <div>{error.message}</div> :
-          <article>
-            <div>{article.title}</div>
-            <div>{article.content}</div>
+          <article className='ql-container ql-snow'>
+            <div className='ql-editor'>
+            <div>author</div>
+            {/* <div>{article.title}</div> */}
+            <div dangerouslySetInnerHTML={{ __html: article.content}} />
+            </div>
           </article>
         }
       </div>

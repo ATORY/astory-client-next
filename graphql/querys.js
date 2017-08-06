@@ -16,6 +16,13 @@ export const articlesQuery = gql`
     articles(_id: $articleId) {
       _id
       title
+      publishDate
+      author {
+        _id
+        email
+        username
+        userAvatar
+      }
     }
   }
 `;

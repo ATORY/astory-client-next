@@ -97,7 +97,7 @@ header .signs div.btns button {
 .articles .article-cell {
   float: left;  
   width: 33.33%;
-  height: 300px;
+  /* height: 300px; */
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -123,13 +123,82 @@ header .signs div.btns button {
    /* display: flex  */
 }
 
+.article-cell div.img-container {
+  background-origin:border-box;
+  background-position-x:50%;
+  background-position-y:50%;
+  background-size: cover!important;
+  height: 100px!important;
+}
+
 .article-cell > div {
   border: 1px solid #eee;
 }
 
+.article-cell div.article-intro, .article-cell div.img-container {
+  cursor: pointer;
+}
+
+.article-cell div.article-intro {
+  height: 100px;
+  overflow-y: hidden;
+  padding: 15px 10px 10px 10px;
+}
+
+.article-cell div.article-intro h3 {
+  padding: 10px 0;
+}
+
+.article-cell div.author-intro {
+  position: relative;
+  padding: 10px;
+  height: 60px;
+}
+
+
+.article-cell div.author-intro > img  {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+}
+
+.article-cell div.author-intro > div  {
+  margin-left: 50px;
+}
+
+.article-cell div.author-intro .pub-time {
+  font-size: 12px;
+  color: gray;
+  margin: 5px 0;
+}
+.article-cell div.author-intro .article-mark {
+  position: absolute;
+  height: inherit;
+  padding: 10px;
+  cursor: pointer;
+  line-height: 40px;
+  top: 0;
+  right: 0;
+}
+
 article {
-  margin: 0 auto;
+  margin: 20px auto;
   max-width: 1000px;
+}
+
+article > div{
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+article img{
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+article > div{
+  margin: 0 auto;
+  max-width: 700px;
 }
 
 article > div {
@@ -251,4 +320,36 @@ article > div {
 .write-wrapper .toolbar {
   border: none;
   padding: 4.5% 13%;
+}
+
+.ql-container.ql-snow {
+  border: none;
+}
+
+
+i.circle {
+  /* font-size: 35px; */
+  animation-name: logingX;
+  animation-duration: 2.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes logingX {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.ql-container { 
+  font-size: 16px;
+  margin: 20px auto;
+}
+
+.quill {
+  margin: 0 auto;
+  max-width: 700px;
 }

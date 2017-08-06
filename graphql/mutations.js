@@ -9,3 +9,12 @@ export const userLoginMutation = gql`
     }
   }
 `;
+
+export const newArticleMutation = gql`
+  mutation newArticle($newArticle: ArticleInput!) {
+    article: newArticle(article: $newArticle) {
+      _id
+      draft
+    }
+  }
+`
