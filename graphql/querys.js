@@ -44,7 +44,7 @@ export const articleQuery = gql`
       }
     }
   }
-`
+`;
 
 export const articlePreviewQuery = gql`
   query articleQuery($articleId : ID!) {

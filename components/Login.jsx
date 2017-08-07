@@ -1,7 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import Router from 'next/router';
 import { graphql } from 'react-apollo';
+import PropTypes from 'prop-types';
 
 import { authQuery } from '../graphql/querys';
 import { userLoginMutation } from '../graphql/mutations';
@@ -13,42 +14,39 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-    }
+    };
   }
 
-  closeLogin = (evt) => {
+  closeLogin(evt) {
     evt.persist();
     hidenLoginMask();
-    if(this.props.pathname === '/write'){
+    if (this.props.pathname === '/write') {
       Router.push('/');
     }
   }
 
-  loginRequest = () => {
+  loginRequest() {
     const { email, password } = this.state;
     const { mutate } = this.props;
-    mutate({ 
-      variables: { user: { email, password }},
-      refetchQueries: [ { query: authQuery }]
+    mutate({
+      variables: { user: { email, password } },
+      refetchQueries: [{ query: authQuery }],
       // update: (store, {data: {_id, email, userAvatar}} ) => {
       //   const data = store.readQuery({query: authQuery });
       //   data.user = {_id, email, userAvatar};
       //   store.writeQuery({ query: authQuery, data });
       // }
-    }).then((res) => {
-      this.setState({email: '', password: ''});
+    }).then(() => {
+      this.setState({ email: '', password: '' });
       hidenLoginMask();
-    }).catch(err => {
-      // show err message
-      console.log('err', err)
-    });
+    }).catch(err => console.log('err', err));
   }
 
-  login = (evt) => {
+  login(evt) {
     evt.persist();
     evt.preventDefault();
     evt.stopPropagation();
-    this.loginRequest()
+    this.loginRequest();
   }
 
   render() {
@@ -58,23 +56,33 @@ class Login extends React.Component {
     // console.log(url, isWrite);
     return (
       <div className='login mask' id='login-mask'>
-        <i className="material-icons close" onClick={this.closeLogin}>close</i>
+        <i className='material-icons close' onClick={this.closeLogin} role='presentation'>close</i>
         <div className='mask-box' id='login-mask-box'>
-        login
-        <form onSubmit={this.login}>
-          <div>email:</div> 
-          <input  type="text" value={email} 
-                  onChange={(evt) => this.setState({email: evt.target.value})}/>
-          <div>password:</div>
-          <input  type="text" value={password} 
-                  onChange={(evt) => this.setState({password: evt.target.value})}/>
-          <button>登录</button>
-        </form>
+          <form onSubmit={this.login}>
+            <div>email:</div>
+            <input
+              type='text'
+              value={email}
+              onChange={evt => this.setState({ email: evt.target.value })}
+            />
+            <div>password:</div>
+            <input
+              type='text'
+              value={password}
+              onChange={evt => this.setState({ password: evt.target.value })}
+            />
+            <button>登录</button>
+          </form>
         </div>
       </div>
-    )
+    );
   }
 }
+
+Login.propTypes = {
+  mutate: PropTypes.func.isRequired,
+  pathname: PropTypes.string.isRequired,
+};
 
 const LoginWithMutation = graphql(
   userLoginMutation,

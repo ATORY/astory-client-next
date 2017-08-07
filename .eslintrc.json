@@ -1,3 +1,9 @@
 {
-    "extends": "airbnb"
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "rules": {
+        "react/jsx-quotes": 0,
+        "jsx-quotes": ["error", "prefer-single"],
+        "no-underscore-dangle": [2, { "allow": ["_id", "_opts"] }]
+    }
 }

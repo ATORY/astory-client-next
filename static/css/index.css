@@ -258,10 +258,10 @@ article .author-intro > div {
 article .author-intro > div .user-name {
   margin: 5px 0;
 }
-article .author-intro > div .user-name label{
+article .author-intro > div .user-name .label{
   margin-right: 10px;
 }
-article .author-intro > div .user-name span{
+article .author-intro > div .user-name button{
   border: 1px solid gray;
   padding: 0 8px;
   border-radius: 3px;
