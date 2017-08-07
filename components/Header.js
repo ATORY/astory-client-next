@@ -6,11 +6,13 @@ import {
 } from 'react-apollo';
 
 import { authQuery } from '../graphql/querys';
+import LoginWithMutation from './Login';
+import {showLoginMask} from '../utils';
 
 const UserHead = ({user: { _id, email, userAvatar }}) => {
   return (
     <div className='user-head floatRight'>
-      <div><Link to='/write'><a>Write</a></Link></div>
+      <div><Link href='/write'><a>Write</a></Link></div>
       <div className='user-head-info'>
         <span>{email}</span>
         <img src={userAvatar || '/static/svg/account_circle.svg'} alt=""/>
@@ -21,22 +23,26 @@ const UserHead = ({user: { _id, email, userAvatar }}) => {
 
 class Header extends React.Component {
   
-  // loginShow = (evt) => {
-  //   evt.persist()
-  //   const loginMask = document.getElementById('login-mask');
-  //   loginMask.style.display = 'block';
-  // }
+  loginShow = (evt) => {
+    evt.persist()
+    showLoginMask();
+  }
   render() {
-    const { title, children, data } = this.props;
+    const { title, children, data, pathname } = this.props;
     const slogen = 'Everyone has a story';
     return (
       <header>
         <Head>
           <title>{title || 'AStory'}</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          <link rel="stylesheet" href="/static/css/index.css"/>
           <link rel="stylesheet" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/>
+          <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+          <link rel="stylesheet" href="/static/css/index.css"/>
         </Head>
+        <LoginWithMutation pathname={pathname}/>
 
         <div className="maxWidth header-bar">
           <div className='logos'>
@@ -50,7 +56,7 @@ class Header extends React.Component {
             <div className='signs floatRight'>
               <div><Link href='/write'><a>Write</a></Link></div>
               <div className='btns'>
-                <button>登录</button>
+                <button onClick={this.loginShow}>登录</button>
               </div>
             </div> 
           }

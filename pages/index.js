@@ -6,7 +6,8 @@ import withData from '../lib/withData';
 
 const Index = withData((props) => (
   <div>
-    <Header pathname={props.url.pathname} />
+    <div className='header-shadow' />
+    <Header pathname={props.url.pathname} title='Home'/>
     <ArticleList />
   </div>
 ));
