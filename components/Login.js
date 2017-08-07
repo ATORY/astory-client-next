@@ -17,7 +17,7 @@ class Login extends React.Component {
     };
   }
 
-  closeLogin(evt) {
+  closeLogin = (evt) => {
     evt.persist();
     hidenLoginMask();
     if (this.props.pathname === '/write') {
@@ -25,7 +25,7 @@ class Login extends React.Component {
     }
   }
 
-  loginRequest() {
+  loginRequest = () => {
     const { email, password } = this.state;
     const { mutate } = this.props;
     mutate({
@@ -42,7 +42,7 @@ class Login extends React.Component {
     }).catch(err => console.log('err', err));
   }
 
-  login(evt) {
+  login = (evt) => {
     evt.persist();
     evt.preventDefault();
     evt.stopPropagation();

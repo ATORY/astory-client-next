@@ -14,12 +14,6 @@ class ArticleCell extends React.Component {
     };
   }
 
-  loadUserInfo() {
-    this.setState({
-      user: {},
-    });
-  }
-
   render() {
     const { _id, title, shareImg, author, publishDate } = this.props;
     const url = `url(${shareImg})`;
@@ -47,7 +41,7 @@ class ArticleCell extends React.Component {
             <div>
               <p
                 className='author-name'
-                onMouseOver={showAuthorIntro}
+                onMouseMove={evt => showAuthorIntro(evt, author._id)}
                 onMouseLeave={hideAuthorInfo}
               >
                 {author.email}
@@ -67,6 +61,7 @@ ArticleCell.propTypes = {
   title: PropTypes.string.isRequired,
   shareImg: PropTypes.string.isRequired,
   author: PropTypes.shape({
+    _id: PropTypes.string,
     email: PropTypes.string,
   }).isRequired,
   publishDate: PropTypes.string.isRequired,

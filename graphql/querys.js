@@ -61,3 +61,14 @@ export const articlePreviewQuery = gql`
     }
   }
 `;
+
+export const authorInfoQuery = gql`
+  query authorInfoQuery($userId : ID!) {
+    user(_id: $userId) {
+      _id
+      email
+      username
+      userAvatar
+    }
+  }
+`;

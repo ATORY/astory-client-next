@@ -3,7 +3,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 class AuthorPreview extends React.Component {
-  focusAuthor() {
+  focusAuthor = () => {
     const { _id } = this.props;
     console.log(_id);
   }

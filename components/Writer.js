@@ -55,7 +55,7 @@ class Writer extends React.Component {
     }
   }
 
-  getTitle() {
+  getTitle = () => {
     let title = '';
     const titles = this.node.getElementsByTagName('h1');
     if (titles.length > 0) {
@@ -64,7 +64,7 @@ class Writer extends React.Component {
     return title;
   }
 
-  getImg() {
+  getImg = () => {
     let imgSrc = 'https://imgs.atory.cc/banner/58ef759fcba90a17dc10cf0b.png';
     const imgs = this.node.getElementsByTagName('img');
     if (imgs.length > 0) {
@@ -73,16 +73,16 @@ class Writer extends React.Component {
     return imgSrc;
   }
 
-  publish() {
+  publish = () => {
     this.saveToServer(false);
   }
 
-  draft() {
+  draft = () => {
     // console.log('draft');
     this.saveToServer(true);
   }
 
-  saveToServer(draft) {
+  saveToServer = (draft) => {
     const title = this.getTitle();
     if (!title) {
       // alert('没有设置标题');
@@ -111,16 +111,16 @@ class Writer extends React.Component {
     }).catch(err => console.log('err', err));
   }
 
-  handleChange(value) {
+  handleChange = (value) => {
     this.setState({ text: value });
   }
 
   // imageHandler(image, callback) {
-  imageHandler() {
+  imageHandler = () => {
     this.fileInput.click();
   }
 
-  insertImage(value) {
+  insertImage = (value) => {
     const range = this.writer.getEditor().getSelection();
     // var value = prompt('What is the image URL');
     if (value) {
@@ -128,7 +128,7 @@ class Writer extends React.Component {
     }
   }
 
-  uploadImage(evt) {
+  uploadImage = (evt) => {
     const files = evt.target.files;
     console.log(files);
     setTimeout(() => {

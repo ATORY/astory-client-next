@@ -18,7 +18,7 @@ class CustomToolbar extends React.Component {
     }
   }
 
-  setTimer() {
+  setTimer = () => {
     this.timer = setTimeout(() => {
       this.setState({
         saveDone: false,
@@ -27,7 +27,7 @@ class CustomToolbar extends React.Component {
     }, 1000);
   }
 
-  clearTime() {
+  clearTime = () => {
     if (this.timer) {
       clearTimeout(this.timer);
     }
