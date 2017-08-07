@@ -1,6 +1,9 @@
 import { hidenLoginMask, showLoginMask } from './loginMask';
+import { showAuthorIntro, hideAuthorInfo } from './authorIntro';
 
 export {
   hidenLoginMask,
-  showLoginMask
-}
+  showLoginMask,
+  showAuthorIntro,
+  hideAuthorInfo,
+};

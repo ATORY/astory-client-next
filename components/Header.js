@@ -42,7 +42,6 @@ const Header = ({ title, children, data, pathname }) => {
         <link rel='stylesheet' href='/static/css/index.css' />
       </Head>
       <LoginWithMutation pathname={pathname} />
-
       <div className='maxWidth header-bar'>
         <div className='logos'>
           <Link href='/'><img src='/static/logo.svg' className='logo' alt='' /></Link>

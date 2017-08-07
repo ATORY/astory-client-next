@@ -199,6 +199,12 @@ header .signs div.btns button {
   margin-left: 50px;
 }
 
+.article-cell div.author-intro > div .author-name {
+  cursor: pointer;
+  color: #00897b;
+  /* height: 20px; */
+}
+
 .article-cell div.author-intro .pub-time {
   font-size: 12px;
   color: gray;
@@ -430,4 +436,12 @@ i.circle {
 .quill {
   margin: 0 auto;
   max-width: 700px;
+}
+
+#author-intro {
+  border: 1px solid gray;
+  width: 200px;
+  min-height: 160px;
+  border-radius: 5px;
+  position: absolute;
 }

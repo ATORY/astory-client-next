@@ -4,7 +4,8 @@ import moment from 'moment';
 import Link from 'next/link';
 
 import ArticleMark from '../components/ArticleMark';
-// {_id, title, shareImg, publishDate, author}
+import { showAuthorIntro, hideAuthorInfo } from '../utils';
+
 class ArticleCell extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +45,13 @@ class ArticleCell extends React.Component {
           <div className='author-intro'>
             <img src={author.userAvatar} alt='' />
             <div>
-              <p>{author.email}</p>
+              <p
+                className='author-name'
+                onMouseOver={showAuthorIntro}
+                onMouseLeave={hideAuthorInfo}
+              >
+                {author.email}
+              </p>
               <p className='pub-time'>{publishDate && moment(publishDate).fromNow()}</p>
             </div>
             <ArticleMark />
