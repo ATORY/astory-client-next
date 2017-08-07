@@ -3,6 +3,7 @@
     "parser": "babel-eslint",
     "rules": {
         "react/jsx-quotes": 0,
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "jsx-quotes": ["error", "prefer-single"],
         "no-underscore-dangle": [2, { "allow": ["_id", "_opts"] }]
     }

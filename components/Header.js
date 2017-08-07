@@ -58,7 +58,7 @@ const Header = ({ title, children, data, pathname }) => {
 
 Header.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element,
   data: PropTypes.shape(
   ).isRequired,
   pathname: PropTypes.string.isRequired,
@@ -66,6 +66,7 @@ Header.propTypes = {
 
 Header.defaultProps = {
   title: 'a story',
+  children: <div />,
 };
 
 export default graphql(authQuery)(Header);
