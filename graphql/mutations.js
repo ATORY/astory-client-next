@@ -18,3 +18,11 @@ export const newArticleMutation = gql`
     }
   }
 `;
+
+export const markMutation = gql`
+  mutation markMutation($articleId: String!, $mark: Boolean!) {
+    markArticle(articleId: $articleId, mark: $mark) {
+      mark
+    }
+  }
+`;

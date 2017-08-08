@@ -8,17 +8,19 @@ import AuthorPreview from './AuthorPreview';
 const ArticlePreview = ({ data: { article } }) => {
   const { author, publishDate } = article;
   return (
-    <article>
-      <AuthorPreview
-        _id={author._id}
-        email={author.email}
-        userAvatar={author.userAvatar}
-        publishDate={publishDate}
-      />
-      <div>
-        <h1>{article && article.title}</h1>
+    <article className='ql-container ql-snow'>
+      <div className='ql-editor'>
+        <AuthorPreview
+          _id={author._id}
+          email={author.email}
+          userAvatar={author.userAvatar}
+          publishDate={publishDate}
+        />
+        <div>
+          <h1>{article && article.title}</h1>
+        </div>
+        <div>Loading....</div>
       </div>
-      <div>Loading....</div>
     </article>
   );
 };

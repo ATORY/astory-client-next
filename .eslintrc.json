@@ -7,7 +7,7 @@
         "window": true
     },
     "rules": {
-        "react/forbid-prop-types": [1, { "forbid": ["string"] }],
+        "react/forbid-prop-types": [1, { "forbid": ["any"] }],
         "react/jsx-quotes": 0,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "jsx-quotes": ["error", "prefer-single"],

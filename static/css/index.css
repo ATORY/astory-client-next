@@ -214,6 +214,7 @@ header .signs div.btns button {
 .article-cell div.author-intro .article-mark {
   position: absolute;
   height: inherit;
+  color: gray;
   padding: 10px;
   cursor: pointer;
   line-height: 40px;
@@ -448,6 +449,22 @@ i.circle {
   position: absolute;
 }
 
+#author-intro .info {
+  height: 60px;
+  padding: 5px;
+}
+#author-intro .info div {
+  margin-right: 50px;
+}
+#author-intro .info img {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
 .popover-top {
   /* transform: translateY(-100% + 30px); */
 }
@@ -455,8 +472,7 @@ i.circle {
 .popover-top::after {
   content: '';
   position: absolute;
-  bottom: -8px;
-  bottom: -6px;
+  bottom: -7px;
   left:145px;
   overflow:hidden;
   width:13px;

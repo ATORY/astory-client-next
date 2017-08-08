@@ -19,6 +19,7 @@ export const articlesQuery = gql`
       title
       shareImg
       publishDate
+      mark
       author {
         _id
         email

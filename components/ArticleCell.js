@@ -15,7 +15,7 @@ class ArticleCell extends React.Component {
   }
 
   render() {
-    const { _id, title, shareImg, author, publishDate } = this.props;
+    const { _id, title, shareImg, author, publishDate, mark } = this.props;
     const url = `url(${shareImg})`;
     return (
       <div className='article-cell'>
@@ -48,7 +48,7 @@ class ArticleCell extends React.Component {
               </p>
               <p className='pub-time'>{publishDate && moment(publishDate).fromNow()}</p>
             </div>
-            <ArticleMark />
+            <ArticleMark articleId={_id} mark={mark} />
           </div>
         </div>
       </div>
@@ -65,6 +65,7 @@ ArticleCell.propTypes = {
     email: PropTypes.string,
   }).isRequired,
   publishDate: PropTypes.string.isRequired,
+  mark: PropTypes.bool.isRequired,
 };
 
 ArticleCell.defaultProps = {

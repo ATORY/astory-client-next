@@ -56,7 +56,7 @@ class AuthorIntro extends React.Component {
   }
 
 
-  setSelfHeight() {
+  setSelfHeight = () => {
     const selfHeight = this.node.clientHeight;
     if (selfHeight) {
       this.setState({
@@ -106,13 +106,25 @@ class AuthorIntro extends React.Component {
       top: `${top - topHeight}px`,
     };
 
-    const topOrBottom = false ? 'popover-bottom' : 'popover-top';
+    const topOrBottom = 'popover-top';
+    // if (false) {
+    // topOrBottom = 'popover-bottom';
+    // }
     let elem = <div>Loading...</div>;
     if (email) {
       elem = (
         <div>
-          <div>{userAvatar}</div>
-          <div>{email}</div>
+          <div className='info'>
+            <div>{email}</div>
+            <img src={userAvatar} alt='' />
+          </div>
+          <div className='toped'>
+            <h1>content</h1>
+            <h1>content</h1>
+          </div>
+          <div className='focus'>
+            focus
+          </div>
         </div>
       );
     }

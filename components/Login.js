@@ -9,6 +9,11 @@ import { userLoginMutation } from '../graphql/mutations';
 import { hidenLoginMask } from '../utils';
 
 class Login extends React.Component {
+  static propTypes = {
+    mutate: PropTypes.func.isRequired,
+    pathname: PropTypes.string.isRequired,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -78,11 +83,6 @@ class Login extends React.Component {
     );
   }
 }
-
-Login.propTypes = {
-  mutate: PropTypes.func.isRequired,
-  pathname: PropTypes.string.isRequired,
-};
 
 const LoginWithMutation = graphql(
   userLoginMutation,
