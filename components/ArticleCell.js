@@ -6,6 +6,8 @@ import Link from 'next/link';
 import ArticleMark from '../components/ArticleMark';
 import { showAuthorIntro, hideAuthorInfo } from '../utils';
 
+moment.locale('zh-cn');
+
 class ArticleCell extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ class ArticleCell extends React.Component {
   }
 
   render() {
-    const { _id, title, shareImg, author, publishDate, mark } = this.props;
+    const { _id, title, shareImg, author, publishDate, mark, readNumber } = this.props;
     const url = `url(${shareImg})`;
     return (
       <div className='article-cell'>
@@ -46,7 +48,10 @@ class ArticleCell extends React.Component {
               >
                 {author.email}
               </p>
-              <p className='pub-time'>{publishDate && moment(publishDate).fromNow()}</p>
+              <p className='pub-time'>
+                <span>{publishDate && moment(publishDate).fromNow()}</span>
+                <span>{`阅读：${readNumber}`}</span>
+              </p>
             </div>
             <ArticleMark articleId={_id} mark={mark} />
           </div>
@@ -66,6 +71,7 @@ ArticleCell.propTypes = {
   }).isRequired,
   publishDate: PropTypes.string.isRequired,
   mark: PropTypes.bool.isRequired,
+  readNumber: PropTypes.number.isRequired,
 };
 
 ArticleCell.defaultProps = {

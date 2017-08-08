@@ -20,6 +20,7 @@ export const articlesQuery = gql`
       shareImg
       publishDate
       mark
+      readNumber
       author {
         _id
         email
@@ -37,6 +38,10 @@ export const articleQuery = gql`
       title
       content
       publishDate
+      mark
+      readNumber
+      collectNumber
+      # commentNumber
       author {
         _id
         email

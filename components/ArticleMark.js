@@ -9,6 +9,7 @@ import { showLoginMask } from '../utils';
 class ArticleMark extends React.Component {
   static propTypes = {
     mark: PropTypes.bool.isRequired,
+    // readNumber: PropTypes.number.isRequired,
     articleId: PropTypes.string.isRequired,
     client: PropTypes.object.isRequired, // apollo client
     mutate: PropTypes.func.isRequired, // apollo mutate
@@ -28,30 +29,30 @@ class ArticleMark extends React.Component {
     this.props.client.query({
       query: authQuery,
     }).then(({ data: { user } }) => {
-      if (user._id) {
-        mutate({
-          variables: { articleId, mark: !mark },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            markArticle: {
-              __typename: 'Mark',
-              mark: !mark,
-            },
-          },
-          update: (store, { data: { markArticle } }) => {
-            this.setState({ mark: markArticle.mark });
-          },
-        }).then(({ data: { markArticle } }) => {
-          this.setState({ mark: markArticle.mark });
-        });
-      } else {
-        showLoginMask();
+      if (!user._id) {
+        return showLoginMask();
       }
+      return mutate({
+        variables: { articleId, mark: !mark },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          markArticle: {
+            __typename: 'Mark',
+            mark: !mark,
+          },
+        },
+        update: (store, { data: { markArticle } }) => {
+          this.setState({ mark: markArticle.mark });
+        },
+      });
+    }).then(({ data: { markArticle } }) => {
+      this.setState({ mark: markArticle.mark });
     }).catch(err => console.log(err));
   }
 
   render() {
-    const markStatus = this.state.mark ? 'turned_in' : 'turned_in_not';
+    // const { readNumber } = this.props;
+    const markStatus = this.state.mark ? 'bookmark' : 'bookmark_border';
     return (
       <div className='article-mark' onClick={this.markArticle} role='presentation'>
         <i className='material-icons'>{markStatus}</i>

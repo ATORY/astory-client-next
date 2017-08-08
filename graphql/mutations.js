@@ -26,3 +26,14 @@ export const markMutation = gql`
     }
   }
 `;
+
+export const collectMutation = gql`
+  mutation collectMutation($articleId: String!, $collect: Boolean!) {
+    collectArticle(articleId: $articleId, collect: $collect) {
+      collect
+      article {
+        collectNumber
+      }
+    }
+  }
+`;

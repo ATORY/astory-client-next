@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
+moment.locale('zh-cn');
+
 class AuthorPreview extends React.Component {
   focusAuthor = () => {
     const { _id } = this.props;
@@ -9,7 +11,7 @@ class AuthorPreview extends React.Component {
   }
 
   render() {
-    const { email, userAvatar, publishDate } = this.props;
+    const { email, userAvatar, publishDate, readNumber } = this.props;
     return (
       <div className='author-intro'>
         <img src={userAvatar} alt='' />
@@ -22,7 +24,8 @@ class AuthorPreview extends React.Component {
             作者介绍
           </div>
           <p className='pub-time'>
-            {moment(publishDate).fromNow()}
+            <span>{moment(publishDate).fromNow()}</span>
+            <span>{readNumber}</span>
           </p>
         </div>
       </div>
@@ -35,6 +38,7 @@ AuthorPreview.propTypes = {
   email: PropTypes.string.isRequired,
   userAvatar: PropTypes.string.isRequired,
   publishDate: PropTypes.string.isRequired,
+  readNumber: PropTypes.number.isRequired,
 };
 
 export default AuthorPreview;
