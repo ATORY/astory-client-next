@@ -58,7 +58,7 @@ class AuthorIntro extends React.Component {
 
   setSelfHeight = () => {
     const selfHeight = this.node.clientHeight;
-    if (selfHeight) {
+    if (this.node && selfHeight) {
       this.setState({
         selfHeight,
       });
@@ -66,10 +66,12 @@ class AuthorIntro extends React.Component {
   }
 
   hover = () => {
-    this.setState({
-      onHover: true,
-      show: true,
-    });
+    if (this.node) {
+      this.setState({
+        onHover: true,
+        show: true,
+      });
+    }
   }
 
   hoverOver = () => {

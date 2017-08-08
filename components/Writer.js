@@ -45,7 +45,7 @@ class Writer extends React.Component {
       saveing: false,
       published: false,
     };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {

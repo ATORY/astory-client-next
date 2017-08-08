@@ -44,9 +44,9 @@ class ArticleMark extends React.Component {
         update: (store, { data: { markArticle } }) => {
           this.setState({ mark: markArticle.mark });
         },
+      }).then(({ data: { markArticle } }) => {
+        this.setState({ mark: markArticle.mark });
       });
-    }).then(({ data: { markArticle } }) => {
-      this.setState({ mark: markArticle.mark });
     }).catch(err => console.log(err));
   }
 

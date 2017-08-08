@@ -38,15 +38,27 @@ export const articleQuery = gql`
       title
       content
       publishDate
-      mark
       readNumber
       collectNumber
       # commentNumber
+      mark
+      collect
       author {
         _id
         email
         username
         userAvatar
+      }
+      comments {
+        _id
+        content
+        createDate
+        user {
+          _id
+          email
+          username
+          userAvatar
+        }
       }
     }
   }
@@ -58,6 +70,7 @@ export const articlePreviewQuery = gql`
       _id
       title
       publishDate
+      readNumber
       author {
         _id
         email

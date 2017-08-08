@@ -5,6 +5,19 @@ import PropTypes from 'prop-types';
 moment.locale('zh-cn');
 
 class AuthorPreview extends React.Component {
+  static propTypes = {
+    _id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    userAvatar: PropTypes.string.isRequired,
+    publishDate: PropTypes.string.isRequired,
+    readNumber: PropTypes.number,
+  };
+
+  static defaultProps = {
+    readNumber: 0,
+  }
+
+
   focusAuthor = () => {
     const { _id } = this.props;
     console.log(_id);
@@ -25,20 +38,12 @@ class AuthorPreview extends React.Component {
           </div>
           <p className='pub-time'>
             <span>{moment(publishDate).fromNow()}</span>
-            <span>{readNumber}</span>
+            <span>阅读:{readNumber}</span>
           </p>
         </div>
       </div>
     );
   }
 }
-
-AuthorPreview.propTypes = {
-  _id: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  userAvatar: PropTypes.string.isRequired,
-  publishDate: PropTypes.string.isRequired,
-  readNumber: PropTypes.number.isRequired,
-};
 
 export default AuthorPreview;

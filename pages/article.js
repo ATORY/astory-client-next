@@ -8,6 +8,7 @@ import { articleQuery, authQuery } from '../graphql/querys';
 import { markMutation, collectMutation } from '../graphql/mutations';
 import ArticlePreview from '../components/ArticlePreview';
 import AuthorPreview from '../components/AuthorPreview';
+import Comment from '../components/Comment';
 import { showLoginMask } from '../utils';
 
 class Article extends React.Component {
@@ -63,10 +64,10 @@ class Article extends React.Component {
           __typename: 'Mutation',
           collectArticle: {
             __typename: 'Collect',
-            collect: !collect,
             article: {
               __typename: 'Article',
-              collectNumber: collectNumber + 1,
+              collectNumber: collect === false ? collectNumber + 1 : collectNumber - 1,
+              collect: !collect,
             },
           },
         },
@@ -75,7 +76,7 @@ class Article extends React.Component {
             query: articleQuery,
             variables: { articleId },
           });
-          data.article.collect = collectArticle.collect;
+          data.article.collect = collectArticle.article.collect;
           data.article.collectNumber = collectArticle.article.collectNumber;
           store.writeQuery({
             query: articleQuery,
@@ -84,19 +85,20 @@ class Article extends React.Component {
           });
         },
       });
-    }).then(res => console.log(res)).catch(err => console.log(err));
+    }).catch(err => console.log(err));
   }
   render() {
     const { url, data } = this.props;
     let elem = <div />;
+    let commentElem = <div />;
     const { loading, error, article } = data;
     if (loading) {
       elem = <ArticlePreview articleId={url.query.articleId} />;
     } else if (error) {
       elem = <div>{error.message}</div>;
     } else {
-      const { content, collectNumber, readNumber, publishDate, author, mark,
-        collect,
+      const { _id, content, collectNumber, readNumber, publishDate, author,
+        mark, collect, comments,
       } = article;
       const collectStatus = collect ? 'favorite_' : 'favorite_border';
       const markStatus = mark ? 'bookmark' : 'bookmark_border';
@@ -129,12 +131,18 @@ class Article extends React.Component {
           </div>
         </article>
       );
+      commentElem = (
+        <div className='comment'>
+          <Comment articleId={_id} comments={comments} />
+        </div>
+      );
     }
     return (
       <div>
         <div className='header-shadow' />
         <Header pathname={url.pathname} title={article && article.title} />
         {elem}
+        {commentElem}
       </div>
     );
   }

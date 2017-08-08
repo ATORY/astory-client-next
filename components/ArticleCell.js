@@ -50,7 +50,7 @@ class ArticleCell extends React.Component {
               </p>
               <p className='pub-time'>
                 <span>{publishDate && moment(publishDate).fromNow()}</span>
-                <span>{`阅读：${readNumber}`}</span>
+                <span>{`阅读:${readNumber}`}</span>
               </p>
             </div>
             <ArticleMark articleId={_id} mark={mark} />
