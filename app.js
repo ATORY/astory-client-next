@@ -15,6 +15,12 @@ app.prepare().then(() => {
     app.render(req, res, actualPage, queryParams);
   });
 
+  server.get('/@/:userId', (req, res) => {
+    const actualPage = '/user';
+    const queryParams = { userId: req.params.userId };
+    app.render(req, res, actualPage, queryParams);
+  });
+
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(3000, (err) => {

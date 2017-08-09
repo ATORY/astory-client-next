@@ -33,19 +33,7 @@ class AuthorIntro extends React.Component {
 
   componentDidMount() {
     this.setSelfHeight();
-    this.node.addEventListener('authorIntro', (evt) => {
-      const { detail } = evt;
-      const { show, rect, userId } = detail;
-      if (userId && (this.userId !== userId)) {
-        this.userId = userId;
-        this.loadInfo();
-      }
-      this.eventShow = show;
-      this.setState({
-        show: this.state.onHover ? true : show,
-        rect,
-      });
-    });
+    this.node.addEventListener('authorIntro', this.setPostion);
   }
 
   componentDidUpdate() {
@@ -53,6 +41,25 @@ class AuthorIntro extends React.Component {
     if (selfHeight !== this.state.selfHeight) {
       this.setSelfHeight();
     }
+  }
+
+  componentWillUnmount() {
+    this.node.removeEventListener('authorIntro', this.setPostion);
+  }
+
+
+  setPostion = (evt) => {
+    const { detail } = evt;
+    const { show, rect, userId } = detail;
+    if (userId && (this.userId !== userId)) {
+      this.userId = userId;
+      this.loadInfo();
+    }
+    this.eventShow = show;
+    this.setState({
+      show: this.state.onHover ? true : show,
+      rect,
+    });
   }
 
 

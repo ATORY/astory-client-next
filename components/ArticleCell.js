@@ -41,13 +41,15 @@ class ArticleCell extends React.Component {
           <div className='author-intro'>
             <img src={author.userAvatar} alt='' />
             <div>
-              <p
-                className='author-name'
-                onMouseMove={evt => showAuthorIntro(evt, author._id)}
-                onMouseLeave={hideAuthorInfo}
-              >
-                {author.email}
-              </p>
+              <Link as={`/@/${author._id}`} href={`/user?userId=${author._id}`}>
+                <p
+                  className='author-name'
+                  onMouseMove={evt => showAuthorIntro(evt, author._id)}
+                  onMouseLeave={hideAuthorInfo}
+                >
+                  {author.email}
+                </p>
+              </Link>
               <p className='pub-time'>
                 <span>{publishDate && moment(publishDate).fromNow()}</span>
                 <span>{`阅读:${readNumber}`}</span>

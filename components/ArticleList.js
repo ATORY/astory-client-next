@@ -15,7 +15,7 @@ const ArticleList = ({ data: { loading, error, articles } }) => {
     elem = articles.map(article => <ArticleCell key={article._id} {...article} />);
   }
   return (
-    <div className='maxWidth articles'>
+    <div className='maxWidth articles' id='articles'>
       {elem}
     </div>
   );

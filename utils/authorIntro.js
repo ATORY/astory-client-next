@@ -1,7 +1,11 @@
 let timer = null;
 
 export const showAuthorIntro = (evt, userId) => {
-  const rect = evt.target.getBoundingClientRect();
+  const rect = {};
+  const targetRect = evt.target.getBoundingClientRect();
+  const articlesRect = document.getElementById('articles').getBoundingClientRect();
+  rect.top = (targetRect.top - articlesRect.top) + 70;
+  rect.left = targetRect.left;
   const detail = { show: true, rect, userId };
   const event = new CustomEvent('authorIntro', { detail });
   const authorIntro = document.getElementById('author-intro');
