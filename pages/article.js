@@ -19,7 +19,11 @@ const Article = ({ url, data }) => {
   let commentElem = <div />;
   const { loading, error, article } = data;
   if (loading) {
-    elem = <ArticlePreview articleId={url.query.articleId} />;
+    elem = (
+      <article className='ql-container ql-snow' id='article'>
+        <ArticlePreview articleId={url.query.articleId} />;
+      </article>
+    );
   } else if (error) {
     elem = <div>{error.message}</div>;
   } else {
@@ -28,13 +32,13 @@ const Article = ({ url, data }) => {
     } = article;
     elem = (
       <article className='ql-container ql-snow' id='article'>
+        <AuthorPreview
+          _id={author._id}
+          email={author.email}
+          userAvatar={author.userAvatar}
+          {...{ publishDate, readNumber }}
+        />
         <div className='ql-editor'>
-          <AuthorPreview
-            _id={author._id}
-            email={author.email}
-            userAvatar={author.userAvatar}
-            {...{ publishDate, readNumber }}
-          />
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
         <ArticleAttachBottom {...{ _id, mark, collect, collectNumber }} />

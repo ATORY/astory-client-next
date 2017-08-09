@@ -300,8 +300,8 @@ article > div {
 } 
 
 article .author-intro {
+  padding: 12px 15px;
   position: relative;
-  height: 70px;
 }
 
 article .author-intro > img {
