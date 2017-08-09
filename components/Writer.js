@@ -2,9 +2,26 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
+import fetch from 'isomorphic-fetch';
 
 import { newArticleMutation } from '../graphql/mutations';
 import CustomToolbar from './CustomToolbar';
+
+/**
+ * profileAPI: 文件上传
+ * @param {*form} formData form包装file
+ * @param {*} cb 
+ * return: Promise<Response> 
+ */
+function profileAPI(formData) {
+  const profilePath = 'http://localhost:4000/profile';
+  return fetch(profilePath, {
+    body: formData,
+    // credentials: 'same-origin',
+    credentials: 'include',
+    method: 'PUT',
+  });
+}
 
 class Writer extends React.Component {
   constructor(props) {
@@ -28,7 +45,6 @@ class Writer extends React.Component {
         // ['link', 'image'],
         // ['code-block'],
         // [{ 'color': [] }, { 'background': [] }],
-
       },
     };
 
@@ -65,7 +81,7 @@ class Writer extends React.Component {
   }
 
   getImg = () => {
-    let imgSrc = 'https://imgs.atory.cc/banner/58ef759fcba90a17dc10cf0b.png';
+    let imgSrc = 'https://imgs.atory.cc/banner/58ef759fcba90a17dc10cf0b.png'; // default img
     const imgs = this.node.getElementsByTagName('img');
     if (imgs.length > 0) {
       imgSrc = imgs[0].src;
@@ -130,11 +146,23 @@ class Writer extends React.Component {
 
   uploadImage = (evt) => {
     const files = evt.target.files;
-    console.log(files);
-    setTimeout(() => {
-      this.insertImage('https://imgs.atory.cc/58ef759fcba90a17dc10cf0b/6c0e65f1e1fb13613efe8945fef75f44.jpeg');
-      this.fileInput.value = '';
-    }, 2000);
+    // console.log(files);
+    const filesLen = files.length;
+    for (let i = 0; i < filesLen; i += 1) {
+      const fileItem = files[i];
+      const formData = new FormData();
+      formData.append('file', fileItem);
+      profileAPI(formData).then((res) => {
+        if (res.status >= 400) throw new Error(`${res.status}`);
+        return res.json();
+      }).then((fileObj) => {
+        const fileUrl = fileObj.fileURL;
+        this.insertImage(fileUrl);
+        this.fileInput.value = '';
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   }
 
   render() {

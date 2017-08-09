@@ -4,7 +4,8 @@
     "globals": {
         "document": true,
         "CustomEvent": true,
-        "window": true
+        "window": true,
+        "FormData": true
     },
     "rules": {
         "react/forbid-prop-types": [1, { "forbid": ["any"] }],
