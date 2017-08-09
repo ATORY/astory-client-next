@@ -42,7 +42,14 @@ export const newCommentMutation = gql`
   mutation commentMutation($articleId: String!, $content: String!, $originId: String) {
     newArticleComment(articleId: $articleId, content: $content, originCommentId: $originId) {
       _id
+      content
       createDate
+      user {
+        _id
+        email
+        username
+        userAvatar
+      }
     }
   }
 `;

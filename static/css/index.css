@@ -591,10 +591,11 @@ i.circle {
 
 .comment .comment-cell {
   min-height: 50px;
-  border: 1px solid #e3e3e3;
   margin: 10px 0;
 }
 .comment .comment-cell .user-intro {
+  border: 1px solid #e3e3e3; 
+  border-bottom: none;
   position: relative;
   height: 45px;
   padding: 5px; 

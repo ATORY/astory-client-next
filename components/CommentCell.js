@@ -8,7 +8,7 @@ const CommentCell = ({ _id, content, createDate, user }) => {
   const { email, userAvatar } = user;
   const isTmp = (typeof _id) === 'number';
   return (
-    <div className={`comment-cell ${isTmp ? 'tmp' : ''}`}>
+    <div className={`ql-container ql-snow comment-cell ${isTmp ? 'tmp' : ''}`}>
       <div className='user-intro'>
         <img src={userAvatar} alt='' />
         <div>
@@ -17,7 +17,7 @@ const CommentCell = ({ _id, content, createDate, user }) => {
         </div>
       </div>
       <div
-        className='comment-content ql-container ql-snow'
+        className='comment-content ql-editor'
         dangerouslySetInnerHTML={{ __html: content }}
       />
     </div>
