@@ -249,6 +249,7 @@ article > div.article-attach-aside {
 article > div.article-attach-aside > div{
   position: fixed;
   text-align: center;
+  transition: opacity 500ms ease-in-out;
 }
 
 article > div.article-attach-aside i {
@@ -607,4 +608,8 @@ i.circle {
 .comment .comment-cell .comment-content {
   padding: 5px;
   padding-left: 45px;
+}
+
+.tmp {
+  opacity: 0.5;
 }

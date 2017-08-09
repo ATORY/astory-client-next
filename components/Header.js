@@ -11,7 +11,8 @@ import UserHead from './UserHead';
 
 const Header = ({ title, children, data, pathname }) => {
   let elem = <div />;
-  const slogen = 'Everyone has a story';
+  // const slogen = 'Everyone has a story';
+  const slogen = 'A';
   if (data.loading) {
     elem = <div>authing...</div>;
   } else if (data.error) {

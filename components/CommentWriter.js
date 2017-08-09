@@ -57,39 +57,33 @@ class CommentWriter extends React.Component {
     }).then(({ data: { user } }) => {
       if (!user._id) {
         showLoginMask();
-        return;
-      }
-      this.props.mutate({
-        variables: { articleId, content, originId: '' },
-        optimisticResponse: {
-          __typename: 'Mutation',
-          newArticleComment: {
-            __typename: 'Comment',
-            createDate: new Date().toISOString(),
+      } else {
+        this.props.mutate({
+          variables: { articleId, content, originId: '' },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            newArticleComment: {
+              __typename: 'Comment',
+              _id: Math.ceil(Math.random() * 1000000),
+              createDate: new Date().toISOString(),
+              content,
+              user,
+            },
           },
-        },
-        update: (store, { data: { newArticleComment } }) => {
-          // this.setState({ mark: markArticle.mark });
-          const data = store.readQuery({
-            query: articleQuery,
-            variables: { articleId },
-          });
-          console.log(user);
-          // return;
-          data.article.comments.unshift({
-            __typename: 'Comment',
-            _id: Math.ceil(Math.random() * 1000000),
-            content,
-            createDate: newArticleComment.createDate,
-            user,
-          });
-          store.writeQuery({
-            query: articleQuery,
-            variables: { articleId },
-            data,
-          });
-        },
-      }).catch(err => console.log(err));
+          update: (store, { data: { newArticleComment } }) => {
+            const data = store.readQuery({
+              query: articleQuery,
+              variables: { articleId },
+            });
+            data.article.comments.unshift(newArticleComment);
+            store.writeQuery({
+              query: articleQuery,
+              variables: { articleId },
+              data,
+            });
+          },
+        }).catch(err => console.log(err));
+      }
     }).catch(err => console.log(err));
   }
   render() {

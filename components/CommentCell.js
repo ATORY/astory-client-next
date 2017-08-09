@@ -4,10 +4,11 @@ import moment from 'moment';
 
 moment.locale('zh-cn');
 
-const CommentCell = ({ content, createDate, user }) => {
+const CommentCell = ({ _id, content, createDate, user }) => {
   const { email, userAvatar } = user;
+  const isTmp = (typeof _id) === 'number';
   return (
-    <div className='comment-cell'>
+    <div className={`comment-cell ${isTmp ? 'tmp' : ''}`}>
       <div className='user-intro'>
         <img src={userAvatar} alt='' />
         <div>
@@ -21,6 +22,7 @@ const CommentCell = ({ content, createDate, user }) => {
 };
 
 CommentCell.propTypes = {
+  _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   content: PropTypes.string.isRequired,
   createDate: PropTypes.string.isRequired,
   user: PropTypes.shape({

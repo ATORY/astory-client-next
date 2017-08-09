@@ -41,6 +41,7 @@ export const collectMutation = gql`
 export const newCommentMutation = gql`
   mutation commentMutation($articleId: String!, $content: String!, $originId: String) {
     newArticleComment(articleId: $articleId, content: $content, originCommentId: $originId) {
+      _id
       createDate
     }
   }
