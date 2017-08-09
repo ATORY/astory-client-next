@@ -237,6 +237,13 @@ article {
   max-width: 1000px;
 }
 
+article .article-attach-bottom {
+  text-align: right;
+  border-top: 1px solid #ccc;
+  margin-top: 15px;
+  padding: 10px 0;
+}
+
 article > div.article-attach-aside {
   position: absolute;
   left: 5px;
@@ -252,11 +259,17 @@ article > div.article-attach-aside > div{
   transition: opacity 500ms ease-in-out;
 }
 
-article > div.article-attach-aside i {
+article div.article-attach-aside i,
+article div.article-attach-bottom i {
   font-size: 30px;
   width: 30px;
   cursor: pointer;
   color: gray;
+}
+
+article div.article-attach-bottom span {
+  padding: 3px 8px 3px 3px;
+  display: inline-block;
 }
 
 article > div.article-attach-aside span {

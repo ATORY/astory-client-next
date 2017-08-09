@@ -7,7 +7,8 @@ import withData from '../lib/withData';
 import { articleQuery } from '../graphql/querys';
 import ArticlePreview from '../components/ArticlePreview';
 import AuthorPreview from '../components/AuthorPreview';
-import ArticleAside from '../components/ArticleAside';
+import ArticleAttachAside from '../components/ArticleAttachAside';
+import ArticleAttachBottom from '../components/ArticleAttachBottom';
 import Comment from '../components/Comment';
 // import { showLoginMask } from '../utils';
 
@@ -35,9 +36,9 @@ const Article = ({ url, data }) => {
             {...{ publishDate, readNumber }}
           />
           <div dangerouslySetInnerHTML={{ __html: content }} />
-          <div className='article-attach-bottom'>fhufu</div>
         </div>
-        <ArticleAside {...{ _id, mark, collect, collectNumber }} />
+        <ArticleAttachBottom {...{ _id, mark, collect, collectNumber }} />
+        <ArticleAttachAside {...{ _id, mark, collect, collectNumber }} />
       </article>
     );
     commentElem = (
