@@ -16,7 +16,10 @@ const CommentCell = ({ _id, content, createDate, user }) => {
           <span>{moment(createDate).fromNow()}</span>
         </div>
       </div>
-      <div className='comment-content' dangerouslySetInnerHTML={{ __html: content }} />
+      <div
+        className='comment-content ql-container ql-snow'
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
     </div>
   );
 };

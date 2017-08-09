@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 import CommentCell from './CommentCell';
 
-const DynamicComponentWithNoSSR = dynamic(
+const DynamicCommentWriter = dynamic(
   import('./CommentWriter'),
   {
     ssr: false,
@@ -18,7 +18,7 @@ const Comment = ({ articleId, comments }) => {
   );
   return (
     <div>
-      <DynamicComponentWithNoSSR articleId={articleId} />
+      <DynamicCommentWriter articleId={articleId} />
       {commentList}
     </div>
   );
