@@ -629,3 +629,133 @@ i.circle {
 .tmp {
   opacity: 0.5;
 }
+
+.user-header {
+  background: #fff;
+  border-bottom: 1px solid #eee; 
+}
+
+.user-header .user {
+  max-width: 700px;
+  margin: 0px auto;
+  background: #fff;
+  padding: 12px 15px;
+  position: relative;
+}
+
+.user-header .intro {
+  /* margin: 0px auto;
+  background: #fff;
+  padding: 12px 15px;
+  position: relative; */
+  min-height: 100px;
+  margin-right: 70px;
+}
+
+.user-header .intro h2#username {
+  outline-style: none;
+}
+
+.user-header .intro p#userintro {
+  margin-top: 8px;
+}
+
+.user-header img, 
+.user-header .user-avatar {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  right: 15px;
+  top: 20px;
+  border-radius: 50%;
+}
+
+.user-header .user-avatar {
+  z-index: 50;
+  text-align: center;
+  padding-top: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  display: inline-block;
+}
+.user-header .user-avatar i{
+  font-size: 35px;
+  color: #e3e3e3;
+}
+
+
+.user-articles {
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.user-articles .user-article-cell {
+  max-width: 700px;
+  padding: 12px 15px; 
+  margin: 0px auto;
+  margin-top: 15px;
+  border: 1px solid #eee;
+  /* height: 300px; */
+  position: relative;
+}
+
+.user-article-cell .author-intro {
+  height: 50px;
+  position: relative;
+}
+
+.user-article-cell .author-intro > img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.user-article-cell .author-intro > div {
+  margin-left: 50px;
+}
+.user-article-cell .author-intro > div .author-name {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.user-article-cell .author-intro > div .pub-time {
+  font-size: 12px;
+  color: gray;
+}
+
+.user-article-cell .cell-image {
+  background-color: gray;
+  background-origin: border-box;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  background-size: cover;
+  height: 150px;
+  /* height: inherit; */
+  /* width: 200px; */
+  /* position: absolute; */
+}
+
+.user-article-cell .cell-intro {
+  margin: 12px 0;
+  /* margin-left: 220px; */
+}
+
+.user-article-cell .cell-opt {
+  /* border-top: 1px solid #e3e3e3; */
+  text-align: right;
+  /* position: absolute; */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px 0;
+  height: 50px;
+}
+
+.user-article-cell .cell-opt .article-mark {
+  height: 40px;
+  width: 40px;
+  line-height: 34px;
+  display: inline-block;
+  text-align: center;
+}

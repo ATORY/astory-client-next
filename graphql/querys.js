@@ -92,4 +92,22 @@ export const authorInfoQuery = gql`
   }
 `;
 
-// export const userQuery = ``;
+export const userQuery = gql`
+  query userQuery($userId: ID!) {
+    user(_id: $userId) {
+      _id
+      email
+      username
+      userAvatar
+      isSelf
+      articles {
+        _id
+        title
+        shareImg
+        publishDate
+        mark
+        readNumber
+      }
+    }
+  }
+`;
