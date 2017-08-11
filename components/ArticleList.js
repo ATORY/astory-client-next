@@ -6,17 +6,15 @@ import ArticleCell from './ArticleCell';
 import { articlesQuery } from '../graphql/querys';
 
 const ArticleList = ({ data: { loading, error, articles } }) => {
-  let elem = <div />;
   if (loading) {
-    elem = <div>Loading...</div>;
-  } else if (error) {
-    elem = <div>{error.message}</div>;
-  } else {
-    elem = articles.map(article => <ArticleCell key={article._id} {...article} />);
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>{error.message}</div>;
   }
   return (
     <div className='maxWidth articles' id='articles'>
-      {elem}
+      {articles.map(article => <ArticleCell key={article._id} {...article} />)}
     </div>
   );
 };
