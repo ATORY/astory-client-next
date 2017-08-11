@@ -25,7 +25,7 @@ app.prepare().then(() => {
 
   server.get('*', (req, res) => handle(req, res));
 
-  server.listen(3000, (err) => {
+  server.listen(SERVER_CONFIG.PORT, (err) => {
     if (err) throw err;
     winston.info(`> ${process.env.NODE_ENV}, server start at ${SERVER_CONFIG.PORT}`);
     // winston.info('> Ready on http://localhost:3000');
