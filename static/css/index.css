@@ -50,6 +50,15 @@ header {
   right: -100%; */
 }
 
+footer {
+  margin-top: 20px;
+  padding-top: 10px;
+  clear: both;
+  text-align: center;
+  border-top: 1px solid #e3e3e3;
+  height: 60px;
+}
+
 .header-bar {
   height: inherit;
 }
@@ -110,6 +119,12 @@ header .signs div.btns button {
 
 .articles {
   padding-top: 20px;
+}
+
+.articles::after {
+  display: table;
+  clear: both;
+  content: '';
 }
 
 .articles .article-cell {

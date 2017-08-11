@@ -5,7 +5,25 @@ import PropTypes from 'prop-types';
 import { articlePreviewQuery } from '../graphql/querys';
 import AuthorPreview from './AuthorPreview';
 
-const ArticlePreview = ({ data: { article } }) => {
+const ArticlePreview = ({ data: { loading, error, article } }) => {
+  if (loading) {
+    return (
+      <article className='ql-container ql-snow'>
+        <div className='ql-editor'>
+          loading
+        </div>
+      </article>
+    );
+  }
+  if (error) {
+    return (
+      <article className='ql-container ql-snow'>
+        <div className='ql-editor'>
+          {error.message}
+        </div>
+      </article>
+    );
+  }
   const { author, publishDate } = article;
   return (
     <article className='ql-container ql-snow'>

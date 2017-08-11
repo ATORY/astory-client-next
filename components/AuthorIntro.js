@@ -127,12 +127,8 @@ class AuthorIntro extends React.Component {
             <div>{email}</div>
             <img src={userAvatar} alt='' />
           </div>
-          <div className='toped'>
-            <h1>content</h1>
-            <h1>content</h1>
-          </div>
           <div className='focus'>
-            focus
+            <button>关注</button>
           </div>
         </div>
       );

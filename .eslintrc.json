@@ -5,6 +5,7 @@
         "document": true,
         "CustomEvent": true,
         "window": true,
+        "alert": true,
         "FormData": true
     },
     "rules": {

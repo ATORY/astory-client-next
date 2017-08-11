@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 // import Submit from '../components/Submit'
 import ArticleList from '../components/ArticleList';
@@ -13,6 +14,7 @@ const Index = props => (
     <Header pathname={props.url.pathname} title='Home' />
     <ArticleList />
     <AuthorIntro />
+    <Footer />
   </div>
 );
 

@@ -86,7 +86,7 @@ class Writer extends React.Component {
   saveToServer = (draft) => {
     const title = this.getTitle();
     if (!title) {
-      // alert('没有设置标题');
+      alert('没有设置标题');
       return;
     }
     const shareImg = this.getImg();
