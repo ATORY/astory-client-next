@@ -7,11 +7,11 @@ import fetch from 'isomorphic-fetch';
  * return: Promise<Response> 
  */
 const profileAPI = (formData) => {
-  const profilePath = 'http://localhost:4000/profile';
+  const profilePath = '/api/profile';
   return fetch(profilePath, {
     body: formData,
-    // credentials: 'same-origin',
-    credentials: 'include',
+    credentials: 'same-origin',
+    // credentials: 'include',
     method: 'PUT',
   });
 };
