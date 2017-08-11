@@ -652,12 +652,14 @@ i.circle {
   margin-right: 70px;
 }
 
-.user-header .intro h2#username {
+.user-header .intro h2#username, 
+.user-header .intro p#userintro {
   outline-style: none;
 }
 
 .user-header .intro p#userintro {
   margin-top: 8px;
+  color: grey;
 }
 
 .user-header img, 
@@ -680,6 +682,11 @@ i.circle {
 .user-header .user-avatar i{
   font-size: 35px;
   color: #e3e3e3;
+  cursor: pointer;
+}
+
+.user-header .user-avatar i:hover {
+  color: #fff;
 }
 
 

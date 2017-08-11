@@ -8,7 +8,7 @@ import { newArticleMutation } from '../graphql/mutations';
 import CustomToolbar from './CustomToolbar';
 
 /**
- * profileAPI: 文件上传
+ * profileAPI: 图片上传
  * @param {*form} formData form包装file
  * @param {*} cb 
  * return: Promise<Response> 
