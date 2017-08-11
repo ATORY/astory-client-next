@@ -89,7 +89,7 @@ class AuthorIntro extends React.Component {
         return;
       }
       this.setState({ show: false });
-    }, 1000);
+    }, 700);
   }
 
   loadInfo = () => {

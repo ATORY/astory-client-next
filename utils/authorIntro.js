@@ -21,5 +21,5 @@ export const hideAuthorInfo = () => {
   timer = setTimeout(() => {
     if (timer) clearTimeout(timer);
     authorIntro.dispatchEvent(event);
-  }, 1500);
+  }, 700);
 };
