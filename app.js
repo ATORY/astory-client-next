@@ -1,7 +1,9 @@
 const express = require('express');
 const next = require('next');
 const winston = require('winston');
+const config = require('config');
 
+const SERVER_CONFIG = config.get('server');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -25,7 +27,8 @@ app.prepare().then(() => {
 
   server.listen(3000, (err) => {
     if (err) throw err;
-    winston.info('> Ready on http://localhost:3000');
+    winston.info(`> ${process.env.NODE_ENV}, server start at ${SERVER_CONFIG.PORT}`);
+    // winston.info('> Ready on http://localhost:3000');
   });
 }).catch((ex) => {
   winston.error(ex.stack);
