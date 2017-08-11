@@ -689,7 +689,17 @@ i.circle {
   color: #fff;
 }
 
+.user-header .intro-other {
 
+}
+
+.user-header .intro-other button {
+  border: 1px solid gray;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/***************************/
 .user-articles {
   max-width: 1000px;
   margin: 20px auto;
@@ -765,4 +775,23 @@ i.circle {
   line-height: 34px;
   display: inline-block;
   text-align: center;
+}
+
+.user-article-cell .cell-opt .article-edit {
+  height: inherit;
+  line-height: 40px;
+}
+.user-article-cell .cell-opt .article-edit button,
+.user-article-cell .cell-opt .article-edit span {
+  border: 1px solid gray;
+  padding: 3px 10px;
+  margin: 0 5px;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.user-article-cell .cell-opt .article-edit span {
+  font-size: 13px;
+  border: none;
+  padding: 3px;
 }

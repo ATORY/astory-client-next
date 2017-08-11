@@ -9,9 +9,11 @@ import ArticleMark from '../components/ArticleMark';
 moment.locale('zh-cn');
 
 const ArticleCellUser = (
-  { isSelf, _id, shareImg, publishDate, title, readNumber, mark, user },
+  { isSelf, _id, shareImg, publishDate, title, readNumber, collectNumber, mark, user },
 ) => {
-  const optElem = isSelf ? <ArticleEdit /> : <ArticleMark articleId={_id} mark={mark} />;
+  const optElem = isSelf ?
+    <ArticleEdit articleId={_id} userId={user._id} {...{ readNumber, collectNumber }} /> :
+    <ArticleMark articleId={_id} mark={mark} />;
   const author = user;
   return (
     <div className='user-article-cell'>
@@ -19,22 +21,25 @@ const ArticleCellUser = (
         <img src={author.userAvatar} alt='' />
         <div>
           <Link as={`/@/${author._id}`} href={`/user?userId=${author._id}`}>
-            <p className='author-name'>
-              {author.email}
-            </p>
+            <a>
+              <p className='author-name'>
+                {author.email}
+              </p>
+            </a>
           </Link>
           <p className='pub-time'>
             <span>{publishDate && moment(publishDate).fromNow()}</span>
-            <span>{`阅读:${readNumber}`}</span>
           </p>
         </div>
       </div>
       <Link as={`/article/${_id}`} href={`/article?articleId=${_id}`}>
-        <div className='cell-image' style={{ backgroundImage: `url(${shareImg})` }} />
+        <a>
+          <div className='cell-image' style={{ backgroundImage: `url(${shareImg})` }} />
+        </a>
       </Link>
       <div className='cell-intro'>
         <Link as={`/article/${_id}`} href={`/article?articleId=${_id}`}>
-          <h3>{title}</h3>
+          <a><h3>{title}</h3></a>
         </Link>
       </div>
       <div className='cell-opt'>
@@ -51,6 +56,7 @@ ArticleCellUser.propTypes = {
   publishDate: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   readNumber: PropTypes.number.isRequired,
+  collectNumber: PropTypes.number.isRequired,
   mark: PropTypes.bool.isRequired,
   user: PropTypes.shape({
     _id: PropTypes.string,

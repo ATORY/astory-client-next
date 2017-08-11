@@ -53,3 +53,22 @@ export const newCommentMutation = gql`
     }
   }
 `;
+
+export const editUserMutaion = gql`
+  mutation editUserMutation($username: String!, $userIntro: String, $userAvatar: String!) {
+    editUser(username: $username, userIntro: $userIntro, userAvatar: $userAvatar) {
+      _id
+      username
+      userIntro
+      userAvatar
+    }
+  }
+`;
+
+export const delArticleMutation = gql`
+  mutation delArticle($articleId: String!) {
+    delArticle(articleId: $articleId) {
+      _id
+    }
+  }
+`;

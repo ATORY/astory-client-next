@@ -1,23 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetch from 'isomorphic-fetch';
+import { graphql } from 'react-apollo';
 
-/**
- * profileAPI: avatar上传
- * @param {*form} formData form包装file
- * @param {*} cb 
- * return: Promise<Response> 
- */
-function profileAPI(formData) {
-  const profilePath = 'http://localhost:4000/profile/avatar';
-  return fetch(profilePath, {
-    body: formData,
-    // credentials: 'same-origin',
-    credentials: 'include',
-    method: 'PUT',
-  });
-}
-
+import { editUserMutaion } from '../graphql/mutations';
+import { userQuery } from '../graphql/querys';
+import profileAPI from '../utils/profileUpload';
 
 class UserHeaderSelf extends React.Component {
   constructor(props) {
@@ -27,6 +14,7 @@ class UserHeaderSelf extends React.Component {
     this.username = null;
     this.state = {
       edit: false,
+      newUserAvatar: '',
     };
   }
 
@@ -34,13 +22,61 @@ class UserHeaderSelf extends React.Component {
     this.username.focus();
   }
 
-  uploadAvatar = () => {
+  uploadAvatar = (evt) => {
+    const files = evt.target.files;
+    // console.log(files);
+    // const filesLen = files.length;
+    const fileItem = files[0];
+    const formData = new FormData();
+    formData.append('file', fileItem);
+    profileAPI(formData).then((res) => {
+      if (res.status >= 400) throw new Error(`${res.status}`);
+      return res.json();
+    }).then((fileObj) => {
+      const fileUrl = fileObj.fileURL;
+      // this.insertImage(fileUrl);
+      this.setState({
+        newUserAvatar: fileUrl,
+      });
+      this.fileInput.value = '';
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
   saveEdit = () => {
     const username = document.getElementById('username').innerText;
     const userIntro = document.getElementById('userintro').innerText;
-    console.log(username, userIntro);
+    const userAvatar = document.getElementById('userImage').src;
+    const { _id, mutate } = this.props;
+    mutate({
+      variables: { username, userIntro, userAvatar },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        editUser: {
+          __typename: 'User',
+          _id: Math.ceil(Math.random() * 1000000),
+          username,
+          userIntro,
+          userAvatar,
+        },
+      },
+      update: (store, { data: { editUser } }) => {
+        const data = store.readQuery({
+          query: userQuery,
+          variables: { userId: _id },
+        });
+        data.user.username = editUser.username;
+        data.user.userIntro = editUser.userIntro;
+        data.user.userAvatar = editUser.userAvatar;
+        store.writeQuery({
+          query: userQuery,
+          variables: { userId: _id },
+          data,
+        });
+        this.cancelEdit();
+      },
+    }).catch(err => console.log(err));
   }
 
   editIntro = () => {
@@ -52,15 +88,22 @@ class UserHeaderSelf extends React.Component {
   }
 
   render() {
-    const { edit } = this.state;
-    const { username, userAvatar } = this.props;
+    const { edit, newUserAvatar } = this.state;
+    const { username, userAvatar, userIntro } = this.props;
     return (
       <div className='user' ref={(r) => { this.node = r; }}>
         <div className='intro'>
-          <h2 id='username' contentEditable={edit} ref={(r) => { this.username = r; }}>
-            {username}
-          </h2>
-          <p id='userintro' contentEditable={edit}>UserHeaderSelf</p>
+          <h2
+            id='username'
+            suppressContentEditableWarning
+            contentEditable={edit}
+            ref={(r) => { this.username = r; }}
+          >{username}</h2>
+          <p
+            id='userintro'
+            contentEditable={edit}
+            suppressContentEditableWarning
+          >{userIntro}</p>
         </div>
         <input
           id='userAvatar'
@@ -76,13 +119,13 @@ class UserHeaderSelf extends React.Component {
         >
           <i className='material-icons close'>photo_camera</i>
         </label>
-        <img src={userAvatar} alt='' />
+        <img id='userImage' src={newUserAvatar || userAvatar} alt='' />
         { edit ?
-          <div>
+          <div className='intro-other'>
             <button onClick={this.saveEdit}>Save</button>
             <button onClick={this.cancelEdit}>Cancel</button>
           </div> :
-          <div>
+          <div className='intro-other'>
             <button onClick={this.editIntro}>Edit</button>
           </div>
         }
@@ -93,8 +136,13 @@ class UserHeaderSelf extends React.Component {
 
 UserHeaderSelf.propTypes = {
   // email: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
+  userIntro: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   userAvatar: PropTypes.string.isRequired,
+  mutate: PropTypes.func.isRequired,
 };
 
-export default UserHeaderSelf;
+const UserHeaderSelfWithMutation = graphql(editUserMutaion)(UserHeaderSelf);
+
+export default UserHeaderSelfWithMutation;

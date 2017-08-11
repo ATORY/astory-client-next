@@ -23,32 +23,28 @@ class ArticleCell extends React.Component {
       <div className='article-cell'>
         <div>
           <Link as={`/article/${_id}`} href={`/article?articleId=${_id}`}>
-            <div
-              className='img-container'
-              style={{
-                backgroundImage: url,
-              }}
-            />
+            <a>
+              <div className='img-container' style={{ backgroundImage: url }} />
+            </a>
           </Link>
           <Link as={`/article/${_id}`} href={`/article?articleId=${_id}`}>
-            <div className='article-intro'>
-              <h3>{title}</h3>
-              <p>Chrome DevTools 的堆分析器可以按页面的 JavaScript 对象和相关 DOM
-                节点显示内存分配（另请参阅对象保留树）。使用分析器可以拍摄 JS 堆快照、
-                分析内存图、比较快照以及查找内存泄漏。</p>
-            </div>
+            <a>
+              <div className='article-intro'>
+                <h3>{title}</h3>
+              </div>
+            </a>
           </Link>
           <div className='author-intro'>
             <img src={author.userAvatar} alt='' />
             <div>
               <Link as={`/@/${author._id}`} href={`/user?userId=${author._id}`}>
-                <p
-                  className='author-name'
-                  onMouseMove={evt => showAuthorIntro(evt, author._id)}
-                  onMouseLeave={hideAuthorInfo}
-                >
-                  {author.email}
-                </p>
+                <a>
+                  <p
+                    className='author-name'
+                    onMouseMove={evt => showAuthorIntro(evt, author._id)}
+                    onMouseLeave={hideAuthorInfo}
+                  >{author.email}</p>
+                </a>
               </Link>
               <p className='pub-time'>
                 <span>{publishDate && moment(publishDate).fromNow()}</span>

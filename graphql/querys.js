@@ -98,6 +98,7 @@ export const userQuery = gql`
       _id
       email
       username
+      userIntro
       userAvatar
       isSelf
       articles {
@@ -107,6 +108,7 @@ export const userQuery = gql`
         publishDate
         mark
         readNumber
+        collectNumber
       }
     }
   }

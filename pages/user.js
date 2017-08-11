@@ -46,11 +46,11 @@ class User extends React.Component {
     } else if (error) {
       userHeader = <div>{error.message}</div>;
     } else {
-      const { _id, email, username, userAvatar, isSelf, articles } = user;
+      const { _id, email, username, userIntro, userAvatar, isSelf, articles } = user;
       if (isSelf) {
-        userHeader = <UserHeaderSelf {...{ _id, email, username, userAvatar }} />;
+        userHeader = <UserHeaderSelf {...{ _id, email, username, userIntro, userAvatar }} />;
       } else {
-        userHeader = <UserHeader {...{ _id, email, username, userAvatar }} />;
+        userHeader = <UserHeader {...{ _id, email, username, userIntro, userAvatar }} />;
       }
       articleElem = articles.map((article) => {
         const articleId = article._id;

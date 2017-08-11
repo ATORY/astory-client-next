@@ -21,7 +21,7 @@ const Article = ({ url, data }) => {
   if (loading) {
     elem = (
       <article className='ql-container ql-snow' id='article'>
-        <ArticlePreview articleId={url.query.articleId} />;
+        <ArticlePreview articleId={url.query.articleId} />
       </article>
     );
   } else if (error) {
