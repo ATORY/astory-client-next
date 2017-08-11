@@ -14,13 +14,13 @@ app.prepare().then(() => {
   server.get('/article/:articleId', (req, res) => {
     const actualPage = '/article';
     const queryParams = { articleId: req.params.articleId };
-    app.render(req, res, actualPage, queryParams);
+    return app.render(req, res, actualPage, queryParams);
   });
 
   server.get('/@/:userId', (req, res) => {
     const actualPage = '/user';
     const queryParams = { userId: req.params.userId };
-    app.render(req, res, actualPage, queryParams);
+    return app.render(req, res, actualPage, queryParams);
   });
 
   server.get('*', (req, res) => handle(req, res));
