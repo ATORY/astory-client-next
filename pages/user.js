@@ -17,7 +17,8 @@ class User extends React.Component {
       next: ({ data: { user } }) => {
         // console.log('user', user);
         const userId = user && user._id;
-        const isSelf = userId && (userId === this.props.data.user._id);
+        const isSelf = userId && this.props.data.user
+                       && (userId === this.props.data.user._id);
         if (isSelf) {
           const data = this.props.client.readQuery({
             query: userQuery,
