@@ -9,6 +9,16 @@ import CustomToolbar from './CustomToolbar';
 
 
 class Writer extends React.Component {
+  static propTypes = {
+    _id: PropTypes.string,
+    text: PropTypes.string,
+  }
+
+  static defaultProps = {
+    _id: '',
+    text: '',
+  }
+
   constructor(props) {
     super(props);
     this.node = null;
@@ -40,8 +50,8 @@ class Writer extends React.Component {
       'link', 'image',
     ];
     this.state = {
-      text: '',
-      _id: '',
+      text: props.text,
+      _id: props._id,
       draft: false,
       saveing: false,
       published: false,

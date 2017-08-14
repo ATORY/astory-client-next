@@ -3,12 +3,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const UserHead = ({ user: { email, userAvatar } }) => (
+const UserHead = ({ user: { _id, username, userAvatar } }) => (
   <div className='user-head floatRight'>
     <div><Link href='/write'><a>Write</a></Link></div>
     <div className='user-head-info'>
-      <span>{email}</span>
-      <img src={userAvatar || '/static/svg/account_circle.svg'} alt='' />
+      <Link as={`/@/${_id}`} href={`/user?userId=${_id}`}>
+        <a>
+          <span>{username}</span>
+          <img src={userAvatar || '/static/svg/account_circle.svg'} alt='' />
+        </a>
+      </Link>
     </div>
   </div>
 );

@@ -31,6 +31,15 @@ export const articlesQuery = gql`
   }
 `;
 
+export const articleEditQuery = gql`
+  query articleEditQuery($articleId: ID!) {
+    article(_id: $articleId) {
+      _id
+      content
+    }
+  }
+`;
+
 export const articleQuery = gql`
   query articleQuery($articleId: ID!) {
     article(_id: $articleId) {

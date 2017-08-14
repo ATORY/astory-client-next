@@ -6,12 +6,14 @@ import fetch from 'isomorphic-fetch';
  * @param {*} cb 
  * return: Promise<Response> 
  */
+
+const isProd = process.env.NODE_ENV === 'production';
+
 const profileAPI = (formData) => {
-  const profilePath = '/api/profile';
+  const profilePath = isProd ? '/api/profile' : 'http://localhost:4000/profile';
   return fetch(profilePath, {
     body: formData,
-    credentials: 'same-origin',
-    // credentials: 'include',
+    credentials: isProd ? 'same-origin' : 'include',
     method: 'PUT',
   });
 };

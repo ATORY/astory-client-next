@@ -23,6 +23,12 @@ app.prepare().then(() => {
     return app.render(req, res, actualPage, queryParams);
   });
 
+  server.get('/@edit/:articleId', (req, res) => {
+    const actualPage = '/edit';
+    const queryParams = { articleId: req.params.articleId };
+    return app.render(req, res, actualPage, queryParams);
+  });
+
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(SERVER_CONFIG.PORT, (err) => {

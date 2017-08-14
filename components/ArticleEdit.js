@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-
 import loArray from 'lodash/array';
+import Router from 'next/router';
 
 import { userQuery } from '../graphql/querys';
 import { delArticleMutation } from '../graphql/mutations';
@@ -40,13 +40,17 @@ class ArticleEdit extends React.Component {
       },
     }).then(res => console.log(res)).catch(console.log);
   }
+  editArticle = () => {
+    const { articleId } = this.props;
+    Router.push(`/edit?articleId=${articleId}`, `/@edit/${articleId}`);
+  }
   render() {
     const { readNumber, collectNumber } = this.props;
     return (
       <div className='article-edit'>
         <span>收藏:{collectNumber}</span>
         <span>阅读:{readNumber}</span>
-        <button>Edit</button>
+        <button onClick={this.editArticle}>Edit</button>
         <button onClick={this.delArticle}>Delete</button>
       </div>
     );
