@@ -7,8 +7,8 @@ import { userDraftsQuery } from '../graphql/querys';
 
 const UserDraftList = ({ isSelf, user, data }) => {
   let articleElem = <div />;
-  if (data.loading) return <div>loading</div>;
-  if (data.error) return <div>{data.error.message}</div>;
+  if (data.loading) return <div className='user-articles'>loading</div>;
+  if (data.error) return <div className='user-articles'>{data.error.message}</div>;
   const { drafts } = data.user;
   articleElem = drafts.length > 0 ? drafts.map((article) => {
     const articleId = article._id;

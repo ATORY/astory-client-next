@@ -150,34 +150,38 @@ query userDraftsQuery($userId: ID!, $draft: Boolean) {
 
 
 export const userMarksQuery = gql`
-query userQuery($userId: ID!, $draft: Boolean) {
+query userMarksQuery($userId: ID!) {
   user(_id: $userId) {
     _id
-    articles(draft: $draft) {
-      _id
-      title
-      shareImg
-      publishDate
-      mark
-      readNumber
-      collectNumber
+    marks {
+      article {
+        _id
+        title
+        shareImg
+        publishDate
+        mark
+        readNumber
+        collectNumber
+      }
     }
   }
 }
 `;
 
 export const userCollectsQuery = gql`
-query userQuery($userId: ID!, $draft: Boolean) {
+query userCollectsQuery($userId: ID!) {
   user(_id: $userId) {
     _id
-    articles(draft: $draft) {
-      _id
-      title
-      shareImg
-      publishDate
-      mark
-      readNumber
-      collectNumber
+    collects {
+      article {
+        _id
+        title
+        shareImg
+        publishDate
+        mark
+        readNumber
+        collectNumber
+      }
     }
   }
 }
