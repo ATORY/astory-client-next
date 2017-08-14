@@ -102,23 +102,83 @@ export const authorInfoQuery = gql`
 `;
 
 export const userQuery = gql`
-  query userQuery($userId: ID!, $draft: Boolean) {
-    user(_id: $userId) {
+query userQuery($userId: ID!) {
+  user(_id: $userId) {
+    _id
+    email
+    username
+    userIntro
+    userAvatar
+    isSelf
+  }
+}
+`;
+
+export const userArticlesQuery = gql`
+query userArticlesQuery($userId: ID!, $draft: Boolean) {
+  user(_id: $userId) {
+    _id
+    articles(draft: $draft) {
       _id
-      email
-      username
-      userIntro
-      userAvatar
-      isSelf
-      articles(draft: $draft) {
-        _id
-        title
-        shareImg
-        publishDate
-        mark
-        readNumber
-        collectNumber
-      }
+      title
+      shareImg
+      publishDate
+      mark
+      readNumber
+      collectNumber
     }
   }
+}
+`;
+
+export const userDraftsQuery = gql`
+query userDraftsQuery($userId: ID!, $draft: Boolean) {
+  user(_id: $userId) {
+    _id
+    drafts: articles(draft: $draft) {
+      _id
+      title
+      shareImg
+      publishDate
+      mark
+      readNumber
+      collectNumber
+    }
+  }
+}
+`;
+
+
+export const userMarksQuery = gql`
+query userQuery($userId: ID!, $draft: Boolean) {
+  user(_id: $userId) {
+    _id
+    articles(draft: $draft) {
+      _id
+      title
+      shareImg
+      publishDate
+      mark
+      readNumber
+      collectNumber
+    }
+  }
+}
+`;
+
+export const userCollectsQuery = gql`
+query userQuery($userId: ID!, $draft: Boolean) {
+  user(_id: $userId) {
+    _id
+    articles(draft: $draft) {
+      _id
+      title
+      shareImg
+      publishDate
+      mark
+      readNumber
+      collectNumber
+    }
+  }
+}
 `;

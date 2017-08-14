@@ -82,6 +82,10 @@ class CommentWriter extends React.Component {
               data,
             });
           },
+        }).then(() => {
+          this.setState({
+            text: '',
+          });
         }).catch(err => console.log(err));
       }
     }).catch(err => console.log(err));

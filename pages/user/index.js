@@ -8,7 +8,7 @@ import { userQuery, authQuery } from '../../graphql/querys';
 import UserHeader from '../../components/UserHeader';
 import UserHeaderSelf from '../../components/UserHeaderSelf';
 import UserHeaderNav from '../../components/UserHeaderNav';
-import ArticleCellUser from '../../components/ArticleCellUser';
+import UserArticleList from '../../components/UserArticleList';
 
 class User extends React.Component {
   componentDidMount() {
@@ -49,24 +49,14 @@ class User extends React.Component {
     } else if (error) {
       userHeader = <div>{error.message}</div>;
     } else {
-      const { _id, email, username, userIntro, userAvatar, isSelf, articles } = user;
+      const { _id, email, username, userIntro, userAvatar, isSelf } = user;
       if (isSelf) {
         userHeader = <UserHeaderSelf {...{ _id, email, username, userIntro, userAvatar }} />;
       } else {
         userHeader = <UserHeader {...{ _id, email, username, userIntro, userAvatar }} />;
       }
-      userHeaderNav = <UserHeaderNav url={url} userId={_id} />;
-      articleElem = articles.map((article) => {
-        const articleId = article._id;
-        return (
-          <ArticleCellUser
-            key={articleId}
-            isSelf={isSelf}
-            {...article}
-            user={user}
-          />
-        );
-      });
+      userHeaderNav = <UserHeaderNav {...{ url, isSelf }} userId={_id} />;
+      articleElem = <UserArticleList {...{ isSelf, user }} />;
     }
     return (
       <div>
@@ -76,9 +66,7 @@ class User extends React.Component {
           {userHeader}
         </div>
         {userHeaderNav}
-        <div className='user-articles'>
-          {articleElem}
-        </div>
+        {articleElem}
       </div>
     );
   }
