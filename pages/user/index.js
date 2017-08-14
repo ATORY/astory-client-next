@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, withApollo, compose } from 'react-apollo';
 
-import Header from '../components/Header';
-import withData from '../lib/withData';
-import { userQuery, authQuery } from '../graphql/querys';
-import UserHeader from '../components/UserHeader';
-import UserHeaderSelf from '../components/UserHeaderSelf';
-import ArticleCellUser from '../components/ArticleCellUser';
+import Header from '../../components/Header';
+import withData from '../../lib/withData';
+import { userQuery, authQuery } from '../../graphql/querys';
+import UserHeader from '../../components/UserHeader';
+import UserHeaderSelf from '../../components/UserHeaderSelf';
+import UserHeaderNav from '../../components/UserHeaderNav';
+import ArticleCellUser from '../../components/ArticleCellUser';
 
 class User extends React.Component {
   componentDidMount() {
@@ -40,6 +41,7 @@ class User extends React.Component {
   render() {
     const { url, data } = this.props;
     let userHeader = <div />;
+    let userHeaderNav = <div />;
     let articleElem = <div />;
     const { loading, error, user } = data;
     if (loading) {
@@ -53,6 +55,7 @@ class User extends React.Component {
       } else {
         userHeader = <UserHeader {...{ _id, email, username, userIntro, userAvatar }} />;
       }
+      userHeaderNav = <UserHeaderNav url={url} userId={_id} />;
       articleElem = articles.map((article) => {
         const articleId = article._id;
         return (
@@ -72,6 +75,7 @@ class User extends React.Component {
         <div className='user-header'>
           {userHeader}
         </div>
+        {userHeaderNav}
         <div className='user-articles'>
           {articleElem}
         </div>

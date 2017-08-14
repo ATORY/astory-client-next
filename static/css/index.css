@@ -646,6 +646,8 @@ i.circle {
 }
 
 .user-header {
+  max-width: 1000px;
+  margin: 0 auto;
   background: #fff;
   border-bottom: 1px solid #eee; 
 }
@@ -712,6 +714,33 @@ i.circle {
   border: 1px solid gray;
   padding: 5px 10px;
   border-radius: 5px;
+}
+
+/************************/
+.user-nav {
+  max-width: 700px;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.user-nav li {
+  display: inline-block;
+  margin: 5px 0;
+  margin-right: 5px;
+  padding: 5px 10px 5px 0;
+  transition: color 500ms ease-in-out;
+}
+
+.user-nav li a {
+  color: darkgray;
+  cursor: pointer;
+}
+.user-nav li a:hover {
+  color: black;
+}
+
+.user-nav li.active a {
+  color: #000;
 }
 
 /***************************/

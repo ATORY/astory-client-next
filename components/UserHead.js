@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 const UserHead = ({ user: { _id, username, userAvatar } }) => (
   <div className='user-head floatRight'>
     <div><Link href='/write'><a>Write</a></Link></div>
@@ -16,7 +15,6 @@ const UserHead = ({ user: { _id, username, userAvatar } }) => (
     </div>
   </div>
 );
-
 
 UserHead.propTypes = {
   user: PropTypes.shape({

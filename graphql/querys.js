@@ -33,7 +33,7 @@ export const articlesQuery = gql`
 
 export const articleEditQuery = gql`
   query articleEditQuery($articleId: ID!) {
-    article(_id: $articleId) {
+    article: articleEdit(_id: $articleId) {
       _id
       content
     }
@@ -102,7 +102,7 @@ export const authorInfoQuery = gql`
 `;
 
 export const userQuery = gql`
-  query userQuery($userId: ID!) {
+  query userQuery($userId: ID!, $draft: Boolean) {
     user(_id: $userId) {
       _id
       email
@@ -110,7 +110,7 @@ export const userQuery = gql`
       userIntro
       userAvatar
       isSelf
-      articles {
+      articles(draft: $draft) {
         _id
         title
         shareImg

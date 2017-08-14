@@ -12,7 +12,7 @@ import UserHead from './UserHead';
 const Header = ({ title, children, data, pathname }) => {
   let elem = <div />;
   // const slogen = 'Everyone has a story';
-  const slogen = 'A';
+  const slogen = '讲不完的青春，道不尽的沧桑';
   if (data.loading) {
     elem = <div>authing...</div>;
   } else if (data.error) {
