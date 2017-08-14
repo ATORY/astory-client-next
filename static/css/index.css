@@ -135,6 +135,20 @@ header .signs div.btns button {
   padding-bottom: 10px;
 }
 
+.user-mark .article-cell {
+  width: 345px;
+  float: left;
+  margin: 5px;
+}
+
+.user-mark .article-cell:nth-child(2n + 1) {
+  margin-left: 0px;
+}
+
+.user-mark .article-cell:nth-child(2n) {
+  margin-right: 0px;
+}
+
 .articles .article-cell:nth-child(3n) {
   padding-left: 10px;
 }
@@ -749,6 +763,10 @@ i.circle {
   margin: 20px auto;
 }
 
+.user-mark {
+  max-width: 700px; 
+}
+
 .user-articles .user-article-cell {
   max-width: 700px;
   padding: 12px 15px; 
@@ -758,6 +776,10 @@ i.circle {
   /* height: 300px; */
   position: relative;
 }
+
+/* .user-mark .user-article-cell {
+  width: 300px;
+} */
 
 .user-article-cell .author-intro {
   height: 50px;

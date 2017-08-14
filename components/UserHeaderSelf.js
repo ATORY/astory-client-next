@@ -7,6 +7,19 @@ import { userQuery } from '../graphql/querys';
 import profileAPI from '../utils/profileUpload';
 
 class UserHeaderSelf extends React.Component {
+  static propTypes = {
+    // email: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    userIntro: PropTypes.string,
+    username: PropTypes.string.isRequired,
+    userAvatar: PropTypes.string.isRequired,
+    mutate: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    userIntro: '',
+  }
+
   constructor(props) {
     super(props);
     this.node = null;
@@ -133,15 +146,6 @@ class UserHeaderSelf extends React.Component {
     );
   }
 }
-
-UserHeaderSelf.propTypes = {
-  // email: PropTypes.string.isRequired,
-  _id: PropTypes.string.isRequired,
-  userIntro: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  userAvatar: PropTypes.string.isRequired,
-  mutate: PropTypes.func.isRequired,
-};
 
 const UserHeaderSelfWithMutation = graphql(editUserMutaion)(UserHeaderSelf);
 
