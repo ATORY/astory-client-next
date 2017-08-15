@@ -382,9 +382,9 @@ article .author-intro > div .user-intro {
 
 .mask-box {
   position: absolute;
-  width: 450px;
+  width: 400px;
   /* height: 600px; */
-  height: 480px;
+  height: 360px;
   margin: auto;
   left: 0;
   right: 0;
@@ -393,6 +393,79 @@ article .author-intro > div .user-intro {
   background: #ffffff; 
   animation-timing-function: ease;
   animation-fill-mode: forwards;
+}
+
+.mask-box-head {
+  line-height: 100px;
+  text-align: center;
+  background-color: gray;
+  color: white;
+  font-size: 25px;
+}
+
+.login-form {
+  height: 200px;
+  margin: 30px;
+}
+
+.login-form > div {
+  position: relative;
+  margin: 5px 0;
+  padding: 5px 0;
+}
+
+.login-form > div i {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 26px;
+  color: gray;
+  left: 0;
+}
+
+.login-form input {
+  border: none;
+  outline: none;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 2px;
+  padding-left: 35px;
+  margin: 2px 0;
+}
+
+.login-form input:focus + i {
+  color: black;
+}
+
+.login-form input:focus {
+  border-bottom: 1px solid darkgray;
+}
+.login-form input:not([value=""]) + i {
+  color: black;
+}
+.login-form input:not([value=""]) {
+  border-bottom: 1px solid darkgray;
+}
+
+.login-form .btns {
+  text-align: center;
+}
+
+.login-form button {
+  margin: 0 auto 10px auto;
+  padding: 5px 30px;
+  border: 1px solid gray;
+}
+
+.login-form .error-tint {
+  color: red;
+  visibility: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .login .close {

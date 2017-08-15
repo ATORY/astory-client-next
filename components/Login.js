@@ -63,20 +63,30 @@ class Login extends React.Component {
       <div className='login mask' id='login-mask'>
         <i className='material-icons close' onClick={this.closeLogin} role='presentation'>close</i>
         <div className='mask-box' id='login-mask-box'>
-          <form onSubmit={this.login}>
-            <div>email:</div>
-            <input
-              type='text'
-              value={email}
-              onChange={evt => this.setState({ email: evt.target.value })}
-            />
-            <div>password:</div>
-            <input
-              type='text'
-              value={password}
-              onChange={evt => this.setState({ password: evt.target.value })}
-            />
-            <button>登录</button>
+          <div className='mask-box-head'>
+            SHARED
+          </div>
+          <form onSubmit={this.login} className='login-form'>
+            <div>
+              <input
+                type='text'
+                value={email}
+                onChange={evt => this.setState({ email: evt.target.value })}
+              />
+              <i className='material-icons'>person</i>
+            </div>
+            <div>
+              <input
+                type='text'
+                value={password}
+                onChange={evt => this.setState({ password: evt.target.value })}
+              />
+              <i className='material-icons'>lock_outline</i>
+            </div>
+            <div className='error-tint'>err</div>
+            <div className='btns'>
+              <button>登录</button>
+            </div>
           </form>
         </div>
       </div>
