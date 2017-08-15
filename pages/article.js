@@ -7,13 +7,12 @@ import withData from '../lib/withData';
 import { articleQuery } from '../graphql/querys';
 import ArticlePreview from '../components/ArticlePreview';
 import AuthorPreview from '../components/AuthorPreview';
-import ArticleAttachAside from '../components/ArticleAttachAside';
-import ArticleAttachBottom from '../components/ArticleAttachBottom';
+import {
+  Aside as ArticleAttachAside,
+  Bottom as ArticleAttachBottom,
+} from '../components/ArticleAttach';
 import Comment from '../components/Comment';
-// import { showLoginMask } from '../utils';
 
-
-// class Article extends React.Component {
 const Article = ({ url, data }) => {
   let elem = <div />;
   let commentElem = <div />;

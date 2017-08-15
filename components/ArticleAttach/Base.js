@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { showLoginMask } from '../utils';
-import { articleQuery, authQuery } from '../graphql/querys';
+import { showLoginMask } from '../../utils';
+import { articleQuery, authQuery } from '../../graphql/querys';
 
 class ArticleAside extends React.Component {
   static propTypes = {

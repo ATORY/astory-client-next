@@ -1,9 +1,9 @@
 import React from 'react';
 import { graphql, compose, withApollo } from 'react-apollo';
 
-import { markMutation, collectMutation } from '../graphql/mutations';
+import { markMutation, collectMutation } from '../../graphql/mutations';
 
-import ArticleAttach from './ArticleAttach';
+import ArticleAttach from './Base';
 
 class ArticleAttachBottom extends ArticleAttach {
   render() {

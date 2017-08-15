@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 
-import { editUserMutaion } from '../graphql/mutations';
-import { userQuery } from '../graphql/querys';
-import profileAPI from '../utils/profileUpload';
+import { editUserMutaion } from '../../graphql/mutations';
+import { userQuery } from '../../graphql/querys';
+import profileAPI from '../../utils/profileUpload';
 
 class UserHeaderSelf extends React.Component {
   static propTypes = {

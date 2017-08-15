@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-// import Submit from '../components/Submit'
 import ArticleList from '../components/ArticleList';
 import AuthorIntro from '../components/AuthorIntro';
 import withData from '../lib/withData';

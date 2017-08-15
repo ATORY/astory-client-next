@@ -3,8 +3,8 @@ import ReactQuill from 'react-quill';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
-import profileAPI from '../utils/profileUpload';
-import { newArticleMutation } from '../graphql/mutations';
+import profileAPI from '../../utils/profileUpload';
+import { newArticleMutation } from '../../graphql/mutations';
 import CustomToolbar from './CustomToolbar';
 
 

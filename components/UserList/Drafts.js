@@ -2,10 +2,10 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
-import ArticleCellUser from './ArticleCellUser';
-import { userDraftsQuery } from '../graphql/querys';
+import ArticleCellUser from '../ArticleCellUser';
+import { userDraftsQuery } from '../../graphql/querys';
 
-const UserDraftList = ({ isSelf, user, data }) => {
+const Drafts = ({ isSelf, user, data }) => {
   let articleElem = <div />;
   if (data.loading) return <div className='user-articles'>loading</div>;
   if (data.error) return <div className='user-articles'>{data.error.message}</div>;
@@ -28,17 +28,17 @@ const UserDraftList = ({ isSelf, user, data }) => {
   );
 };
 
-UserDraftList.propTypes = {
+Drafts.propTypes = {
   data: PropTypes.object.isRequired,
   isSelf: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };
 
-const UserDraftListWithQuery = graphql(userDraftsQuery, {
+const DraftsWithQuery = graphql(userDraftsQuery, {
   options: (props) => {
     const variables = { userId: props.user._id, draft: true };
     return { variables };
   },
-})(UserDraftList);
+})(Drafts);
 
-export default UserDraftListWithQuery;
+export default DraftsWithQuery;

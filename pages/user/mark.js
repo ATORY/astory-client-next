@@ -6,9 +6,7 @@ import Header from '../../components/Header';
 import withData from '../../lib/withData';
 import { userQuery, authQuery } from '../../graphql/querys';
 import UserHeader from '../../components/UserHeader';
-import UserHeaderSelf from '../../components/UserHeaderSelf';
-import UserHeaderNav from '../../components/UserHeaderNav';
-import UserMarkList from '../../components/UserMarkList';
+import { Marks } from '../../components/UserList';
 
 class UserMark extends React.Component {
   componentDidMount() {
@@ -16,24 +14,19 @@ class UserMark extends React.Component {
       query: authQuery,
     }).subscribe({
       next: ({ data: { user } }) => {
-        // console.log('user', user);
+        const { data, url } = this.props;
         const userId = user && user._id;
-        const isSelf = userId && this.props.data.user
-                       && (userId === this.props.data.user._id);
-        if (isSelf) {
-          const data = this.props.client.readQuery({
-            query: userQuery,
-            variables: { userId: this.props.url.query.userId },
-          });
-          if (data.user.isSelf !== isSelf) {
-            data.user.isSelf = isSelf;
-          }
-          this.props.client.writeQuery({
-            query: userQuery,
-            variables: { userId: this.props.url.query.userId },
-            data,
-          });
-        }
+        const isSelf = !!(userId && data.user && (userId === data.user._id));
+        const storeData = this.props.client.readQuery({
+          query: userQuery,
+          variables: { userId: url.query.userId },
+        });
+        storeData.user.isSelf = isSelf;
+        this.props.client.writeQuery({
+          query: userQuery,
+          variables: { userId: this.props.url.query.userId },
+          data: storeData,
+        });
       },
     });
   }
@@ -41,7 +34,6 @@ class UserMark extends React.Component {
   render() {
     const { url, data } = this.props;
     let userHeader = <div />;
-    let userHeaderNav = <div />;
     let articleElem = <div />;
     const { loading, error, user } = data;
     if (loading) {
@@ -50,22 +42,14 @@ class UserMark extends React.Component {
       userHeader = <div>{error.message}</div>;
     } else {
       const { _id, email, username, userIntro, userAvatar, isSelf } = user;
-      if (isSelf) {
-        userHeader = <UserHeaderSelf {...{ _id, email, username, userIntro, userAvatar }} />;
-      } else {
-        userHeader = <UserHeader {...{ _id, email, username, userIntro, userAvatar }} />;
-      }
-      userHeaderNav = <UserHeaderNav {...{ url, isSelf }} userId={_id} />;
-      articleElem = <UserMarkList {...{ isSelf, user }} />;
+      userHeader = <UserHeader {...{ isSelf, _id, email, username, userIntro, userAvatar }} />;
+      articleElem = <Marks {...{ isSelf, user }} />;
     }
     return (
       <div>
         <div className='header-shadow' />
         <Header pathname={url.pathname} title='user' />
-        <div className='user-header'>
-          {userHeader}
-        </div>
-        {userHeaderNav}
+        {userHeader}
         {articleElem}
       </div>
     );

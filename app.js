@@ -29,6 +29,12 @@ app.prepare().then(() => {
     return app.render(req, res, actualPage, queryParams);
   });
 
+  server.get('/@/:userId/collect', (req, res) => {
+    const actualPage = '/user/collect';
+    const queryParams = { userId: req.params.userId };
+    return app.render(req, res, actualPage, queryParams);
+  });
+
   server.get('/@/:userId/mark', (req, res) => {
     const actualPage = '/user/mark';
     const queryParams = { userId: req.params.userId };
