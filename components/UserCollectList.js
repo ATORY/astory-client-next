@@ -3,14 +3,14 @@ import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
 import ArticleCellMark from './ArticleCellMark';
-import { userMarksQuery } from '../graphql/querys';
+import { userCollectsQuery } from '../graphql/querys';
 
-const UserMarkList = ({ user, data }) => {
+const UserCollectList = ({ user, data }) => {
   let articleElem = <div />;
   if (data.loading) return <div className='user-articles'>loading</div>;
   if (data.error) return <div className='user-articles'>{data.error.message}</div>;
-  const { marks } = data.user;
-  articleElem = (marks && marks.length > 0) ? marks.map(({ article }) => {
+  const { collects } = data.user;
+  articleElem = (collects && collects.length > 0) ? collects.map(({ article }) => {
     if (!article) return null;
     const articleId = article._id;
     return (
@@ -20,7 +20,7 @@ const UserMarkList = ({ user, data }) => {
         author={user}
       />
     );
-  }) : <div>暂无mark</div>;
+  }) : <div>暂无收藏</div>;
   return (
     <div className='user-articles user-mark'>
       {articleElem}
@@ -28,17 +28,17 @@ const UserMarkList = ({ user, data }) => {
   );
 };
 
-UserMarkList.propTypes = {
+UserCollectList.propTypes = {
   data: PropTypes.object.isRequired,
   // isSelf: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };
 
-const UserMarkListWithQuery = graphql(userMarksQuery, {
+const UserCollectListWithQuery = graphql(userCollectsQuery, {
   options: (props) => {
     const variables = { userId: props.user._id };
     return { variables };
   },
-})(UserMarkList);
+})(UserCollectList);
 
-export default UserMarkListWithQuery;
+export default UserCollectListWithQuery;

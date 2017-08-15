@@ -22,8 +22,10 @@ const UserHeaderNav = ({ isSelf, userId, url: { pathname } }) => (
         <a>Mark</a>
       </Link>
     </li>
-    <li className=''>
-      <a>Like(收藏)</a>
+    <li className={pathname === '/user/collect' && 'active'}>
+      <Link as={`/@/${userId}/mark`} href={`/user/collect?userId=${userId}`}>
+        <a>Like(收藏)</a>
+      </Link>
     </li>
   </ul>
 );
