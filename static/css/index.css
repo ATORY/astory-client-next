@@ -468,6 +468,11 @@ article .author-intro > div .user-intro {
   padding: 0;
 }
 
+.login-form .tint {
+  color: gray;
+  font-size: 13px;
+}
+
 .login .close {
   z-index: 300;
   cursor: pointer;

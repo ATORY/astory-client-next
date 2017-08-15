@@ -87,6 +87,10 @@ class Login extends React.Component {
             <div className='btns'>
               <button>登录</button>
             </div>
+            <div className='tint'>
+              小贴士：使用email可直接登录，找回密码
+            </div>
+
           </form>
         </div>
       </div>
