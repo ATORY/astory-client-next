@@ -4,8 +4,8 @@ import { graphql } from 'react-apollo';
 import loArray from 'lodash/array';
 import Router from 'next/router';
 
-import { userQuery } from '../graphql/querys';
-import { delArticleMutation } from '../graphql/mutations';
+import { userQuery } from '../../graphql/querys';
+import { delArticleMutation } from '../../graphql/mutations';
 
 class ArticleEdit extends React.Component {
   static propTypes = {

@@ -4,9 +4,9 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
-import { authQuery } from '../graphql/querys';
-import LoginWithMutation from './Login';
-import { showLoginMask } from '../utils';
+import { authQuery } from '../../graphql/querys';
+import LoginWithMutation from '../Login';
+import { showLoginMask } from '../../utils';
 import UserHead from './UserHead';
 
 const Header = ({ title, children, data, pathname }) => {

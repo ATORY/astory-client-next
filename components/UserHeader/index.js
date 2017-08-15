@@ -21,7 +21,7 @@ const UserHeader = ({ url, isSelf, _id, email, username, userAvatar }) => {
   }
   return (
     <div className='user-header'>
-      <UserHeaderSelf {...{ _id, email, username, userAvatar }} />;
+      <UserHeaderSelf {...{ _id, email, username, userAvatar }} />
       <Nav {...{ url, isSelf }} userId={_id} />
     </div>
   );

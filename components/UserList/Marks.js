@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
-import ArticleCellMark from '../ArticleCellMark';
+import { AticleMarkCell } from '../ArticleCell';
 import { userMarksQuery } from '../../graphql/querys';
 
 const Marks = ({ user, data }) => {
@@ -14,7 +14,7 @@ const Marks = ({ user, data }) => {
     if (!article) return null;
     const articleId = article._id;
     return (
-      <ArticleCellMark
+      <AticleMarkCell
         key={articleId}
         {...article}
         author={user}

@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import Link from 'next/link';
 
-import ArticleMark from '../components/ArticleMark';
-import { showAuthorIntro, hideAuthorInfo } from '../utils';
+import ArticleMark from './ArticleMark';
+import { showAuthorIntro, hideAuthorInfo } from '../../utils';
+
+import MarkCell from './MarkCell';
+import UserCell from './UserCell';
+// export MarkCell;
+export const AticleMarkCell = MarkCell;
+export const AticleUserCell = UserCell;
 
 moment.locale('zh-cn');
 

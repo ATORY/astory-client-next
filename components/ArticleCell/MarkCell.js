@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import Link from 'next/link';
 
-import ArticleMark from '../components/ArticleMark';
-import { showAuthorIntro, hideAuthorInfo } from '../utils';
+import ArticleMark from './ArticleMark';
+import { showAuthorIntro, hideAuthorInfo } from '../../utils';
 
 moment.locale('zh-cn');
 

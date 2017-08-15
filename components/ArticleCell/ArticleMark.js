@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose, withApollo } from 'react-apollo';
-import { markMutation } from '../graphql/mutations';
-import { authQuery } from '../graphql/querys';
-import { showLoginMask } from '../utils';
+import { markMutation } from '../../graphql/mutations';
+import { authQuery } from '../../graphql/querys';
+import { showLoginMask } from '../../utils';
 
 // turned in
 class ArticleMark extends React.Component {

@@ -42,7 +42,7 @@ class User extends React.Component {
       userHeader = <div>{error.message}</div>;
     } else {
       const { _id, email, username, userIntro, userAvatar, isSelf } = user;
-      userHeader = <UserHeader {...{ isSelf, _id, email, username, userIntro, userAvatar }} />;
+      userHeader = <UserHeader {...{ url, isSelf, _id, email, username, userIntro, userAvatar }} />;
       articleElem = <Articles {...{ isSelf, user }} />;
     }
     return (

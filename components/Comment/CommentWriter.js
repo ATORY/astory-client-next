@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { graphql, compose, withApollo } from 'react-apollo';
 import ReactQuill from 'react-quill';
 
-import { articleQuery, authQuery } from '../graphql/querys';
-import { newCommentMutation } from '../graphql/mutations';
-import { showLoginMask } from '../utils';
+import { articleQuery, authQuery } from '../../graphql/querys';
+import { newCommentMutation } from '../../graphql/mutations';
+import { showLoginMask } from '../../utils';
 
 class CommentWriter extends React.Component {
   static propTypes = {

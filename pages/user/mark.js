@@ -42,7 +42,7 @@ class UserMark extends React.Component {
       userHeader = <div>{error.message}</div>;
     } else {
       const { _id, email, username, userIntro, userAvatar, isSelf } = user;
-      userHeader = <UserHeader {...{ isSelf, _id, email, username, userIntro, userAvatar }} />;
+      userHeader = <UserHeader {...{ url, isSelf, _id, email, username, userIntro, userAvatar }} />;
       articleElem = <Marks {...{ isSelf, user }} />;
     }
     return (

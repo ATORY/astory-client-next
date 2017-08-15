@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
-import ArticleCellUser from '../ArticleCellUser';
+import { AticleUserCell } from '../ArticleCell';
 import { userDraftsQuery } from '../../graphql/querys';
 
 const Drafts = ({ isSelf, user, data }) => {
@@ -13,7 +13,7 @@ const Drafts = ({ isSelf, user, data }) => {
   articleElem = drafts.length > 0 ? drafts.map((article) => {
     const articleId = article._id;
     return (
-      <ArticleCellUser
+      <AticleUserCell
         key={articleId}
         isSelf={isSelf}
         {...article}
