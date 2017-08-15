@@ -29,16 +29,18 @@ class UserDraft extends React.Component {
         const { data, url } = this.props;
         const userId = user && user._id;
         const isSelf = !!(userId && data.user && (userId === data.user._id));
-        const storeData = this.props.client.readQuery({
-          query: userQuery,
-          variables: { userId: url.query.userId },
-        });
-        storeData.user.isSelf = isSelf;
-        this.props.client.writeQuery({
-          query: userQuery,
-          variables: { userId: this.props.url.query.userId },
-          data: storeData,
-        });
+        if (isSelf) {
+          const storeData = this.props.client.readQuery({
+            query: userQuery,
+            variables: { userId: url.query.userId },
+          });
+          storeData.user.isSelf = isSelf;
+          this.props.client.writeQuery({
+            query: userQuery,
+            variables: { userId: this.props.url.query.userId },
+            data: storeData,
+          });
+        }
       },
     });
   }
