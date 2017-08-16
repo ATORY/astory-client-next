@@ -20,7 +20,7 @@ const Articles = ({ isSelf, user, data }) => {
         user={user}
       />
     );
-  }) : <div>暂无草稿或无权访问</div>;
+  }) : <div className='user-articles'>暂无草稿或无权访问</div>;
   return (
     <div className='user-articles'>
       {articleElem}

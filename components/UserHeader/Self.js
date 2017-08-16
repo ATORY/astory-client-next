@@ -14,6 +14,7 @@ class UserHeaderSelf extends React.Component {
     username: PropTypes.string.isRequired,
     userAvatar: PropTypes.string.isRequired,
     mutate: PropTypes.func.isRequired,
+    followedNum: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -102,7 +103,7 @@ class UserHeaderSelf extends React.Component {
 
   render() {
     const { edit, newUserAvatar } = this.state;
-    const { username, userAvatar, userIntro } = this.props;
+    const { username, userAvatar, userIntro, followedNum } = this.props;
     return (
       <div className='user' ref={(r) => { this.node = r; }}>
         <div className='intro'>
@@ -137,9 +138,11 @@ class UserHeaderSelf extends React.Component {
           <div className='intro-other'>
             <button onClick={this.saveEdit}>Save</button>
             <button onClick={this.cancelEdit}>Cancel</button>
+            <span>关注：{followedNum}</span>
           </div> :
           <div className='intro-other'>
             <button onClick={this.editIntro}>Edit</button>
+            <span>关注：{followedNum}</span>
           </div>
         }
       </div>

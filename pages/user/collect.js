@@ -56,8 +56,8 @@ class UserCollect extends React.Component {
     } else if (error) {
       userHeader = <div>{error.message}</div>;
     } else {
-      const { _id, email, username, userIntro, userAvatar, isSelf } = user;
-      userHeader = <UserHeader {...{ url, isSelf, _id, email, username, userIntro, userAvatar }} />;
+      const { isSelf } = user;
+      userHeader = <UserHeader {...{ url, ...user }} />;
       articleElem = <Collects {...{ isSelf, user }} />;
     }
     return (
@@ -65,9 +65,7 @@ class UserCollect extends React.Component {
         <div className='header-shadow' />
         <Header pathname={url.pathname} title='user' />
         {userHeader}
-        <div className='user-articles'>
-          {articleElem}
-        </div>
+        {articleElem}
       </div>
     );
   }

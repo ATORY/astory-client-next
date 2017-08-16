@@ -6,6 +6,7 @@ export const authQuery = gql`
       _id
       email
       username
+      userIntro
       userAvatar
     }
   }
@@ -110,6 +111,8 @@ query userQuery($userId: ID!) {
     userIntro
     userAvatar
     isSelf
+    followed
+    followedNum
   }
 }
 `;

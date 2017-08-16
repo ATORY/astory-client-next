@@ -766,6 +766,10 @@ i.circle {
   outline-style: none;
 }
 
+.user-header .intro h2#username {
+  margin: 10px 0;
+}
+
 .user-header .intro p#userintro {
   margin-top: 8px;
   color: grey;
@@ -799,13 +803,20 @@ i.circle {
 }
 
 .user-header .intro-other {
-
+  position: relative;
 }
 
 .user-header .intro-other button {
   border: 1px solid gray;
   padding: 5px 10px;
   border-radius: 5px;
+}
+
+.user-header .intro-other span{
+  position: absolute;
+  right: 10px;
+  padding: 5px;
+  color: gray;
 }
 
 /************************/
@@ -837,7 +848,7 @@ i.circle {
 
 /***************************/
 .user-articles {
-  max-width: 1000px;
+  max-width: 700px;
   margin: 20px auto;
 }
 
@@ -846,7 +857,7 @@ i.circle {
 }
 
 .user-articles .user-article-cell {
-  max-width: 700px;
+  /* max-width: 700px; */
   padding: 12px 15px; 
   margin: 0px auto;
   margin-top: 15px;

@@ -72,3 +72,12 @@ export const delArticleMutation = gql`
     }
   }
 `;
+
+export const followUserMutation = gql`
+  mutation followUserMutation($userId: String!, $follow: Boolean!) {
+    followUser(userId: $userId, follow: $follow) {
+      _id
+      followed
+    }
+  }
+`;

@@ -55,8 +55,8 @@ class UserDraft extends React.Component {
     } else if (error) {
       userHeader = <div>{error.message}</div>;
     } else {
-      const { _id, email, username, userIntro, userAvatar, isSelf } = user;
-      userHeader = <UserHeader {...{ url, isSelf, _id, email, username, userIntro, userAvatar }} />;
+      const { isSelf } = user;
+      userHeader = <UserHeader {...{ url, ...user }} />;
       articleElem = <Drafts {...{ isSelf, user }} />;
     }
     return (
