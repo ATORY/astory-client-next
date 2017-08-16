@@ -814,9 +814,10 @@ i.circle {
 
 .user-header .intro-other span{
   position: absolute;
-  right: 10px;
+  right: 0px;
   padding: 5px;
   color: gray;
+  font-size: 13px;
 }
 
 /************************/
