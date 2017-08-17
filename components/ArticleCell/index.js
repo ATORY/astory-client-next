@@ -49,7 +49,7 @@ class ArticleCell extends React.Component {
                     className='author-name'
                     onMouseMove={evt => showAuthorIntro(evt, author._id)}
                     onMouseLeave={hideAuthorInfo}
-                  >{author.email}</p>
+                  >{author.username || author.email}</p>
                 </a>
               </Link>
               <p className='pub-time'>

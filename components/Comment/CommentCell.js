@@ -5,14 +5,14 @@ import moment from 'moment';
 moment.locale('zh-cn');
 
 const CommentCell = ({ _id, content, createDate, user }) => {
-  const { email, userAvatar } = user;
+  const { userAvatar, username } = user;
   const isTmp = (typeof _id) === 'number';
   return (
     <div className={`ql-container ql-snow comment-cell ${isTmp ? 'tmp' : ''}`}>
       <div className='user-intro'>
         <img src={userAvatar} alt='' />
         <div>
-          <p>{email}</p>
+          <p>{username}</p>
           <span>{moment(createDate).fromNow()}</span>
         </div>
       </div>

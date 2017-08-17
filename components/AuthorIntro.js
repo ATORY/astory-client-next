@@ -88,7 +88,7 @@ class AuthorIntro extends React.Component {
         clearTimeout(timer);
         return;
       }
-      this.setState({ show: false });
+      this.setState({ show: false, user: {} });
     }, 700);
   }
 
@@ -106,7 +106,8 @@ class AuthorIntro extends React.Component {
   render() {
     const { show, rect, selfHeight, user } = this.state;
     // console.log(selfHeight);
-    const { userAvatar = '', email = '' } = user;
+    const { userAvatar = '', username = '', userIntro = '',
+      followed = false, isSelf = false } = user;
     const topHeight = selfHeight ? selfHeight + 15 : 30;
     const { left, top } = rect;
     const style = {
@@ -116,19 +117,19 @@ class AuthorIntro extends React.Component {
     };
 
     const topOrBottom = 'popover-top';
-    // if (false) {
-    // topOrBottom = 'popover-bottom';
-    // }
     let elem = <div>Loading...</div>;
-    if (email) {
+    if (username) {
       elem = (
         <div>
           <div className='info'>
-            <div>{email}</div>
+            <div>
+              <h3>{username}</h3>
+              <p>{userIntro}</p>
+            </div>
             <img src={userAvatar} alt='' />
           </div>
           <div className='focus'>
-            <button>关注</button>
+            {!isSelf && <button>{followed ? '已关注' : '关注' }</button>}
           </div>
         </div>
       );

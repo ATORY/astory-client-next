@@ -27,6 +27,9 @@ export const articlesQuery = gql`
         email
         username
         userAvatar
+        isSelf
+        followed
+        followedNum
       }
     }
   }
@@ -58,6 +61,9 @@ export const articleQuery = gql`
         email
         username
         userAvatar
+        isSelf
+        followed
+        followedNum
       }
       comments {
         _id
@@ -86,6 +92,9 @@ export const articlePreviewQuery = gql`
         email
         username
         userAvatar
+        isSelf
+        followed
+        followedNum
       }
     }
   }
@@ -97,7 +106,10 @@ export const authorInfoQuery = gql`
       _id
       email
       username
+      userIntro
       userAvatar
+      followed
+      isSelf
     }
   }
 `;

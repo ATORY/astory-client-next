@@ -24,16 +24,11 @@ const ArticlePreview = ({ data: { loading, error, article } }) => {
       </article>
     );
   }
-  const { author, publishDate } = article;
+  const { _id, readNumber, publishDate, author } = article;
   return (
     <article className='ql-container ql-snow'>
       <div className='ql-editor'>
-        <AuthorPreview
-          _id={author._id}
-          email={author.email}
-          userAvatar={author.userAvatar}
-          publishDate={publishDate}
-        />
+        <AuthorPreview articleId={_id} {...{ publishDate, readNumber }} {...author} />
         <div>
           <h1>{article && article.title}</h1>
         </div>

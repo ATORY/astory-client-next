@@ -64,8 +64,22 @@ footer {
 }
 
 header .logo {
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.logos * {
+  vertical-align: middle;
+}
+
+.logos a {
+  height: 60px;
+  display: inline-block;
+  font-size: 30px;
+  text-decoration: none;
+  color: #000;
+  margin: 15px 0;
 }
 
 
@@ -604,7 +618,7 @@ i.circle {
   border: 1px solid #e3e3e3;
   background: #fff;
   width: 300px;
-  min-height: 160px; 
+  min-height: 120px; 
   border-radius: 5px;
   position: absolute;
 }
@@ -623,6 +637,17 @@ i.circle {
   position: absolute;
   right: 5px;
   top: 5px;
+}
+
+#author-intro .focus {
+  position: absolute;
+  bottom: 0;
+}
+#author-intro .focus button{
+  margin: 5px;
+  padding: 2px 10px;
+  border: 1px solid gray;
+  border-radius: 3px;
 }
 
 .popover-top {

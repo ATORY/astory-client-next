@@ -45,8 +45,11 @@ const Header = ({ title, children, data, pathname }) => {
       <LoginWithMutation pathname={pathname} />
       <div className='maxWidth header-bar'>
         <div className='logos'>
-          <Link href='/'><img src='/static/logo.svg' className='logo' alt='' /></Link>
-          <p className='slogen'>{slogen}</p>
+          <Link href='/'><a>
+            <img src='/static/logo.png' className='logo' alt='' />
+            <span>ATORY</span>
+          </a></Link>
+          {/* <p className='slogen'>{slogen}</p> */}
         </div>
         {elem}
       </div>

@@ -31,12 +31,7 @@ const Article = ({ url, data }) => {
     } = article;
     elem = (
       <article className='ql-container ql-snow' id='article'>
-        <AuthorPreview
-          _id={author._id}
-          email={author.email}
-          userAvatar={author.userAvatar}
-          {...{ publishDate, readNumber }}
-        />
+        <AuthorPreview articleId={_id} {...{ publishDate, readNumber }} {...author} />
         <div className='ql-editor'>
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>

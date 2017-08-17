@@ -78,6 +78,7 @@ export const followUserMutation = gql`
     followUser(userId: $userId, follow: $follow) {
       _id
       followed
+      followedNum
     }
   }
 `;
