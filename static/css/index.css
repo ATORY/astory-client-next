@@ -373,6 +373,7 @@ article div.article-attach-bottom i {
 }
 article div.article-attach-aside i {
   margin-top: 5px;
+  display: block;
 }
 article div.article-attach-bottom i {
   margin: 0 5px;
