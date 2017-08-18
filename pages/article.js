@@ -19,6 +19,7 @@ class Article extends React.Component {
     let href = '';
     if (req) {
       href = `${req.protocol}://${req.headers.host}${asPath}`;
+      console.log('href', href);
     } else {
       href = `${location.origin}${asPath}`;
     }

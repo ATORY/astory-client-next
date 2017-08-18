@@ -49,6 +49,7 @@ export const articleQuery = gql`
     article(_id: $articleId) {
       _id
       title
+      shareImg
       content
       publishDate
       readNumber
