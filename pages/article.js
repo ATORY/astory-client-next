@@ -18,8 +18,7 @@ class Article extends React.Component {
   static async getInitialProps({ asPath, req }) {
     let href = '';
     if (req) {
-      href = `${req.protocol}://${req.headers.host}${asPath}`;
-      console.log('href', href);
+      href = `https://${req.headers.host}${asPath}`;
     } else {
       href = `${location.origin}${asPath}`;
     }
