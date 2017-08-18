@@ -1,19 +1,11 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
 import profileAPI from '../../utils/profileUpload';
 import { newArticleMutation } from '../../graphql/mutations';
 import CustomToolbar from './CustomToolbar';
-
-const ReactQuill = dynamic(
-  import('react-quill'),
-  {
-    ssr: false,
-    loading: () => <div className='write write-wrapper'>初始化编辑器。。。</div>,
-  },
-);
+import DynamicQuill from '../DynamicQuill';
 
 class Writer extends React.Component {
   static propTypes = {
@@ -181,7 +173,7 @@ class Writer extends React.Component {
         <div className='toolbar-container'>
           <CustomToolbar {...{ saveing, published }} />
         </div>
-        <ReactQuill
+        <DynamicQuill
           ref={(quill) => { this.writer = quill; }}
           theme='snow'
           placeholder='留下你的故事'

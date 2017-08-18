@@ -1,5 +1,5 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
+
 import PropTypes from 'prop-types';
 import { graphql, compose, withApollo } from 'react-apollo';
 
@@ -7,13 +7,7 @@ import { articleQuery, authQuery } from '../../graphql/querys';
 import { newCommentMutation } from '../../graphql/mutations';
 import { showLoginMask } from '../../utils';
 
-const ReactQuill = dynamic(
-  import('react-quill'),
-  {
-    ssr: false,
-    loading: () => <div>初始化编辑器。。。</div>,
-  },
-);
+import DynamicQuill from '../DynamicQuill';
 
 class CommentWriter extends React.Component {
   static propTypes = {
@@ -101,7 +95,7 @@ class CommentWriter extends React.Component {
   render() {
     return (
       <div className='comment-writer'>
-        <ReactQuill
+        <DynamicQuill
           ref={(quill) => { this.writer = quill; }}
           theme='snow'
           placeholder='评论'
