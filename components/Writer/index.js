@@ -21,6 +21,7 @@ class Writer extends React.Component {
   constructor(props) {
     super(props);
     this.node = null;
+    this.ReactQuill = null;
     this.writer = null;
     this.fileInput = null;
     this.modules = {
@@ -59,9 +60,10 @@ class Writer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.writer) {
-      console.log(this.writer);
-      console.log(this.writer.state);
+    if (this.ReactQuill) {
+      console.log(this.ReactQuill);
+      console.log(this.ReactQuill.mounted);
+      console.log(this.ReactQuill.getEditor);
       // this.writer.focus();
       // this.quillRef = this.writer.getEditor();
     }
@@ -176,7 +178,7 @@ class Writer extends React.Component {
           <CustomToolbar {...{ saveing, published }} />
         </div>
         <DynamicQuill
-          ref={(quill) => { this.writer = quill; }}
+          ref={(quill) => { this.ReactQuill = quill; }}
           theme='snow'
           placeholder='留下你的故事'
           modules={this.modules}
