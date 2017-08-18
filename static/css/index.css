@@ -439,7 +439,7 @@ article .author-intro > div .user-intro {
   padding: 2px 0;
 }
 
-.login {
+.login, .shareqrcode {
   clear: both;
   position: absolute;
 }
@@ -455,6 +455,10 @@ article .author-intro > div .user-intro {
   display: none;
 }
 
+.shareqrcode {
+  background: rgba(255, 255, 255, 0.9);
+}
+
 .mask-box {
   position: absolute;
   width: 400px;
@@ -468,6 +472,12 @@ article .author-intro > div .user-intro {
   background: #ffffff; 
   animation-timing-function: ease;
   animation-fill-mode: forwards;
+}
+
+#share-mask-box {
+  width: 200px;
+  text-align: center;
+  height: 260px
 }
 
 .mask-box-head {
@@ -548,13 +558,18 @@ article .author-intro > div .user-intro {
   font-size: 13px;
 }
 
-.login .close {
+.login .close,
+.shareqrcode .close {
   z-index: 300;
   cursor: pointer;
   color: #fff;
   right: 0;
   padding: 15px;
   position: absolute;
+}
+
+.shareqrcode .close {
+  color: #000;
 }
 
 .mask-box-up {

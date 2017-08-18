@@ -23,6 +23,11 @@ class ArticleAttachBottom extends ArticleAttach {
           onClick={this.markOpt}
           role='presentation'
         >{markStatus}</i>
+        <i
+          className='material-icons'
+          onClick={this.share}
+          role='presentation'
+        >share</i>
       </div>
     );
   }

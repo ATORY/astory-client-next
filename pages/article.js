@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 
+import ShareQRCode from '../components/ShareQRCode';
 import Header from '../components/Header';
 import withData from '../lib/withData';
 import { articleQuery } from '../graphql/querys';
@@ -16,29 +17,29 @@ import { wechatAPI } from '../utils';
 
 class Article extends React.Component {
   static async getInitialProps({ asPath, req }) {
+    let href = '';
+    if (req) {
+      href = `https://${req.headers.host}${asPath}`;
+    } else {
+      href = `${location.origin}${asPath}`;
+    }
     if (process.env.NODE_ENV === 'production') {
-      let href = '';
-      if (req) {
-        href = `https://${req.headers.host}${asPath}`;
-      } else {
-        href = `${location.origin}${asPath}`;
-      }
       const res = await wechatAPI(href);
       const data = await res.json();
-      return { wxConfig: data };
+      return { wxConfig: data, href };
     }
-    return {};
+    return { wxConfig: {}, href };
   }
   componentDidMount() {
     const { wxConfig, data } = this.props;
-    if (wxConfig && data && data.article) {
+    if (wxConfig.signature && data && data.article) {
       this.configShare(wxConfig, data.article);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { wxConfig, data } = nextProps;
-    if (wxConfig && data && data.article) {
+    if (wxConfig.signature && data && data.article) {
       this.configShare(wxConfig, data.article);
     }
   }
@@ -89,7 +90,7 @@ class Article extends React.Component {
     });
   }
   render() {
-    const { url, data } = this.props;
+    const { url, data, href } = this.props;
     let elem = <div />;
     let commentElem = <div />;
     const { loading, error, article } = data;
@@ -127,6 +128,7 @@ class Article extends React.Component {
         <Header pathname={url.pathname} title={article && article.title} />
         {elem}
         {commentElem}
+        <ShareQRCode href={href} />
       </div>
     );
   }
@@ -137,6 +139,7 @@ Article.propTypes = {
   url: PropTypes.shape({
     pathname: PropTypes.string,
   }).isRequired,
+  href: PropTypes.string.isRequired,
   wxConfig: PropTypes.object.isRequired,
   data: PropTypes.shape({
     loading: PropTypes.bool,

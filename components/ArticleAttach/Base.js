@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { showLoginMask } from '../../utils';
+import { showLoginMask, showShareMask } from '../../utils';
 import { articleQuery, authQuery } from '../../graphql/querys';
 
 class ArticleAside extends React.Component {
@@ -20,13 +20,14 @@ class ArticleAside extends React.Component {
       query: authQuery,
     }).then(({ data: { user } }) => {
       if (!user || !user._id) {
-        return showLoginMask();
+        showLoginMask();
+        return;
       }
       // const { data: { article } } = this.props;
       const articleId = this.props._id;
       if (!articleId) throw new Error('articleId null');
       const { mark, markMutate } = this.props;
-      return markMutate({
+      markMutate({
         variables: { articleId, mark: !mark },
         optimisticResponse: {
           __typename: 'Mutation',
@@ -47,7 +48,7 @@ class ArticleAside extends React.Component {
             data,
           });
         },
-      });
+      }).catch(err => console.log(err));
     }).catch(err => console.log(err));
   }
   collectOpt = () => {
@@ -89,6 +90,10 @@ class ArticleAside extends React.Component {
         },
       });
     }).catch(err => console.log(err));
+  }
+
+  share = () => {
+    showShareMask();
   }
 }
 
