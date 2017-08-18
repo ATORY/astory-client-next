@@ -63,6 +63,12 @@ footer {
   height: inherit;
 }
 
+@media only screen and (max-width: 1000px)  {
+  .header-bar {
+    padding: 0 10px;
+  }
+}
+
 header .logo {
   width: 30px;
   height: 30px;
@@ -132,8 +138,20 @@ header .signs div.btns button {
 
 
 .articles {
-  padding-top: 20px;
+  padding: 20px 0;
 }
+
+@media only screen and (max-width: 1000px) {
+  .articles {
+    padding: 20px 5px;
+  }
+}
+
+/* @media only screen and (max-width: 480px)  {
+  .articles {
+    padding: 15px 5px;
+  }
+} */
 
 .articles::after {
   display: table;
@@ -150,30 +168,67 @@ header .signs div.btns button {
 }
 
 .user-mark .article-cell {
-  width: 345px;
+  width: 50%;
   float: left;
-  margin: 5px;
+  padding: 5px;
 }
 
-.user-mark .article-cell:nth-child(2n + 1) {
-  margin-left: 0px;
+@media only screen and (max-width: 600px)  {
+  .user-mark {
+    padding: 5px 5px;
+  }
+  .user-mark .article-cell {
+    width: 100%;
+  }
 }
 
-.user-mark .article-cell:nth-child(2n) {
-  margin-right: 0px;
+@media only screen and (min-width: 840px) {
+  .articles .article-cell:nth-child(3n) {
+    padding-left: 5px;
+  }
+
+  .articles .article-cell:nth-child(3n+1) {
+    padding-right: 5px;
+  }
+
+  .articles .article-cell:nth-child(3n+2) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+@media only screen and (max-width: 840px) and (min-width: 600px) {
+  .articles .article-cell {
+    width: 50%;
+  }
+  .articles .article-cell:nth-child(2n) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .articles .article-cell:nth-child(2n+1) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
-.articles .article-cell:nth-child(3n) {
-  padding-left: 10px;
+@media only screen and (max-width: 600px) and (min-width: 480px) {
+  .articles .article-cell {
+    width: 100%;
+  }
+  .articles .article-cell {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
-.articles .article-cell:nth-child(3n+1) {
-  padding-right: 10px;
-}
-
-.articles .article-cell:nth-child(3n+2) {
-  padding-left: 5px;
-  padding-right: 5px;
+@media only screen and (max-width: 480px)  {
+  .articles .article-cell {
+    width: 100%;
+  }
+  .articles .article-cell {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
 
@@ -295,6 +350,12 @@ article > div.article-attach-aside {
   width: 50px;
   height: 200px;
   /* border: 1px solid gray; */
+}
+
+@media only screen and (max-width: 800px) {
+  article > div.article-attach-aside {
+    display: none;
+  }
 }
 
 article > div.article-attach-aside > div{
@@ -605,8 +666,14 @@ i.circle {
 }
 
 .ql-container { 
-  font-size: 16px;
+  font-size: 17px;
   margin: 20px auto;
+}
+
+@media only screen and (max-width: 600px)  {
+  .ql-container { 
+    font-size: 14px;
+  }
 }
 
 .quill {
@@ -721,6 +788,20 @@ i.circle {
   border-left: 1px solid #ccc;
   height: 40px;
   width: 60px;
+}
+article .article-attach-bottom {
+  padding-right: 5px;
+}
+@media only screen and (max-width: 700px)  {
+  article .article-attach-bottom {
+    padding-right: 10px;
+  }
+  .comment .ql-toolbar.ql-snow,
+  .comment .ql-container.ql-snow,
+  .comment .comment-submit {
+    border-left: none;
+    border-right: none;
+  }
 }
 
 .comment .comment-cell {
@@ -850,6 +931,13 @@ i.circle {
   max-width: 700px;
   margin: 0 auto;
   list-style: none;
+  padding: 0 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .user-nav {
+    padding: 0 10px;
+  }
 }
 
 .user-nav li {
