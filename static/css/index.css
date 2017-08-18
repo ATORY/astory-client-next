@@ -475,6 +475,7 @@ article .author-intro > div .user-intro {
 }
 
 #share-mask-box {
+  background: none;
   width: 200px;
   text-align: center;
   height: 260px
