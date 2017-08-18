@@ -41,13 +41,13 @@ const Header = ({ title, children, data, pathname }) => {
         <link rel='stylesheet' href='//cdn.quilljs.com/1.2.6/quill.snow.css' />
         <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js' />
         <link rel='stylesheet' href='/static/css/index.css' />
+        <script src='https://res.wx.qq.com/open/js/jweixin-1.2.0.js' />
       </Head>
       <LoginWithMutation pathname={pathname} />
       <div className='maxWidth header-bar'>
         <div className='logos'>
           <Link href='/'><a>
             <img src='/static/logo.png' className='logo' alt='' />
-            <span>ATORY</span>
           </a></Link>
           {/* <p className='slogen'>{slogen}</p> */}
         </div>

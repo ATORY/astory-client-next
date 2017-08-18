@@ -6,7 +6,8 @@
         "CustomEvent": true,
         "window": true,
         "alert": true,
-        "FormData": true
+        "FormData": true,
+        "location": true
     },
     "rules": {
         "react/forbid-prop-types": [1, { "forbid": ["any"] }],
