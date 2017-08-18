@@ -27,7 +27,6 @@ class Article extends React.Component {
     return { wxConfig: data };
   }
   componentDidMount() {
-    // this.configShare();
     const { wxConfig, data } = this.props;
     if (wxConfig && data && data.article) {
       this.configShare(wxConfig, data.article);
@@ -85,7 +84,6 @@ class Article extends React.Component {
     wx.error((res) => {
       console.error(JSON.stringify(res));
     });
-    // }).catch(console.error);
   }
   render() {
     const { url, data } = this.props;

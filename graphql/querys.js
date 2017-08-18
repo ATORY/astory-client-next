@@ -19,6 +19,7 @@ export const articlesQuery = gql`
       _id
       title
       shareImg
+      description
       publishDate
       mark
       readNumber
@@ -40,6 +41,7 @@ export const articleEditQuery = gql`
     article: articleEdit(_id: $articleId) {
       _id
       content
+      msg
     }
   }
 `;

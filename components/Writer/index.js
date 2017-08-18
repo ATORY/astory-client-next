@@ -106,6 +106,7 @@ class Writer extends React.Component {
       _id: this.state._id,
       title,
       shareImg,
+      description: 'description',
       content: this.state.text,
       draft,
     };
