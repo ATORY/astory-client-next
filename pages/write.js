@@ -1,21 +1,12 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 
 import { authQuery } from '../graphql/querys';
 import Header from '../components/Header';
 import withData from '../lib/withData';
 import { showLoginMask } from '../utils';
-
-const DynamicComponentWithNoSSR = dynamic(
-  import('../components/Writer'),
-  {
-    ssr: false,
-    loading: () => <div className='write write-wrapper'>初始化编辑器。。。</div>,
-  },
-);
-
+import Writer from '../components/Writer';
 
 class Write extends React.Component {
   static propTypes = {
@@ -39,7 +30,7 @@ class Write extends React.Component {
       <div>
         <div className='header-shadow' />
         <Header pathname={url.pathname} title='writer' />
-        {user && user._id && <DynamicComponentWithNoSSR />}
+        {user && user._id && <Writer />}
       </div>
     );
   }

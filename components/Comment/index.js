@@ -1,16 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import dynamic from 'next/dynamic';
 
 import CommentCell from './CommentCell';
-
-const DynamicCommentWriter = dynamic(
-  import('./CommentWriter'),
-  {
-    ssr: false,
-    loading: () => <div>初始化编辑器。。。</div>,
-  },
-);
+import CommentWriter from './CommentWriter';
 
 const Comment = ({ articleId, comments }) => {
   const commentList = comments.map(comment =>
@@ -18,7 +10,7 @@ const Comment = ({ articleId, comments }) => {
   );
   return (
     <div>
-      <DynamicCommentWriter articleId={articleId} />
+      <CommentWriter articleId={articleId} />
       {commentList}
     </div>
   );

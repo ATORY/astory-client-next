@@ -1,11 +1,19 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import { graphql, compose, withApollo } from 'react-apollo';
-import ReactQuill from 'react-quill';
 
 import { articleQuery, authQuery } from '../../graphql/querys';
 import { newCommentMutation } from '../../graphql/mutations';
 import { showLoginMask } from '../../utils';
+
+const ReactQuill = dynamic(
+  import('react-quill'),
+  {
+    ssr: false,
+    loading: () => <div>初始化编辑器。。。</div>,
+  },
+);
 
 class CommentWriter extends React.Component {
   static propTypes = {

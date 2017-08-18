@@ -371,6 +371,12 @@ article div.article-attach-bottom i {
   cursor: pointer;
   color: gray;
 }
+article div.article-attach-aside i {
+  margin-top: 5px;
+}
+article div.article-attach-bottom i {
+  margin: 0 5px;
+}
 
 article div.article-attach-bottom span {
   padding: 3px 8px 3px 3px;

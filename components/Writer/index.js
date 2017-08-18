@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
@@ -7,6 +7,13 @@ import profileAPI from '../../utils/profileUpload';
 import { newArticleMutation } from '../../graphql/mutations';
 import CustomToolbar from './CustomToolbar';
 
+const ReactQuill = dynamic(
+  import('react-quill'),
+  {
+    ssr: false,
+    loading: () => <div className='write write-wrapper'>初始化编辑器。。。</div>,
+  },
+);
 
 class Writer extends React.Component {
   static propTypes = {
