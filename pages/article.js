@@ -16,15 +16,18 @@ import { wechatAPI } from '../utils';
 
 class Article extends React.Component {
   static async getInitialProps({ asPath, req }) {
-    let href = '';
-    if (req) {
-      href = `https://${req.headers.host}${asPath}`;
-    } else {
-      href = `${location.origin}${asPath}`;
+    if (process.env.NODE_ENV === 'production') {
+      let href = '';
+      if (req) {
+        href = `https://${req.headers.host}${asPath}`;
+      } else {
+        href = `${location.origin}${asPath}`;
+      }
+      const res = await wechatAPI(href);
+      const data = await res.json();
+      return { wxConfig: data };
     }
-    const res = await wechatAPI(href);
-    const data = await res.json();
-    return { wxConfig: data };
+    return {};
   }
   componentDidMount() {
     const { wxConfig, data } = this.props;

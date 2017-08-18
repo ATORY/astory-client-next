@@ -52,6 +52,7 @@ export const articleQuery = gql`
       _id
       title
       shareImg
+      description
       content
       publishDate
       readNumber
