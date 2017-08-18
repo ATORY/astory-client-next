@@ -3,8 +3,10 @@ const next = require('next');
 const winston = require('winston');
 const config = require('config');
 const compression = require('compression');
+const request = require('request');
 
 const SERVER_CONFIG = config.get('server');
+const wechatHost = config.get('wechat.host');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -48,7 +50,18 @@ app.prepare().then(() => {
     return app.render(req, res, actualPage, queryParams);
   });
 
-  server.get('*', (req, res) => handle(req, res));
+  server.get('*', (req, res) => {
+    if (req.url.startsWith('/wechat') ||
+        req.url.startsWith('/weixincheck') ||
+        req.url === '/MP_verify_B0Jt7DliJKfFC38K.txt'
+    ) {
+      req.pipe(request(`${wechatHost}${req.url}`).on('error', (err) => {
+        res.end(err.toString());
+      })).pipe(res);
+      return;
+    }
+    handle(req, res);
+  });
 
   server.listen(SERVER_CONFIG.PORT, (err) => {
     if (err) throw err;

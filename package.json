@@ -26,6 +26,7 @@
     "react-apollo": "^1.4.10",
     "react-dom": "^15.6.1",
     "react-quill": "^1.1.0",
+    "request": "^2.81.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
