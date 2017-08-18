@@ -1,12 +1,20 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic';
 
 import { authQuery } from '../graphql/querys';
 import Header from '../components/Header';
 import withData from '../lib/withData';
 import { showLoginMask } from '../utils';
-import Writer from '../components/Writer';
+
+const Writer = dynamic(
+  import('../components/Writer'),
+  {
+    ssr: false,
+    loading: () => <div>初始化编辑器。。。</div>,
+  },
+);
 
 class Write extends React.Component {
   static propTypes = {

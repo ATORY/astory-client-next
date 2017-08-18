@@ -1,11 +1,12 @@
 import React from 'react';
+import ReactQuill from 'react-quill';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
 import profileAPI from '../../utils/profileUpload';
 import { newArticleMutation } from '../../graphql/mutations';
 import CustomToolbar from './CustomToolbar';
-import DynamicQuill from '../DynamicQuill';
+
 
 class Writer extends React.Component {
   static propTypes = {
@@ -21,7 +22,6 @@ class Writer extends React.Component {
   constructor(props) {
     super(props);
     this.node = null;
-    this.ReactQuill = null;
     this.writer = null;
     this.fileInput = null;
     this.modules = {
@@ -60,12 +60,9 @@ class Writer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.ReactQuill) {
-      console.log(this.ReactQuill);
-      console.log(this.ReactQuill.mounted);
-      console.log(this.ReactQuill.getEditor);
-      // this.writer.focus();
-      // this.quillRef = this.writer.getEditor();
+    if (this.writer) {
+      this.writer.focus();
+      this.quillRef = this.writer.getEditor();
     }
   }
 
@@ -177,8 +174,8 @@ class Writer extends React.Component {
         <div className='toolbar-container'>
           <CustomToolbar {...{ saveing, published }} />
         </div>
-        <DynamicQuill
-          ref={(quill) => { this.ReactQuill = quill; }}
+        <ReactQuill
+          ref={(quill) => { this.writer = quill; }}
           theme='snow'
           placeholder='留下你的故事'
           modules={this.modules}
