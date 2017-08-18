@@ -654,7 +654,8 @@ article .author-intro > div .user-intro {
   position: fixed;
   background: #fff;
   z-index: 100;
-  width: 1000px;
+  max-width: 1000px;
+  width: 100%;
   top: 70px;
 }
 

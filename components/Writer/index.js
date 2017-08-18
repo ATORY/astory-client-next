@@ -60,8 +60,10 @@ class Writer extends React.Component {
 
   componentDidMount() {
     if (this.writer) {
-      this.writer.focus();
-      this.quillRef = this.writer.getEditor();
+      console.log(this.writer);
+      console.log(this.writer.state);
+      // this.writer.focus();
+      // this.quillRef = this.writer.getEditor();
     }
   }
 
