@@ -36,10 +36,10 @@ const Header = ({ title, children, data, pathname }) => {
         <title>{title || 'AStory'}</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <link rel='stylesheet' href='https://necolas.github.io/normalize.css/7.0.0/normalize.css' />
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css' />
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css' />
+        <link rel='stylesheet' href='https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css' />
+        <link rel='stylesheet' href='https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css' />
         <link rel='stylesheet' href='//cdn.quilljs.com/1.2.6/quill.snow.css' />
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js' />
+        <script src='https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js' />
         <link rel='stylesheet' href='/static/css/index.css' />
         <script src='https://res.wx.qq.com/open/js/jweixin-1.2.0.js' />
       </Head>
