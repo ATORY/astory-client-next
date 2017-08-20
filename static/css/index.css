@@ -516,6 +516,7 @@ article .author-intro > div .user-intro {
   font-size: 26px;
   color: gray;
   left: 0;
+  bottom: 5px;
 }
 
 .login-form input {
@@ -523,7 +524,7 @@ article .author-intro > div .user-intro {
   outline: none;
   width: 100%;
   border-bottom: 1px solid lightgray;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 22px;
   padding: 2px;
   padding-left: 35px;
@@ -559,11 +560,18 @@ article .author-intro > div .user-intro {
   visibility: hidden;
   margin: 0;
   padding: 0;
+  height: 15px;
+  font-size: 13px;
 }
 
 .login-form .tint {
   color: gray;
   font-size: 13px;
+}
+
+.login-form .tint a {
+  float: right;
+  color: initial;
 }
 
 .login .close,

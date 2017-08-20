@@ -3,6 +3,7 @@ import { hidenLoginMask, showLoginMask,
 } from './loginMask';
 import { showAuthorIntro, hideAuthorInfo } from './authorIntro';
 import wechatAPI from './wechatAPI';
+import { submitEmailAPI, submitNewPWDAPI } from './pwdChange';
 
 export {
   showShareMask,
@@ -12,4 +13,6 @@ export {
   showAuthorIntro,
   hideAuthorInfo,
   wechatAPI,
+  submitEmailAPI,
+  submitNewPWDAPI,
 };

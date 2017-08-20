@@ -6,6 +6,7 @@ export const userLoginMutation = gql`
       _id
       email
       userAvatar
+      msg
     }
   }
 `;
