@@ -572,6 +572,7 @@ article .author-intro > div .user-intro {
 .login-form .tint a {
   float: right;
   color: initial;
+  cursor: pointer;
 }
 
 .login .close,
