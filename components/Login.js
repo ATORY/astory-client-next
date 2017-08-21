@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import Router from 'next/router';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
@@ -59,6 +58,15 @@ class Login extends React.Component {
     this.loginRequest();
   }
 
+  findBackPWD = (evt) => {
+    evt.persist();
+    evt.preventDefault();
+    evt.stopPropagation();
+    const backUrl = location.href;
+    document.cookie = `backUrl=${backUrl}`;
+    Router.push('/findpwd');
+  }
+
   render() {
     // const { url } = this.props;
     const { email, password, err, redPWD, redEmail } = this.state;
@@ -101,9 +109,12 @@ class Login extends React.Component {
             </div>
             <div className='tint'>
               提示：使用email可直接登录
-              <Link href='/findpwd'><a>找回密码?</a></Link>
+              <a
+                onClick={this.findBackPWD}
+                role='button'
+                tabIndex='0'
+              >找回密码?</a>
             </div>
-
           </form>
         </div>
       </div>
