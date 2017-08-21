@@ -61,7 +61,7 @@ class ArticleAside extends ArticleAttach {
 
   render() {
     const { position, top, opacity } = this.state;
-    const { collectNumber, collect, mark } = this.props;
+    const { collectNumber, collect, mark, _id } = this.props;
     const collectStatus = collect ? 'favorite_' : 'favorite_border';
     const markStatus = mark ? 'bookmark' : 'bookmark_border';
     return (
@@ -83,6 +83,12 @@ class ArticleAside extends ArticleAttach {
             onClick={this.share}
             role='presentation'
           >share</i>
+          <a href={`/pdf/${_id}`} target='_blank'>
+            <i
+              className='material-icons'
+              role='presentation'
+            >picture_as_pdf</i>
+          </a>
         </div>
       </div>
     );

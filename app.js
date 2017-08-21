@@ -7,6 +7,7 @@ const request = require('request');
 
 const SERVER_CONFIG = config.get('server');
 const wechatHost = config.get('wechat.host');
+const apiServer = config.get('apiServer');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -14,6 +15,7 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
   server.use(compression());
+
   server.get('/article/:articleId', (req, res) => {
     const actualPage = '/article';
     const queryParams = { articleId: req.params.articleId };
@@ -58,6 +60,10 @@ app.prepare().then(() => {
       req.pipe(request(`${wechatHost}${req.url}`).on('error', (err) => {
         res.end(err.toString());
       })).pipe(res);
+      return;
+    }
+    if (req.url.startsWith('/pdf')) {
+      request(`${apiServer}${req.url}`).pipe(res);
       return;
     }
     handle(req, res);

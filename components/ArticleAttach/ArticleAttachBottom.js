@@ -7,7 +7,7 @@ import ArticleAttach from './Base';
 
 class ArticleAttachBottom extends ArticleAttach {
   render() {
-    const { collectNumber, collect, mark } = this.props;
+    const { collectNumber, collect, mark, _id } = this.props;
     const collectStatus = collect ? 'favorite_' : 'favorite_border';
     const markStatus = mark ? 'bookmark' : 'bookmark_border';
     return (
@@ -28,6 +28,12 @@ class ArticleAttachBottom extends ArticleAttach {
           onClick={this.share}
           role='presentation'
         >share</i>
+        <a href={`/pdf/${_id}`} target='_blank'>
+          <i
+            className='material-icons'
+            role='presentation'
+          >picture_as_pdf</i>
+        </a>
       </div>
     );
   }
