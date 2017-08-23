@@ -1,12 +1,23 @@
 import React from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill }  from 'react-quill';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic';
 
 import profileAPI from '../../utils/profileUpload';
 import { newArticleMutation } from '../../graphql/mutations';
 import CustomToolbar from './CustomToolbar';
 
+// const ImageResize = dynamic(
+//   import('quill-image-resize-module'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+import ImageResize from './ImageResize';
+
+Quill.register('modules/imageResize', ImageResize);
 
 class Writer extends React.Component {
   static propTypes = {
@@ -41,6 +52,13 @@ class Writer extends React.Component {
         // ['code-block'],
         // [{ 'color': [] }, { 'background': [] }],
       },
+      // imageResize: {
+      //   modules: ['Resize', 'DisplaySize', 'Toolbar'],
+      // },
+      imageResize: {
+        // modules: ['Resize', 'DisplaySize', 'Toolbar'],
+        displaySize: true
+      }
     };
 
     this.formats = [
