@@ -4,6 +4,8 @@ const winston = require('winston');
 const config = require('config');
 const compression = require('compression');
 const request = require('request');
+const Prometheus = require('prom-client');
+const PrometheusGCStats = require('prometheus-gc-stats');
 
 const SERVER_CONFIG = config.get('server');
 const wechatHost = config.get('wechat.host');
@@ -11,6 +13,19 @@ const apiServer = config.get('apiServer');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
+/**
+ * monitor
+ */
+const collectDefaultMetrics = Prometheus.collectDefaultMetrics;
+const Registry = Prometheus.Registry;
+const register = new Registry();
+const defaultLabels = { serviceName: 'astory-client' };
+register.setDefaultLabels(defaultLabels);
+
+collectDefaultMetrics({ register });
+PrometheusGCStats(register)();
+/** monitor up */
 
 app.prepare().then(() => {
   const server = express();
@@ -64,6 +79,11 @@ app.prepare().then(() => {
     }
     if (req.url.startsWith('/pdf')) {
       request(`${apiServer}${req.url}`).pipe(res);
+      return;
+    }
+    if (req.url.startsWith('/metrics')) {
+      res.append('Content-Type', Prometheus.register.contentType);
+      res.send(register.metrics());
       return;
     }
     handle(req, res);
