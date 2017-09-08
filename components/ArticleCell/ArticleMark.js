@@ -30,9 +30,10 @@ class ArticleMark extends React.Component {
       query: authQuery,
     }).then(({ data: { user } }) => {
       if (!user._id) {
-        return showLoginMask();
+        showLoginMask();
+        return;
       }
-      return mutate({
+      mutate({
         variables: { articleId, mark: !mark },
         optimisticResponse: {
           __typename: 'Mutation',
@@ -46,7 +47,7 @@ class ArticleMark extends React.Component {
         },
       }).then(({ data: { markArticle } }) => {
         this.setState({ mark: markArticle.mark });
-      });
+      }).catch(err => console.log(err));
     }).catch(err => console.log(err));
   }
 
