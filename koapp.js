@@ -43,6 +43,15 @@ app.prepare().then(() => {
   const router = new Router();
   // server.use(compression());
 
+  server.use(async (ctx, n) => {
+    ctx.res.statusCode = 200;
+    const start = Date.now();
+    await n();
+    const end = Date.now();
+    const responseTimeInMs = end - start;
+    httpRequestDurationMicroseconds.labels(ctx.path).observe(responseTimeInMs);
+  });
+
   router.get('/article/:articleId', async (ctx) => {
     const actualPage = '/article';
     const queryParams = { articleId: ctx.params.articleId };
@@ -90,24 +99,20 @@ app.prepare().then(() => {
   router.get(/\/pdf\/\*/, (ctx) => {
     ctx.body = request(`${apiServer}${ctx.req.url}`);
   });
-  router.get(/\/metrics\*/, (ctx) => {
+  router.get(/\/metrics*/, (ctx) => {
     ctx.set('Content-Type', Prometheus.register.contentType);
     ctx.body = register.metrics();
   });
-  router.get('*', async (ctx) => {
-    await handle(ctx.req, ctx.res);
-    ctx.respond = false;
+  router.get('*', async (ctx, n) => {
+    if (/\/metrics*/.test(ctx.path)) {
+      await n();
+    } else {
+      await handle(ctx.req, ctx.res);
+      ctx.respond = false;
+    }
   });
 
-  server.use(async (ctx, n) => {
-    ctx.res.statusCode = 200;
-    const start = Date.now();
-    await n();
-    const end = Date.now();
-    const responseTimeInMs = end - start;
-    httpRequestDurationMicroseconds.labels(ctx.path).observe(responseTimeInMs);
-  });
-  server.use(router.routes());
+  server.use(router.routes()).use(router.allowedMethods());
   server.listen(SERVER_CONFIG.PORT, (err) => {
     if (err) throw err;
     winston.info(`> ${process.env.NODE_ENV}, server start at ${SERVER_CONFIG.PORT}`);

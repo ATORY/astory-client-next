@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=develop node app",
+    "dev": "NODE_ENV=develop node koapp",
     "build": "NODE_ENV=production next build",
-    "start": "NODE_ENV=production node app",
+    "start": "NODE_ENV=production node koapp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
