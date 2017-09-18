@@ -93,10 +93,10 @@ app.prepare().then(() => {
     ctx.respond = false;
   });
 
-  router.get(/\/wechat\/\*|\/weixincheck\/\*|\/MP_verify_B0Jt7DliJKfFC38K.txt/, (ctx) => {
+  router.get(/\/wechat\/*|\/weixincheck\/*|\/MP_verify_B0Jt7DliJKfFC38K.txt/, (ctx) => {
     ctx.body = ctx.req.pipe(request(`${wechatHost}${ctx.req.url}`));
   });
-  router.get(/\/pdf\/\*/, (ctx) => {
+  router.get(/\/pdf\/*/, (ctx) => {
     ctx.body = request(`${apiServer}${ctx.req.url}`);
   });
   router.get(/\/metrics*/, (ctx) => {
@@ -104,7 +104,7 @@ app.prepare().then(() => {
     ctx.body = register.metrics();
   });
   router.get('*', async (ctx, n) => {
-    if (/\/metrics*/.test(ctx.path)) {
+    if (/\/metrics*|\/pdf\/*|\/wechat\/*|\/weixincheck\/*|\/MP_verify_B0Jt7DliJKfFC38K.txt/.test(ctx.path)) {
       await n();
     } else {
       await handle(ctx.req, ctx.res);
