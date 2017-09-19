@@ -10,6 +10,7 @@
         "location": true
     },
     "rules": {
+        "react/no-did-mount-set-state": 0,
         "react/forbid-prop-types": [1, { "forbid": ["any"] }],
         "react/jsx-quotes": 0,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
