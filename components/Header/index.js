@@ -40,6 +40,7 @@ const Header = ({ title, children, data, pathname }) => {
         <link rel='stylesheet' href='/static/css/index.css' />
         <link rel='stylesheet' href='/static/css/draft.css' />
         <link rel='stylesheet' href='/static/css/richeditor.css' />
+        <link rel='stylesheet' href='/static/css/prism-okaidia.css' />
         <script src='https://res.wx.qq.com/open/js/jweixin-1.2.0.js' />
       </Head>
       <LoginWithMutation pathname={pathname} />

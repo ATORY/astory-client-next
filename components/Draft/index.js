@@ -1,11 +1,31 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
-// import PropTypes from 'prop-types';
-import { Editor, EditorState, RichUtils, Modifier } from 'draft-js';
+import { Editor, EditorState, RichUtils, Modifier, convertFromRaw } from 'draft-js';
+
 
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 import ColorControls, { colorStyleMap } from './ColorControls';
+import PrismDecorator from './PrismDraftDecorator';
+
+
+// console.log('decorator', decorator);
+const contentStateP = convertFromRaw({
+  entityMap: {},
+  blocks: [
+    {
+      type: 'header-one',
+      text: 'Demo for draft-js-prism',
+    },
+    {
+      type: 'unstyled',
+      text: 'Type some JavaScript below:',
+    },
+    {
+      type: 'code-block',
+      text: 'var message = "This is awesome!";',
+    },
+  ],
+});
 
 function getBlockStyle(block) {
   switch (block.getType()) {
@@ -16,7 +36,7 @@ function getBlockStyle(block) {
 
 const styleMap = {
   CODE: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(29, 31, 33, 1.00)',
     fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
     fontSize: 16,
     padding: 2,
@@ -28,8 +48,9 @@ class DraftEditor extends React.Component {
   constructor(props) {
     super(props);
     this.editor = null;
+    const decorator = new PrismDecorator();
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editorState: EditorState.createWithContent(contentStateP, decorator),
       editor: false,
     };
   }
@@ -43,6 +64,11 @@ class DraftEditor extends React.Component {
     if (this.editor) {
       this.editor.focus();
     }
+  }
+
+  onTab = (e) => {
+    const maxDepth = 4;
+    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
   }
 
   onChange = (editorState) => {

@@ -42,51 +42,82 @@ export const colorStyleMap = {
   },
 };
 
-const ColorControls = (props) => {
-  const currentStyle = props.editorState.getCurrentInlineStyle();
-  // console.log('currentStyle', currentStyle, currentStyle.first());
-  const style = {
-    color: currentStyle.first() || 'black',
-    cursor: 'pointer',
+class ColorControls extends React.Component {
+  static propTypes = {
+    onToggle: PropTypes.func.isRequired,
+    editorState: PropTypes.object.isRequired,
   };
-  return (
-    <div
-      className='RichEditor-controls'
-      style={{
-        position: 'relative',
-      }}
-    >
-      <i role='presentation' className='material-icons' style={style}>
-        format_color_text
-      </i>
+  constructor(props) {
+    super(props);
+    this.timer = null;
+    this.state = {
+      showColors: false,
+    };
+  }
+  selectColor = () => {
+    this.setState({
+      showColors: !this.state.showColors,
+    });
+  }
+  render() {
+    const currentStyle = this.props.editorState.getCurrentInlineStyle();
+    // console.log('currentStyle', currentStyle, currentStyle.first());
+    const style = {
+      color: currentStyle.first() || 'black',
+      cursor: 'pointer',
+    };
+    return (
       <div
-        role='presentation'
-        className='colorblockcontainer'
-        onClick={() => {
-          console.log('click');
+        className='RichEditor-controls'
+        style={{
+          position: 'relative',
         }}
       >
-        {
-          COLORS.map(type => (
-            <StyleButton
-              key={type.label}
-              active={currentStyle.has(type.style)}
-              label={type.label}
-              onToggle={props.onToggle}
-              style={type.style}
-              material={type.material}
-              color={type.style}
-            />
-          ))
-        }
+        <i
+          role='presentation'
+          className='material-icons'
+          style={style}
+          onClick={this.selectColor}
+        >format_color_text</i>
+        <div
+          role='presentation'
+          className='colorblockcontainer'
+          style={{
+            display: this.state.showColors ? 'block' : 'none',
+          }}
+          onClick={() => {
+            this.setState({ showColors: false });
+          }}
+          onMouseLeave={() => {
+            this.timer = setTimeout(() => {
+              this.setState({ showColors: false });
+              this.timer = null;
+            }, 2000);
+          }}
+          onMouseEnter={() => {
+            if (this.timer) {
+              clearTimeout(this.timer);
+            }
+            this.setState({ showColors: true });
+          }}
+        >
+          {
+            COLORS.map(type => (
+              <StyleButton
+                key={type.label}
+                active={currentStyle.has(type.style)}
+                label={type.label}
+                onToggle={this.props.onToggle}
+                style={type.style}
+                material={type.material}
+                color={type.style}
+              />
+            ))
+          }
+        </div>
       </div>
-    </div>
-  );
-};
-
-ColorControls.propTypes = {
-  onToggle: PropTypes.func.isRequired,
-  editorState: PropTypes.object.isRequired,
-};
+    );
+  }
+}
 
 export default ColorControls;
