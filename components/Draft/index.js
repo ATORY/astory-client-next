@@ -36,7 +36,8 @@ function getBlockStyle(block) {
 
 const styleMap = {
   CODE: {
-    backgroundColor: 'rgba(29, 31, 33, 1.00)',
+    // backgroundColor: 'rgba(29, 31, 33, 1.00)',
+    backgroundColor: '#272822',
     fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
     fontSize: 16,
     padding: 2,

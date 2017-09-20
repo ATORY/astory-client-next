@@ -28,9 +28,9 @@ class PrismDraftDecorator {
     if (blockType !== 'code-block') {
       return List(decorations);
     }
-    console.log(blockText);
+    // console.log(blockText);
     const tokens = Prism.tokenize(blockText, this.grammar);
-    console.log(tokens);
+    // console.log(tokens);
     let offset = 0;
     tokens.forEach((tok) => {
       if (typeof tok === 'string') {
