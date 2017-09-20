@@ -657,7 +657,8 @@ article .author-intro > div .user-intro {
 }
 
 .write {
-  margin: 50px auto;
+  margin: 0px auto;
+  margin-bottom: 50px;
   max-width: 1000px;
 }
 

@@ -1,20 +1,16 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
-import { Editor, EditorState } from 'draft-js';
+import PropTypes from 'prop-types';
+
+import Header from '../components/Header';
+import withData from '../lib/withData';
+import Draft from '../components/Draft';
 
 class MyEditor extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editorState: EditorState.createEmpty(),
-      editor: false,
-    };
-    // this.onChange = (editorState) => this.setState({editorState});
-  }
-  componentDidMount() {
-    this.setState({
-      editor: true,
-    });
+  static propTypes = {
+    url: PropTypes.shape({
+      pathname: PropTypes.string,
+    }).isRequired,
   }
   onChange = (editorState) => {
     this.setState({
@@ -22,19 +18,18 @@ class MyEditor extends React.Component {
     });
   }
   render() {
+    const { url } = this.props;
     return (
       <div>
-        {
-          this.state.editor ?
-            <Editor
-              editorState={this.state.editorState}
-              onChange={this.onChange}
-            /> :
-            null
-        }
+        <div className='header-shadow' />
+        <Header pathname={url.pathname} title='writer' />
+        <div className='write write-wrapper'>
+          <Draft />
+        </div>
       </div>
     );
   }
 }
 
-export default MyEditor;
+// export default MyEditor;
+export default withData(MyEditor);
