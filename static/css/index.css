@@ -113,7 +113,8 @@ header .signs > div, header .user-head > div {
 }
 
 header div.user-head-info {
-  width: 150px;
+  /* width: 150px; */
+  margin-left: 20px;
   text-align: right;
 }
 
