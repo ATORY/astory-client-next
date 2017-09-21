@@ -51,14 +51,14 @@ const webpack = require('webpack');
 //   }]
 // }
 
-module.exports = {
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.css$/,
-      loaders: [
-        'style', 'css',
-      ],
-    });
-    return config;
-  },
-};
+// module.exports = {
+//   webpack: (config) => {
+//     config.module.rules.push({
+//       test: /plugin\.css$/,
+//       loaders: [
+//         'style-loader', 'css-loader',
+//       ],
+//     });
+//     return config;
+//   },
+// };

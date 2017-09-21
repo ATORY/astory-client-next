@@ -1,40 +1,114 @@
 import React from 'react';
-import Editor from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
+import Editor, { composeDecorators } from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
 import createEmojiPlugin from 'draft-js-emoji-plugin';
+import createImagePlugin from 'draft-js-image-plugin';
+import createResizeablePlugin from 'draft-js-resizeable-plugin';
+import createAlignmentPlugin from 'draft-js-alignment-plugin';
+import createFocusPlugin from 'draft-js-focus-plugin';
 import {
   // Editor,
   EditorState, RichUtils, Modifier,
-  // convertFromRaw
+  convertFromRaw,
 } from 'draft-js';
-import 'draft-js-emoji-plugin/lib/plugin.css';
+// import 'draft-js-emoji-plugin/lib/plugin.css';
 
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 import ColorControls, { colorStyleMap } from './ColorControls';
 import PrismDecorator from './PrismDraftDecorator';
+import createColorBlockPlugin from './ColorBlockPlugin';
 
 
 // // console.log('decorator', decorator);
-// const contentStateP = convertFromRaw({
-//   entityMap: {},
-//   blocks: [
-//     {
-//       type: 'header-one',
-//       text: 'Demo for draft-js-prism',
-//     },
-//     {
-//       type: 'unstyled',
-//       text: 'Type some JavaScript below:',
-//     },
-//     {
-//       type: 'code-block',
-//       text: 'var message = "This is awesome!";',
-//     },
-//   ],
-// });
+const initialState = {
+  entityMap: {
+    0: {
+      type: 'colorBlock',
+      mutability: 'IMMUTABLE',
+      data: {},
+    },
+  },
+  blocks: [
+    {
+      type: 'header-one',
+      text: 'Demo for draft-js-prism',
+    },
+    {
+      type: 'unstyled',
+      text: 'Type some JavaScript below:',
+    },
+    {
+      "key": "ov7r",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [{
+          "offset": 0,
+          "length": 1,
+          "key": 0
+      }],
+      "data": {}
+    },
+    {
+      type: 'code-block',
+      text: 'var message = "This is awesome!";',
+    },
+  ],
+};
+// const initialState = {
+//   "entityMap": {
+//       "0": {
+//           "type": "colorBlock",
+//           "mutability": "IMMUTABLE",
+//           "data": {}
+//       }
+//   },
+//   "blocks": [{
+//       "key": "9gm3s",
+//       "text": "This is a simple example. Focus the block by clicking on it and change alignment via the toolbar.",
+//       "type": "unstyled",
+//       "depth": 0,
+//       "inlineStyleRanges": [],
+//       "entityRanges": [],
+//       "data": {}
+//   }, {
+//       "key": "ov7r",
+//       "text": " ",
+//       "type": "atomic",
+//       "depth": 0,
+//       "inlineStyleRanges": [],
+//       "entityRanges": [{
+//           "offset": 0,
+//           "length": 1,
+//           "key": 0
+//       }],
+//       "data": {}
+//   }, {
+//       "key": "e23a8",
+//       "text": "More text here to demonstrate how inline left/right alignment works …",
+//       "type": "unstyled",
+//       "depth": 0,
+//       "inlineStyleRanges": [],
+//       "entityRanges": [],
+//       "data": {}
+//   }]
+// };
 
 const emojiPlugin = createEmojiPlugin();
+const resizeablePlugin = createResizeablePlugin();
+const focusPlugin = createFocusPlugin();
+const alignmentPlugin = createAlignmentPlugin();
+const { AlignmentTool } = alignmentPlugin;
 const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
+const decorator = composeDecorators(
+  resizeablePlugin.decorator,
+  focusPlugin.decorator,
+  alignmentPlugin.decorator,
+);
+
+const colorBlockPlugin = createColorBlockPlugin({ decorator });
+const plugins = [focusPlugin, alignmentPlugin, resizeablePlugin, colorBlockPlugin, emojiPlugin];
 
 function getBlockStyle(block) {
   switch (block.getType()) {
@@ -58,9 +132,10 @@ class DraftEditor extends React.Component {
   constructor(props) {
     super(props);
     this.editor = null;
-    const decorator = new PrismDecorator();
+    const prismDecorator = new PrismDecorator();
     this.state = {
-      editorState: EditorState.createEmpty(decorator),
+      editorState: EditorState.createWithContent(convertFromRaw(initialState), prismDecorator),
+      // editorState: EditorState.createEmpty(prismDecorator),
       editor: false,
     };
   }
@@ -187,8 +262,9 @@ class DraftEditor extends React.Component {
                   placeholder='Tell a story...'
                   ref={(r) => { this.editor = r; }}
                   spellCheck
-                  plugins={[emojiPlugin]}
+                  plugins={plugins}
                 />
+                <AlignmentTool />
               </div>
             </div> :
             null
