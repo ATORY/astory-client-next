@@ -1,6 +1,12 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils, Modifier, convertFromRaw } from 'draft-js';
-
+import Editor from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
+import createEmojiPlugin from 'draft-js-emoji-plugin'; 
+import {
+  // Editor,
+  EditorState, RichUtils, Modifier,
+  // convertFromRaw
+} from 'draft-js';
+import 'draft-js-emoji-plugin/lib/plugin.css'
 
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
@@ -8,24 +14,27 @@ import ColorControls, { colorStyleMap } from './ColorControls';
 import PrismDecorator from './PrismDraftDecorator';
 
 
-// console.log('decorator', decorator);
-const contentStateP = convertFromRaw({
-  entityMap: {},
-  blocks: [
-    {
-      type: 'header-one',
-      text: 'Demo for draft-js-prism',
-    },
-    {
-      type: 'unstyled',
-      text: 'Type some JavaScript below:',
-    },
-    {
-      type: 'code-block',
-      text: 'var message = "This is awesome!";',
-    },
-  ],
-});
+// // console.log('decorator', decorator);
+// const contentStateP = convertFromRaw({
+//   entityMap: {},
+//   blocks: [
+//     {
+//       type: 'header-one',
+//       text: 'Demo for draft-js-prism',
+//     },
+//     {
+//       type: 'unstyled',
+//       text: 'Type some JavaScript below:',
+//     },
+//     {
+//       type: 'code-block',
+//       text: 'var message = "This is awesome!";',
+//     },
+//   ],
+// });
+
+const emojiPlugin = createEmojiPlugin();
+const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
 
 function getBlockStyle(block) {
   switch (block.getType()) {
@@ -51,7 +60,7 @@ class DraftEditor extends React.Component {
     this.editor = null;
     const decorator = new PrismDecorator();
     this.state = {
-      editorState: EditorState.createWithContent(contentStateP, decorator),
+      editorState: EditorState.createEmpty(decorator),
       editor: false,
     };
   }
@@ -151,18 +160,22 @@ class DraftEditor extends React.Component {
         {
           this.state.editor ?
             <div className='RichEditor-root'>
-              <BlockStyleControls
-                editorState={editorState}
-                onToggle={this.toggleBlockType}
-              />
-              <InlineStyleControls
-                editorState={editorState}
-                onToggle={this.toggleInlineStyle}
-              />
-              <ColorControls
-                editorState={editorState}
-                onToggle={this.toggleColor}
-              />
+              <div className='RichEditor-controls-container'>
+                <BlockStyleControls
+                  editorState={editorState}
+                  onToggle={this.toggleBlockType}
+                />
+                <InlineStyleControls
+                  editorState={editorState}
+                  onToggle={this.toggleInlineStyle}
+                />
+                <ColorControls
+                  editorState={editorState}
+                  onToggle={this.toggleColor}
+                />
+                <EmojiSuggestions />
+                <EmojiSelect />
+              </div>
               <div role='presentation' className={className} onClick={this.focus}>
                 <Editor
                   blockStyleFn={getBlockStyle}
@@ -174,6 +187,7 @@ class DraftEditor extends React.Component {
                   placeholder='Tell a story...'
                   ref={(r) => { this.editor = r; }}
                   spellCheck
+                  plugins={[emojiPlugin]}
                 />
               </div>
             </div> :

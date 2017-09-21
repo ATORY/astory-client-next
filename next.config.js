@@ -41,3 +41,24 @@
 // // plugins: [
   
 // // ]
+
+// module: {
+//   loaders: [{
+//     test: /\.css$/,
+//     loaders: [
+//       'style', 'css'
+//     ]
+//   }]
+// }
+
+module.exports = {
+  webpack: (config) => {
+    config.module.loaders.push({
+      test: /\.css$/,
+      loaders: [
+        'style', 'css',
+      ],
+    });
+    return config;
+  },
+};

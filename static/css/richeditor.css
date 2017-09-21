@@ -7,10 +7,23 @@
 }
 
 .RichEditor-editor {
-  border-top: 1px solid #ddd;
+  /* border-top: 1px solid #ddd; */
   cursor: text;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 45px;
+}
+.RichEditor-controls-container {
+  position: fixed;
+  max-width: 970px;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  z-index: 100;
+}
+.RichEditor-controls-container::after {
+  display: table;
+  clear: both;
+  content: '';
 }
 
 .RichEditor-editor .public-DraftEditorPlaceholder-root,
