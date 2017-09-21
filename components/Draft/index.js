@@ -1,12 +1,12 @@
 import React from 'react';
 import Editor from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
-import createEmojiPlugin from 'draft-js-emoji-plugin'; 
+import createEmojiPlugin from 'draft-js-emoji-plugin';
 import {
   // Editor,
   EditorState, RichUtils, Modifier,
   // convertFromRaw
 } from 'draft-js';
-import 'draft-js-emoji-plugin/lib/plugin.css'
+import 'draft-js-emoji-plugin/lib/plugin.css';
 
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';

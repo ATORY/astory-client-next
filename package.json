@@ -16,6 +16,7 @@
     "compression": "^1.7.0",
     "config": "^1.26.1",
     "draft-js": "^0.10.2",
+    "draft-js-emoji-plugin": "^2.0.0-rc7",
     "draft-js-plugins-editor": "^2.0.0-rc7",
     "draft-js-prism": "^1.0.3",
     "express": "^4.15.3",

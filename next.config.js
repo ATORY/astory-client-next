@@ -1,4 +1,4 @@
-// const webpack = require('webpack');
+const webpack = require('webpack');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 // const { ANALYZE } = process.env
 
@@ -53,7 +53,7 @@
 
 module.exports = {
   webpack: (config) => {
-    config.module.loaders.push({
+    config.module.rules.push({
       test: /\.css$/,
       loaders: [
         'style', 'css',
