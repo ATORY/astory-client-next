@@ -17,6 +17,7 @@ import InlineStyleControls from './InlineStyleControls';
 import ColorControls, { colorStyleMap } from './ColorControls';
 import PrismDecorator from './PrismDraftDecorator';
 import createColorBlockPlugin from './ColorBlockPlugin';
+import ImageAdd from './ImageAdd';
 
 
 // // console.log('decorator', decorator);
@@ -106,9 +107,13 @@ const decorator = composeDecorators(
   focusPlugin.decorator,
   alignmentPlugin.decorator,
 );
+const imagePlugin = createImagePlugin({ decorator });
 
 const colorBlockPlugin = createColorBlockPlugin({ decorator });
-const plugins = [focusPlugin, alignmentPlugin, resizeablePlugin, colorBlockPlugin, emojiPlugin];
+const plugins = [
+  focusPlugin, alignmentPlugin, resizeablePlugin,
+  colorBlockPlugin, emojiPlugin, imagePlugin,
+];
 
 function getBlockStyle(block) {
   switch (block.getType()) {
@@ -250,6 +255,11 @@ class DraftEditor extends React.Component {
                 />
                 <EmojiSuggestions />
                 <EmojiSelect />
+                <ImageAdd
+                  editorState={this.state.editorState}
+                  onChange={this.onChange}
+                  modifier={imagePlugin.addImage}
+                />
               </div>
               <div role='presentation' className={className} onClick={this.focus}>
                 <Editor

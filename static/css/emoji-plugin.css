@@ -3,25 +3,28 @@
   .draftJsEmojiPlugin__emojiSelectButton__1hHuM, .draftJsEmojiPlugin__emojiSelectButtonPressed__3sOeC {
     margin: 0;
     padding: 0;
-    width: 2.5em;
-    height: 1.5em;
+    /* width: 2.5em; */
+    height: 1.2em;
     box-sizing: border-box;
     line-height: 1.2em;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #888;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 1.5em;
+    /* border: 1px solid #ddd; */
+    /* border-radius: 1.5em; */
     cursor: pointer; }
     .draftJsEmojiPlugin__emojiSelectButton__1hHuM:focus, .draftJsEmojiPlugin__emojiSelectButtonPressed__3sOeC:focus {
       outline: 0;
       /* reset for :focus */ }
-    .draftJsEmojiPlugin__emojiSelectButton__1hHuM:hover, .draftJsEmojiPlugin__emojiSelectButtonPressed__3sOeC:hover {
-      background: #f3f3f3; }
+    /* .draftJsEmojiPlugin__emojiSelectButton__1hHuM:hover, .draftJsEmojiPlugin__emojiSelectButtonPressed__3sOeC:hover {
+      background: #f3f3f3; 
+    }
     .draftJsEmojiPlugin__emojiSelectButton__1hHuM:active, .draftJsEmojiPlugin__emojiSelectButtonPressed__3sOeC:active {
-      background: #e6e6e6; }
+      background: #e6e6e6; 
+    }
     .draftJsEmojiPlugin__emojiSelectButtonPressed__3sOeC {
-      background: #ededed; }
+      background: #ededed; 
+    } */
   .draftJsEmojiPlugin__emojiSelectPopover__3rwHu {
     margin-top: 10px;
     padding: 0 .3em;

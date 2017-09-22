@@ -36,7 +36,7 @@ const Header = ({ title, children, data, pathname }) => {
         <title>{title || 'AStory'}</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         {/* <link rel='stylesheet' href='https://necolas.github.io/normalize.css/7.0.0/normalize.css' /> */}
-        <link rel='stylesheet' href='https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css' />
+        <link rel='stylesheet' href='/static/css/material-icons.css' />
         <link rel='stylesheet' href='/static/css/index.css' />
         <link rel='stylesheet' href='/static/css/draft.css' />
         <link rel='stylesheet' href='/static/css/richeditor.css' />
@@ -44,6 +44,7 @@ const Header = ({ title, children, data, pathname }) => {
         <link rel='stylesheet' href='/static/css/emoji-plugin.css' />
         <link rel='stylesheet' href='/static/css/focus-plugin.css' />
         <link rel='stylesheet' href='/static/css/alignment-plugin.css' />
+        <link rel='stylesheet' href='/static/css/image-plugin.css' />
         <script src='https://res.wx.qq.com/open/js/jweixin-1.2.0.js' />
       </Head>
       <LoginWithMutation pathname={pathname} />
