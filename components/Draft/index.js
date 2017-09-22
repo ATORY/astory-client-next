@@ -65,11 +65,12 @@ class DraftEditor extends React.Component {
   constructor(props) {
     super(props);
     this.editor = null;
+    this.titleFocus = false;
     this.state = {
       banner: '',
       title: '',
-      editorState: EditorState.createWithContent(convertFromRaw(initialState), prismDecorator),
-      // editorState: EditorState.createEmpty(prismDecorator),
+      // editorState: EditorState.createWithContent(convertFromRaw(initialState), prismDecorator),
+      editorState: EditorState.createEmpty(prismDecorator),
       editor: false,
     };
   }
@@ -78,6 +79,11 @@ class DraftEditor extends React.Component {
     this.setState({
       editor: true,
     });
+  }
+
+  componentDidUpdate() {
+    if (this.titleFocus) return;
+    if (this.editor) this.editor.focus();
   }
 
   onTab = (e) => {
@@ -256,7 +262,7 @@ class DraftEditor extends React.Component {
                   }
                   
                 </div>
-                <div className='title-container'>
+                <div className='title-container' onClick={() => this.titleFocus = true}>
                   <input
                     type="text"
                     placeholder='标题'
@@ -266,19 +272,21 @@ class DraftEditor extends React.Component {
                     })}
                   />
                 </div>
-                <Editor
-                  blockStyleFn={getBlockStyle}
-                  customStyleMap={styleMap}
-                  editorState={editorState}
-                  handleKeyCommand={this.handleKeyCommand}
-                  onChange={this.onChange}
-                  onTab={this.onTab}
-                  placeholder='正文。。。'
-                  ref={(r) => { this.editor = r; }}
-                  spellCheck
-                  plugins={plugins}
-                />
-                <AlignmentTool />
+                <div onClick={() => this.titleFocus = false}>
+                  <Editor
+                    blockStyleFn={getBlockStyle}
+                    customStyleMap={styleMap}
+                    editorState={editorState}
+                    handleKeyCommand={this.handleKeyCommand}
+                    onChange={this.onChange}
+                    onTab={this.onTab}
+                    placeholder='正文。。。'
+                    ref={(r) => { this.editor = r; }}
+                    spellCheck
+                    plugins={plugins}
+                  />
+                  <AlignmentTool />
+                </div>
               </div>
             </div> :
             null
