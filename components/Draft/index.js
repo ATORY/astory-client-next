@@ -5,10 +5,12 @@ import createImagePlugin from 'draft-js-image-plugin';
 import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import createFocusPlugin from 'draft-js-focus-plugin';
+import { stateToHTML } from 'draft-js-export-html';
 import {
   // Editor,
   EditorState, RichUtils, Modifier,
   convertFromRaw,
+  convertToRaw,
 } from 'draft-js';
 // import 'draft-js-emoji-plugin/lib/plugin.css';
 
@@ -18,83 +20,6 @@ import ColorControls, { colorStyleMap } from './ColorControls';
 import PrismDecorator from './PrismDraftDecorator';
 import createColorBlockPlugin from './ColorBlockPlugin';
 import ImageAdd from './ImageAdd';
-
-
-// // console.log('decorator', decorator);
-const initialState = {
-  entityMap: {
-    0: {
-      type: 'colorBlock',
-      mutability: 'IMMUTABLE',
-      data: {},
-    },
-  },
-  blocks: [
-    {
-      type: 'header-one',
-      text: 'Demo for draft-js-prism',
-    },
-    {
-      type: 'unstyled',
-      text: 'Type some JavaScript below:',
-    },
-    {
-      "key": "ov7r",
-      "text": " ",
-      "type": "atomic",
-      "depth": 0,
-      "inlineStyleRanges": [],
-      "entityRanges": [{
-          "offset": 0,
-          "length": 1,
-          "key": 0
-      }],
-      "data": {}
-    },
-    {
-      type: 'code-block',
-      text: 'var message = "This is awesome!";',
-    },
-  ],
-};
-// const initialState = {
-//   "entityMap": {
-//       "0": {
-//           "type": "colorBlock",
-//           "mutability": "IMMUTABLE",
-//           "data": {}
-//       }
-//   },
-//   "blocks": [{
-//       "key": "9gm3s",
-//       "text": "This is a simple example. Focus the block by clicking on it and change alignment via the toolbar.",
-//       "type": "unstyled",
-//       "depth": 0,
-//       "inlineStyleRanges": [],
-//       "entityRanges": [],
-//       "data": {}
-//   }, {
-//       "key": "ov7r",
-//       "text": " ",
-//       "type": "atomic",
-//       "depth": 0,
-//       "inlineStyleRanges": [],
-//       "entityRanges": [{
-//           "offset": 0,
-//           "length": 1,
-//           "key": 0
-//       }],
-//       "data": {}
-//   }, {
-//       "key": "e23a8",
-//       "text": "More text here to demonstrate how inline left/right alignment works …",
-//       "type": "unstyled",
-//       "depth": 0,
-//       "inlineStyleRanges": [],
-//       "entityRanges": [],
-//       "data": {}
-//   }]
-// };
 
 const emojiPlugin = createEmojiPlugin();
 const resizeablePlugin = createResizeablePlugin();
@@ -114,6 +39,7 @@ const plugins = [
   focusPlugin, alignmentPlugin, resizeablePlugin,
   colorBlockPlugin, emojiPlugin, imagePlugin,
 ];
+const prismDecorator = new PrismDecorator();
 
 function getBlockStyle(block) {
   switch (block.getType()) {
@@ -137,10 +63,9 @@ class DraftEditor extends React.Component {
   constructor(props) {
     super(props);
     this.editor = null;
-    const prismDecorator = new PrismDecorator();
     this.state = {
-      editorState: EditorState.createWithContent(convertFromRaw(initialState), prismDecorator),
-      // editorState: EditorState.createEmpty(prismDecorator),
+      // editorState: EditorState.createWithContent(convertFromRaw(initialState), prismDecorator),
+      editorState: EditorState.createEmpty(prismDecorator),
       editor: false,
     };
   }
@@ -222,14 +147,23 @@ class DraftEditor extends React.Component {
     this.onChange(nextEditorState);
   }
 
+  saveToServer = () => {
+    const { editorState } = this.state;
+    const contentState = editorState.getCurrentContent();
+    // const html = stateToHTML(contentState);
+    // console.log(html);
+    // const html = convertToRaw(contentState);
+    // console.log(html);
+    // const state = convertFromRaw(html);
+    // this.setState({
+    //   editorState: EditorState.createWithContent(convertFromRaw(state), prismDecorator),
+    // });
+  }
+
   render() {
     const { editorState } = this.state;
-
-    // If the user changes block type before entering any text, we can
-    // either style the placeholder or hide it. Let's just hide it now.
-    let className = 'RichEditor-editor';
     const contentState = editorState.getCurrentContent();
-
+    let className = 'RichEditor-editor';
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
         className += ' RichEditor-hidePlaceholder';
@@ -249,17 +183,26 @@ class DraftEditor extends React.Component {
                   editorState={editorState}
                   onToggle={this.toggleInlineStyle}
                 />
+                <ImageAdd
+                  editorState={this.state.editorState}
+                  onChange={this.onChange}
+                  modifier={imagePlugin.addImage}
+                />
                 <ColorControls
                   editorState={editorState}
                   onToggle={this.toggleColor}
                 />
                 <EmojiSuggestions />
                 <EmojiSelect />
-                <ImageAdd
-                  editorState={this.state.editorState}
-                  onChange={this.onChange}
-                  modifier={imagePlugin.addImage}
-                />
+                <div>
+                  <button
+                    onClick={this.saveToServer}
+                    style={{
+                      width: 'inherit',
+                      float: 'right',
+                    }}
+                  >存草稿</button>
+                </div>
               </div>
               <div role='presentation' className={className} onClick={this.focus}>
                 <Editor

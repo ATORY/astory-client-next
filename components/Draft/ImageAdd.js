@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import profileAPI from '../../utils/profileUpload';
+
 export default class ImageAdd extends Component {
   static propTypes = {
     editorState: PropTypes.object.isRequired,
@@ -9,84 +11,53 @@ export default class ImageAdd extends Component {
   }
   constructor(props) {
     super(props);
-    this.state = {
-      url: 'https://imgs.atory.cc/599a826076bd800761359d45/85b4ffa6e628da2b52afd9dd072326ce.png',
-      open: false,
-    };
+    this.fileInput = null;
   }
 
-  // When the popover is open and users click anywhere on the page,
-  // the popover should close
-  componentDidMount() {
-    document.addEventListener('click', this.closePopover);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.closePopover);
-  }
-
-  // Note: make sure whenever a click happens within the popover it is not closed
-  onPopoverClick = () => {
-    this.preventNextClose = true;
-  }
-
-  openPopover = () => {
-    if (!this.state.open) {
-      this.preventNextClose = true;
-      this.setState({
-        open: true,
-      });
-    }
-  };
-
-  closePopover = () => {
-    if (!this.preventNextClose && this.state.open) {
-      this.setState({
-        open: false,
-      });
-    }
-
-    this.preventNextClose = false;
-  };
-
-  addImage = () => {
+  addImage = (url) => {
     const { editorState, onChange } = this.props;
-    onChange(this.props.modifier(editorState, this.state.url));
+    onChange(this.props.modifier(editorState, url));
   };
 
-  changeUrl = (evt) => {
-    this.setState({ url: evt.target.value });
+  uploadImage = (evt) => {
+    const files = evt.target.files;
+    const filesLen = files.length;
+    for (let i = 0; i < filesLen; i += 1) {
+      const fileItem = files[i];
+      const formData = new FormData();
+      formData.append('file', fileItem);
+      profileAPI(formData).then((res) => {
+        if (res.status >= 400) throw new Error(`${res.status}`);
+        return res.json();
+      }).then((fileObj) => {
+        const fileUrl = fileObj.fileURL;
+        this.addImage(fileUrl);
+        this.fileInput.value = '';
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   }
 
   render() {
-    const popoverClassName = this.state.open ? 'addImagePopover' : 'addImageClosedPopover';
-    const buttonClassName = this.state.open ? 'addImagePressedButton' : 'addImageButton';
-
     return (
-      <div className='addImage'>
-        <button
-          className={buttonClassName}
-          onMouseUp={this.openPopover}
-          type='button'
-        >
-          +
-        </button>
-        <div role='presentation' className={popoverClassName} onClick={this.onPopoverClick} >
-          <input
-            type='text'
-            placeholder='Paste the image url …'
-            className='addImageInput'
-            onChange={this.changeUrl}
-            value={this.state.url}
-          />
-          <button
-            className='addImageConfirmButton'
-            type='button'
-            onClick={this.addImage}
-          >
-            Add
-          </button>
-        </div>
+      <div className='addImage RichEditor-controls'>
+        <input
+          id='uploadfile'
+          type='file'
+          hidden
+          ref={(fileInput) => { this.fileInput = fileInput; }}
+          onChange={this.uploadImage}
+        />
+        <label htmlFor='uploadfile'>
+          <i
+            role='presentation'
+            className='material-icons'
+            style={{
+              cursor: 'pointer',
+            }}
+          >photo</i>
+        </label>
       </div>
     );
   }

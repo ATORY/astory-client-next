@@ -18,6 +18,7 @@
     "draft-js": "^0.10.2",
     "draft-js-alignment-plugin": "^2.0.0-rc7",
     "draft-js-emoji-plugin": "^2.0.0-rc7",
+    "draft-js-export-html": "^1.2.0",
     "draft-js-focus-plugin": "^2.0.0-rc7",
     "draft-js-image-plugin": "^2.0.0-rc7",
     "draft-js-plugins-editor": "^2.0.0-rc7",
