@@ -5,7 +5,6 @@ import createImagePlugin from 'draft-js-image-plugin';
 import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import createFocusPlugin from 'draft-js-focus-plugin';
-import { stateToHTML } from 'draft-js-export-html';
 import {
   // Editor,
   EditorState, RichUtils, Modifier,
@@ -20,6 +19,7 @@ import ColorControls, { colorStyleMap } from './ColorControls';
 import PrismDecorator from './PrismDraftDecorator';
 import createColorBlockPlugin from './ColorBlockPlugin';
 import ImageAdd from './ImageAdd';
+import profileAPI from '../../utils/profileUpload';
 
 const emojiPlugin = createEmojiPlugin();
 const resizeablePlugin = createResizeablePlugin();
@@ -59,13 +59,17 @@ const styleMap = {
   ...colorStyleMap,
 };
 
+const initialState = {"entityMap":{"0":{"type":"emoji","mutability":"IMMUTABLE","data":{"emojiUnicode":"😋"}},"1":{"type":"image","mutability":"IMMUTABLE","data":{"src":"http://localhost:9090/59c1ef29c531d24a169e91c1/e31d2415d0d052332700a7bb762c2a3a.jpeg","alignment":"center"}}},"blocks":[{"key":"ahue4","text":"fdsafs","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"pj9b","text":"fdas","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"51k2a","text":"f","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"ca6fk","text":"asf","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"4cruv","text":"fasdfasfasdfsdafsaf","type":"header-one","depth":0,"inlineStyleRanges":[{"offset":0,"length":19,"style":"red"},{"offset":11,"length":8,"style":"ITALIC"}],"entityRanges":[],"data":{}},{"key":"fa4mj","text":"fafasdfas","type":"header-one","depth":0,"inlineStyleRanges":[{"offset":0,"length":9,"style":"red"},{"offset":0,"length":9,"style":"ITALIC"}],"entityRanges":[],"data":{}},{"key":"h2r7","text":"😋 ","type":"header-one","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":0}],"data":{}},{"key":"diced","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":1}],"data":{}},{"key":"6fts3","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"5ojnh","text":"fasfadsfadsfadsfasdfsadfasfasfdasfasdfasdfsf","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":11,"length":33,"style":"BOLD"},{"offset":29,"length":15,"style":"UNDERLINE"}],"entityRanges":[],"data":{}},{"key":"812nf","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"e6hck","text":"var a = 'a';","type":"code-block","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
+
 class DraftEditor extends React.Component {
   constructor(props) {
     super(props);
     this.editor = null;
     this.state = {
-      // editorState: EditorState.createWithContent(convertFromRaw(initialState), prismDecorator),
-      editorState: EditorState.createEmpty(prismDecorator),
+      banner: '',
+      title: '',
+      editorState: EditorState.createWithContent(convertFromRaw(initialState), prismDecorator),
+      // editorState: EditorState.createEmpty(prismDecorator),
       editor: false,
     };
   }
@@ -74,11 +78,6 @@ class DraftEditor extends React.Component {
     this.setState({
       editor: true,
     });
-  }
-  componentDidUpdate() {
-    if (this.editor) {
-      this.editor.focus();
-    }
   }
 
   onTab = (e) => {
@@ -147,13 +146,36 @@ class DraftEditor extends React.Component {
     this.onChange(nextEditorState);
   }
 
+  uploadImage = (evt) => {
+    const files = evt.target.files;
+    const filesLen = files.length;
+    for (let i = 0; i < filesLen; i += 1) {
+      const fileItem = files[i];
+      const formData = new FormData();
+      formData.append('file', fileItem);
+      profileAPI(formData).then((res) => {
+        if (res.status >= 400) throw new Error(`${res.status}`);
+        return res.json();
+      }).then((fileObj) => {
+        const fileUrl = fileObj.fileURL;
+        // this.addImage(fileUrl);
+        this.setState({
+          banner: fileUrl,
+        })
+        evt.target.value = '';
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  }
+
   saveToServer = () => {
     const { editorState } = this.state;
     const contentState = editorState.getCurrentContent();
     // const html = stateToHTML(contentState);
     // console.log(html);
-    // const html = convertToRaw(contentState);
-    // console.log(html);
+    const html = convertToRaw(contentState);
+    console.log(JSON.stringify(html));
     // const state = convertFromRaw(html);
     // this.setState({
     //   editorState: EditorState.createWithContent(convertFromRaw(state), prismDecorator),
@@ -161,7 +183,7 @@ class DraftEditor extends React.Component {
   }
 
   render() {
-    const { editorState } = this.state;
+    const { editorState, banner } = this.state;
     const contentState = editorState.getCurrentContent();
     let className = 'RichEditor-editor';
     if (!contentState.hasText()) {
@@ -194,7 +216,7 @@ class DraftEditor extends React.Component {
                 />
                 <EmojiSuggestions />
                 <EmojiSelect />
-                <div>
+                <div className='save-container'>
                   <button
                     onClick={this.saveToServer}
                     style={{
@@ -205,6 +227,45 @@ class DraftEditor extends React.Component {
                 </div>
               </div>
               <div role='presentation' className={className} onClick={this.focus}>
+                <div className='banner-container'>
+                  <input
+                    id='uploadbanner'
+                    type='file'
+                    hidden
+                    onChange={this.uploadImage}
+                  />
+                  {
+                    banner ? <img src={banner} alt="" style={{width: '100%'}}/> :
+                    <label htmlFor='uploadbanner'
+                      style={{
+                        cursor: 'pointer',
+                        display: 'inline-block',
+                        margin: '0 auto',
+                        height: '80px',
+                        paddingTop: '20px',
+                        color: '#7f7f7f',
+                      }}
+                    >
+                      <i
+                        className='material-icons'
+                        onClick={this.collectOpt}
+                        role='presentation'
+                      >add_a_photo</i>
+                      <span style={{verticalAlign: 'middle'}}>添加图片</span>
+                    </label>
+                  }
+                  
+                </div>
+                <div className='title-container'>
+                  <input
+                    type="text"
+                    placeholder='标题'
+                    value={this.state.title}
+                    onChange={(e) => this.setState({
+                      title: e.target.value,
+                    })}
+                  />
+                </div>
                 <Editor
                   blockStyleFn={getBlockStyle}
                   customStyleMap={styleMap}
@@ -212,7 +273,7 @@ class DraftEditor extends React.Component {
                   handleKeyCommand={this.handleKeyCommand}
                   onChange={this.onChange}
                   onTab={this.onTab}
-                  placeholder='Tell a story...'
+                  placeholder='正文。。。'
                   ref={(r) => { this.editor = r; }}
                   spellCheck
                   plugins={plugins}
