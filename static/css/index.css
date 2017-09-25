@@ -425,17 +425,18 @@ article .author-intro {
 
 article .author-intro > img {
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
+  margin-top: 5px;
 }
 
 article .author-intro > div {
-  margin-left: 70px;
+  margin-left: 45px;
 }
 
 article .author-intro > div .user-name {
-  margin: 5px 0;
+  /* margin: 5px 0; */
 }
 article .author-intro > div .user-name .label{
   margin-right: 10px;
@@ -810,6 +811,10 @@ i.circle {
   margin: 0 auto;
 }
 
+.comment .comment-writer {
+  border: 1px solid #ccc;
+}
+
 .comment .ql-container.ql-snow {
   border: 1px solid #ccc;
 }
@@ -820,8 +825,7 @@ i.circle {
 }
 
 .comment .comment-submit {
-  border: 1px solid #ccc;
-  border-top: none;
+  border-top: 1px solid #ccc;
   height: 40px;
   text-align: right;
 }
@@ -848,6 +852,7 @@ article .article-attach-bottom {
 .comment .comment-cell {
   min-height: 50px;
   margin: 10px 0;
+  border: 1px solid #ddd;
 }
 .comment .comment-cell .user-intro {
   /* border: 1px solid #e3e3e3;  */

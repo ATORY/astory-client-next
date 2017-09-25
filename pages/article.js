@@ -21,7 +21,7 @@ import withData from '../lib/withData';
 import { articleQuery } from '../graphql/querys';
 import ArticlePreview from '../components/ArticlePreview';
 import AuthorPreview from '../components/AuthorPreview';
-import createColorBlockPlugin from '../components/Draft/ColorBlockPlugin';
+// import createColorBlockPlugin from '../components/Draft/ColorBlockPlugin';
 import { colorStyleMap } from '../components/Draft/ColorControls';
 import {
   Aside as ArticleAttachAside,
@@ -43,9 +43,9 @@ const decorator = composeDecorators(
 );
 const imagePlugin = createImagePlugin({ decorator });
 
-const colorBlockPlugin = createColorBlockPlugin({ decorator });
+// const colorBlockPlugin = createColorBlockPlugin({ decorator });
 const plugins = [
-  alignmentPlugin, resizeablePlugin, colorBlockPlugin,
+  alignmentPlugin, resizeablePlugin,
   emojiPlugin, imagePlugin,
 ];
 
@@ -194,7 +194,7 @@ class Article extends React.Component {
         <div className='header-shadow' />
         <Header pathname={url.pathname} title={article && article.title} />
         {elem}
-        {/* commentElem */}
+        {commentElem}
         <ShareQRCode href={href} />
       </div>
     );

@@ -22,6 +22,12 @@
   z-index: 100;
   padding-top: 10px;
 }
+
+.comment-writer .RichEditor-controls-container {
+  position: relative;
+  padding-top: 5px;
+  padding-left: 5px;
+}
 .RichEditor-controls-container::after {
   display: table;
   clear: both;
@@ -83,14 +89,14 @@
   color: #5890ff;
 }
 
-.draft-editor i.stylebtn {
+.draft-editor i.stylebtn, .RichEditor-controls i.stylebtn {
   color: #999;
   margin-right: 10px;
   padding: 2px 0;
   cursor: pointer;
 }
 
-.draft-editor i.stylebtn.active {
+.draft-editor i.stylebtn.active, .RichEditor-controls i.stylebtn.active {
   color: #5890ff;
 } 
 
