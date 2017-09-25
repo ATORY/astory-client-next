@@ -40,6 +40,8 @@ export const articleEditQuery = gql`
   query articleEditQuery($articleId: ID!) {
     article: articleEdit(_id: $articleId) {
       _id
+      shareImg
+      title
       content
       msg
     }

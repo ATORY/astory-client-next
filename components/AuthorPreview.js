@@ -83,9 +83,11 @@ class AuthorPreview extends React.Component {
             <span className='label'>{username || email}</span>
             {focus}
           </div>
-          <div className='user-intro'>
-            作者介绍
-          </div>
+          {/*
+            <div className='user-intro'>
+              作者介绍
+            </div>
+          */}
           <p className='pub-time'>
             <span>{moment(publishDate).fromNow()}</span>
             <span>阅读:{readNumber}</span>

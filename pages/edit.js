@@ -6,14 +6,14 @@ import { graphql } from 'react-apollo';
 import Header from '../components/Header';
 import { articleEditQuery } from '../graphql/querys';
 import withData from '../lib/withData';
-
-const Writer = dynamic(
-  import('../components/Writer'),
-  {
-    ssr: false,
-    loading: () => <div className='write write-wrapper'>初始化编辑器。。。</div>,
-  },
-);
+import Draft from '../components/Draft';
+// const Writer = dynamic(
+//   import('../components/Writer'),
+//   {
+//     ssr: false,
+//     loading: () => <div className='write write-wrapper'>初始化编辑器。。。</div>,
+//   },
+// );
 
 const Editer = ({ url, data: { loading, error, article } }) => {
   if (loading) {
@@ -26,7 +26,14 @@ const Editer = ({ url, data: { loading, error, article } }) => {
     <div>
       <div className='header-shadow' />
       <Header pathname={url.pathname} title='editor' />
-      <Writer _id={article._id} text={article.content} />
+      <div className='write write-wrapper'>
+        <Draft
+          _id={article._id}
+          text={article.content}
+          title={article.title}
+          banner={article.shareImg}
+        />
+      </div>
     </div>
   );
 };

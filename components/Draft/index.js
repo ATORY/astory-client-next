@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
 import Editor, { composeDecorators } from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createImagePlugin from 'draft-js-image-plugin';
@@ -20,6 +22,7 @@ import PrismDecorator from './PrismDraftDecorator';
 import createColorBlockPlugin from './ColorBlockPlugin';
 import ImageAdd from './ImageAdd';
 import profileAPI from '../../utils/profileUpload';
+import { newArticleMutation } from '../../graphql/mutations';
 
 const emojiPlugin = createEmojiPlugin();
 const resizeablePlugin = createResizeablePlugin();
@@ -59,18 +62,37 @@ const styleMap = {
   ...colorStyleMap,
 };
 
-const initialState = {"entityMap":{"0":{"type":"emoji","mutability":"IMMUTABLE","data":{"emojiUnicode":"😋"}},"1":{"type":"image","mutability":"IMMUTABLE","data":{"src":"http://localhost:9090/59c1ef29c531d24a169e91c1/e31d2415d0d052332700a7bb762c2a3a.jpeg","alignment":"center"}}},"blocks":[{"key":"ahue4","text":"fdsafs","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"pj9b","text":"fdas","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"51k2a","text":"f","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"ca6fk","text":"asf","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"4cruv","text":"fasdfasfasdfsdafsaf","type":"header-one","depth":0,"inlineStyleRanges":[{"offset":0,"length":19,"style":"red"},{"offset":11,"length":8,"style":"ITALIC"}],"entityRanges":[],"data":{}},{"key":"fa4mj","text":"fafasdfas","type":"header-one","depth":0,"inlineStyleRanges":[{"offset":0,"length":9,"style":"red"},{"offset":0,"length":9,"style":"ITALIC"}],"entityRanges":[],"data":{}},{"key":"h2r7","text":"😋 ","type":"header-one","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":0}],"data":{}},{"key":"diced","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":1}],"data":{}},{"key":"6fts3","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"5ojnh","text":"fasfadsfadsfadsfasdfsadfasfasfdasfasdfasdfsf","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":11,"length":33,"style":"BOLD"},{"offset":29,"length":15,"style":"UNDERLINE"}],"entityRanges":[],"data":{}},{"key":"812nf","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"e6hck","text":"var a = 'a';","type":"code-block","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
-
 class DraftEditor extends React.Component {
+  static propTypes = {
+    _id: PropTypes.string,
+    mutate: PropTypes.func.isRequired,
+    text: PropTypes.string,
+    title: PropTypes.string,
+    banner: PropTypes.string,
+  }
+  static defaultProps = {
+    _id: '',
+    text: '',
+    title: '',
+    banner: '',
+  }
   constructor(props) {
     super(props);
     this.editor = null;
     this.titleFocus = false;
+    const content = props.text;
+    let initContent = '';
+    let editorState = EditorState.createEmpty(prismDecorator);
+    if (content) {
+      initContent = JSON.parse(content);
+      editorState = EditorState.createWithContent(convertFromRaw(initContent), prismDecorator);
+    }
     this.state = {
-      banner: '',
-      title: '',
-      // editorState: EditorState.createWithContent(convertFromRaw(initialState), prismDecorator),
-      editorState: EditorState.createEmpty(prismDecorator),
+      _id: props._id,
+      banner: props.banner,
+      title: props.title,
+      // editorState: EditorState.createWithContent(convertFromRaw(content || {}), prismDecorator),
+      editorState,
       editor: false,
     };
   }
@@ -81,10 +103,10 @@ class DraftEditor extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    if (this.titleFocus) return;
-    if (this.editor) this.editor.focus();
-  }
+  // componentDidUpdate() {
+  //   if (this.titleFocus) return;
+  //   if (this.editor) this.editor.focus();
+  // }
 
   onTab = (e) => {
     const maxDepth = 4;
@@ -153,7 +175,9 @@ class DraftEditor extends React.Component {
   }
 
   uploadImage = (evt) => {
-    const files = evt.target.files;
+    evt.persist();
+    const target = evt.target;
+    const files = target.files;
     const filesLen = files.length;
     for (let i = 0; i < filesLen; i += 1) {
       const fileItem = files[i];
@@ -167,25 +191,45 @@ class DraftEditor extends React.Component {
         // this.addImage(fileUrl);
         this.setState({
           banner: fileUrl,
-        })
-        evt.target.value = '';
+        });
+        target.value = '';
       }).catch((err) => {
         console.log(err);
       });
     }
   }
 
-  saveToServer = () => {
-    const { editorState } = this.state;
+  saveToServer = (e, draft = true) => {
+    e.persist();
+    const { editorState, banner, title } = this.state;
+    if (!title) {
+      alert('没有设置标题');
+      return;
+    }
     const contentState = editorState.getCurrentContent();
-    // const html = stateToHTML(contentState);
-    // console.log(html);
     const html = convertToRaw(contentState);
-    console.log(JSON.stringify(html));
-    // const state = convertFromRaw(html);
-    // this.setState({
-    //   editorState: EditorState.createWithContent(convertFromRaw(state), prismDecorator),
-    // });
+    const content = JSON.stringify(html);
+    this.setState({ saveing: true });
+    const { mutate } = this.props;
+    const newArticle = {
+      _id: this.state._id,
+      title,
+      shareImg: banner,
+      description: 'description',
+      content,
+      draft,
+    };
+    mutate({
+      variables: { newArticle },
+    }).then(({ data: { article } }) => {
+      const { _id } = article;
+      this.setState({
+        saveing: false,
+        _id,
+        draft,
+        published: !article.draft,
+      });
+    }).catch(err => console.log('err', err));
   }
 
   render() {
@@ -224,12 +268,15 @@ class DraftEditor extends React.Component {
                 <EmojiSelect />
                 <div className='save-container'>
                   <button
-                    onClick={this.saveToServer}
+                    onClick={e => this.saveToServer(e)}
                     style={{
                       width: 'inherit',
-                      float: 'right',
+                      margin: '0 10px',
                     }}
                   >存草稿</button>
+                  <button onClick={e => this.saveToServer(e, false)}>
+                    发布
+                  </button>
                 </div>
               </div>
               <div role='presentation' className={className} onClick={this.focus}>
@@ -241,52 +288,53 @@ class DraftEditor extends React.Component {
                     onChange={this.uploadImage}
                   />
                   {
-                    banner ? <img src={banner} alt="" style={{width: '100%'}}/> :
-                    <label htmlFor='uploadbanner'
-                      style={{
-                        cursor: 'pointer',
-                        display: 'inline-block',
-                        margin: '0 auto',
-                        height: '80px',
-                        paddingTop: '20px',
-                        color: '#7f7f7f',
-                      }}
-                    >
-                      <i
-                        className='material-icons'
-                        onClick={this.collectOpt}
-                        role='presentation'
-                      >add_a_photo</i>
-                      <span style={{verticalAlign: 'middle'}}>添加图片</span>
-                    </label>
+                    banner ?
+                      <img src={banner} alt='' style={{ width: '100%' }} /> :
+                      <label
+                        htmlFor='uploadbanner'
+                        style={{
+                          cursor: 'pointer',
+                          display: 'inline-block',
+                          margin: '0 auto',
+                          height: '80px',
+                          paddingTop: '20px',
+                          color: '#7f7f7f',
+                        }}
+                      >
+                        <i
+                          className='material-icons'
+                          onClick={this.collectOpt}
+                          role='presentation'
+                        >add_a_photo</i>
+                        <span style={{ verticalAlign: 'middle' }}>添加图片</span>
+                      </label>
                   }
-                  
                 </div>
-                <div className='title-container' onClick={() => this.titleFocus = true}>
+                <div
+                  role='presentation'
+                  className='title-container'
+                >
                   <input
-                    type="text"
                     placeholder='标题'
                     value={this.state.title}
-                    onChange={(e) => this.setState({
+                    onChange={e => this.setState({
                       title: e.target.value,
                     })}
                   />
                 </div>
-                <div onClick={() => this.titleFocus = false}>
-                  <Editor
-                    blockStyleFn={getBlockStyle}
-                    customStyleMap={styleMap}
-                    editorState={editorState}
-                    handleKeyCommand={this.handleKeyCommand}
-                    onChange={this.onChange}
-                    onTab={this.onTab}
-                    placeholder='正文。。。'
-                    ref={(r) => { this.editor = r; }}
-                    spellCheck
-                    plugins={plugins}
-                  />
-                  <AlignmentTool />
-                </div>
+                <Editor
+                  blockStyleFn={getBlockStyle}
+                  customStyleMap={styleMap}
+                  editorState={editorState}
+                  handleKeyCommand={this.handleKeyCommand}
+                  onChange={this.onChange}
+                  onTab={this.onTab}
+                  placeholder='正文。。。'
+                  ref={(r) => { this.editor = r; }}
+                  spellCheck
+                  plugins={plugins}
+                />
+                <AlignmentTool />
               </div>
             </div> :
             null
@@ -296,4 +344,7 @@ class DraftEditor extends React.Component {
   }
 }
 
-export default DraftEditor;
+const DraftWithMutation = graphql(newArticleMutation)(DraftEditor);
+
+export default DraftWithMutation;
+

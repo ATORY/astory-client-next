@@ -2,18 +2,70 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 
+import Editor, { composeDecorators } from 'draft-js-plugins-editor'; // eslint-disable-line import/no-unresolved
+import createEmojiPlugin from 'draft-js-emoji-plugin';
+import createImagePlugin from 'draft-js-image-plugin';
+import createResizeablePlugin from 'draft-js-resizeable-plugin';
+import createAlignmentPlugin from 'draft-js-alignment-plugin';
+// import createFocusPlugin from 'draft-js-focus-plugin';
+import {
+  // Editor,
+  EditorState,
+  convertFromRaw,
+} from 'draft-js';
+
+
 import ShareQRCode from '../components/ShareQRCode';
 import Header from '../components/Header';
 import withData from '../lib/withData';
 import { articleQuery } from '../graphql/querys';
 import ArticlePreview from '../components/ArticlePreview';
 import AuthorPreview from '../components/AuthorPreview';
+import createColorBlockPlugin from '../components/Draft/ColorBlockPlugin';
+import { colorStyleMap } from '../components/Draft/ColorControls';
 import {
   Aside as ArticleAttachAside,
   Bottom as ArticleAttachBottom,
 } from '../components/ArticleAttach';
 import Comment from '../components/Comment';
 import { wechatAPI } from '../utils';
+
+const emojiPlugin = createEmojiPlugin();
+const resizeablePlugin = createResizeablePlugin();
+// const focusPlugin = createFocusPlugin();
+const alignmentPlugin = createAlignmentPlugin();
+// const { AlignmentTool } = alignmentPlugin;
+// const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
+const decorator = composeDecorators(
+  resizeablePlugin.decorator,
+  // focusPlugin.decorator,
+  alignmentPlugin.decorator,
+);
+const imagePlugin = createImagePlugin({ decorator });
+
+const colorBlockPlugin = createColorBlockPlugin({ decorator });
+const plugins = [
+  alignmentPlugin, resizeablePlugin, colorBlockPlugin,
+  emojiPlugin, imagePlugin,
+];
+
+function getBlockStyle(block) {
+  switch (block.getType()) {
+    case 'blockquote': return 'RichEditor-blockquote';
+    default: return null;
+  }
+}
+
+const styleMap = {
+  CODE: {
+    // backgroundColor: 'rgba(29, 31, 33, 1.00)',
+    backgroundColor: '#272822',
+    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    fontSize: 16,
+    padding: 2,
+  },
+  ...colorStyleMap,
+};
 
 class Article extends React.Component {
   static async getInitialProps({ asPath, req }) {
@@ -96,7 +148,7 @@ class Article extends React.Component {
     const { loading, error, article } = data;
     if (loading) {
       elem = (
-        <article className='ql-container ql-snow' id='article'>
+        <article className='' id='article'>
           <ArticlePreview articleId={url.query.articleId} />
         </article>
       );
@@ -106,11 +158,26 @@ class Article extends React.Component {
       const { _id, content, collectNumber, readNumber, publishDate, author,
         mark, collect, comments,
       } = article;
+      const initContent = JSON.parse(content);
+      const editorState = EditorState.createWithContent(convertFromRaw(initContent));
       elem = (
-        <article className='ql-container ql-snow' id='article'>
+        <article className='' id='article'>
+          <img className='banner' src={article.shareImg} alt='' />
+          <div>
+            <h1>{article.title}</h1>
+          </div>
           <AuthorPreview articleId={_id} {...{ publishDate, readNumber }} {...author} />
-          <div className='ql-editor'>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+          <div className='RichEditor-editor' style={{ paddingTop: 0 }}>
+            <Editor
+              editorKey={_id}
+              blockStyleFn={getBlockStyle}
+              customStyleMap={styleMap}
+              editorState={editorState}
+              onChange={() => {}}
+              spellCheck
+              readOnly
+              plugins={plugins}
+            />
           </div>
           <ArticleAttachBottom {...{ _id, mark, collect, collectNumber }} />
           <ArticleAttachAside {...{ _id, mark, collect, collectNumber }} />
@@ -127,7 +194,7 @@ class Article extends React.Component {
         <div className='header-shadow' />
         <Header pathname={url.pathname} title={article && article.title} />
         {elem}
-        {commentElem}
+        {/* commentElem */}
         <ShareQRCode href={href} />
       </div>
     );

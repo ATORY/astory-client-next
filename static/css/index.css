@@ -401,6 +401,10 @@ article img{
   margin: 0 auto;
   max-width: 100%;
 }
+article > img.banner {
+  position: relative;
+  z-index: 1;
+}
 
 article > div{
   margin: 0 auto;
@@ -415,6 +419,8 @@ article > div {
 article .author-intro {
   padding: 12px 15px;
   position: relative;
+  padding-left: 0;
+  padding-bottom: 20px;
 }
 
 article .author-intro > img {
