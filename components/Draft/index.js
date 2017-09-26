@@ -7,6 +7,9 @@ import createImagePlugin from 'draft-js-image-plugin';
 import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import createFocusPlugin from 'draft-js-focus-plugin';
+import Prism from 'prismjs';
+import createPrismPlugin from 'draft-js-prism-plugin';
+import { Map } from 'immutable';
 import {
   // Editor,
   EditorState, RichUtils, Modifier,
@@ -18,7 +21,7 @@ import {
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 import ColorControls, { colorStyleMap } from './ColorControls';
-import PrismDecorator from './PrismDraftDecorator';
+// import PrismDecorator from './PrismDraftDecorator';
 import createColorBlockPlugin from './ColorBlockPlugin';
 import ImageAdd from './ImageAdd';
 import profileAPI from '../../utils/profileUpload';
@@ -36,13 +39,16 @@ const decorator = composeDecorators(
   alignmentPlugin.decorator,
 );
 const imagePlugin = createImagePlugin({ decorator });
-
+const prismPlugin = createPrismPlugin({
+  // Provide your own instance of PrismJS
+  prism: Prism,
+});
 const colorBlockPlugin = createColorBlockPlugin({ decorator });
 const plugins = [
-  focusPlugin, alignmentPlugin, resizeablePlugin,
+  focusPlugin, alignmentPlugin, resizeablePlugin, prismPlugin,
   colorBlockPlugin, emojiPlugin, imagePlugin,
 ];
-const prismDecorator = new PrismDecorator();
+// const prismDecorator = new PrismDecorator();
 
 function getBlockStyle(block) {
   switch (block.getType()) {
@@ -82,10 +88,10 @@ class DraftEditor extends React.Component {
     this.titleFocus = false;
     const content = props.text;
     let initContent = '';
-    let editorState = EditorState.createEmpty(prismDecorator);
+    let editorState = EditorState.createEmpty();
     if (content) {
       initContent = JSON.parse(content);
-      editorState = EditorState.createWithContent(convertFromRaw(initContent), prismDecorator);
+      editorState = EditorState.createWithContent(convertFromRaw(initContent));
     }
     this.state = {
       _id: props._id,
@@ -120,12 +126,34 @@ class DraftEditor extends React.Component {
   }
 
   toggleBlockType = (blockType) => {
-    this.onChange(
-      RichUtils.toggleBlockType(
-        this.state.editorState,
-        blockType,
-      ),
-    );
+    if (blockType === 'code-block') {
+      const { editorState } = this.state;
+      const selection = editorState.getSelection();
+      const contentState = editorState.getCurrentContent();
+      const nextContentState = Modifier.setBlockData(
+        contentState,
+        selection,
+        Map({ language: 'javascript' }),
+      );
+      const nextEditorState = EditorState.push(
+        editorState,
+        nextContentState,
+        'change-block-data',
+      );
+
+      this.onChange(
+        RichUtils.toggleCode(
+          nextEditorState,
+        ),
+      );
+    } else {
+      this.onChange(
+        RichUtils.toggleBlockType(
+          this.state.editorState,
+          blockType,
+        ),
+      );
+    }
   }
 
   toggleInlineStyle = (inlineStyle) => {
@@ -211,6 +239,7 @@ class DraftEditor extends React.Component {
     const content = JSON.stringify(html);
     this.setState({ saveing: true });
     const { mutate } = this.props;
+    console.log(content);
     const newArticle = {
       _id: this.state._id,
       title,

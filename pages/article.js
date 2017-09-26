@@ -14,6 +14,8 @@ import {
   convertFromRaw,
 } from 'draft-js';
 
+import Prism from 'prismjs';
+import createPrismPlugin from 'draft-js-prism-plugin';
 
 import ShareQRCode from '../components/ShareQRCode';
 import Header from '../components/Header';
@@ -43,9 +45,14 @@ const decorator = composeDecorators(
 );
 const imagePlugin = createImagePlugin({ decorator });
 
+const prismPlugin = createPrismPlugin({
+  // Provide your own instance of PrismJS
+  prism: Prism,
+});
+
 // const colorBlockPlugin = createColorBlockPlugin({ decorator });
 const plugins = [
-  alignmentPlugin, resizeablePlugin,
+  alignmentPlugin, resizeablePlugin, prismPlugin,
   emojiPlugin, imagePlugin,
 ];
 
